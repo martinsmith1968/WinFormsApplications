@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuickCalendar", "QuickCalendar", "{16154FEA-C693-4EE2-AD1E-F1D82FBA8B7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCalendar", "QuickCalendar\QuickCalendar.csproj", "{1920BB21-A916-465B-BB91-65A6B10DA210}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1920BB21-A916-465B-BB91-65A6B10DA210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1920BB21-A916-465B-BB91-65A6B10DA210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1920BB21-A916-465B-BB91-65A6B10DA210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1920BB21-A916-465B-BB91-65A6B10DA210}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1920BB21-A916-465B-BB91-65A6B10DA210} = {16154FEA-C693-4EE2-AD1E-F1D82FBA8B7D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2616A0C2-8AE9-4208-8E0B-6CCFE0D125B4}
+	EndGlobalSection
+EndGlobal
