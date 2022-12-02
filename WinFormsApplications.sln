@@ -5,7 +5,23 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "QuickCalendar", "QuickCalendar", "{16154FEA-C693-4EE2-AD1E-F1D82FBA8B7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCalendar", "QuickCalendar\QuickCalendar.csproj", "{1920BB21-A916-465B-BB91-65A6B10DA210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickCalendar", "QuickCalendar\QuickCalendar.csproj", "{1920BB21-A916-465B-BB91-65A6B10DA210}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickCalendar.Domain", "QuickCalendar.Domain\QuickCalendar.Domain.csproj", "{B9515A66-E4CC-4122-8841-9DB2C513C531}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickCalendar.Domain.Tests", "QuickCalendar.Domain.Tests\QuickCalendar.Domain.Tests.csproj", "{187D8A48-4569-4E0C-A243-67FF07C9335B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".code", ".code", "{59F6F7D5-96C6-4CDA-87D3-36EA9996D8E6}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".docs", ".docs", "{A58687FA-7E4E-44F9-B8CE-48412D36312A}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +33,22 @@ Global
 		{1920BB21-A916-465B-BB91-65A6B10DA210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1920BB21-A916-465B-BB91-65A6B10DA210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1920BB21-A916-465B-BB91-65A6B10DA210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9515A66-E4CC-4122-8841-9DB2C513C531}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9515A66-E4CC-4122-8841-9DB2C513C531}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9515A66-E4CC-4122-8841-9DB2C513C531}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9515A66-E4CC-4122-8841-9DB2C513C531}.Release|Any CPU.Build.0 = Release|Any CPU
+		{187D8A48-4569-4E0C-A243-67FF07C9335B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{187D8A48-4569-4E0C-A243-67FF07C9335B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{187D8A48-4569-4E0C-A243-67FF07C9335B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{187D8A48-4569-4E0C-A243-67FF07C9335B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1920BB21-A916-465B-BB91-65A6B10DA210} = {16154FEA-C693-4EE2-AD1E-F1D82FBA8B7D}
+		{B9515A66-E4CC-4122-8841-9DB2C513C531} = {16154FEA-C693-4EE2-AD1E-F1D82FBA8B7D}
+		{187D8A48-4569-4E0C-A243-67FF07C9335B} = {16154FEA-C693-4EE2-AD1E-F1D82FBA8B7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2616A0C2-8AE9-4208-8E0B-6CCFE0D125B4}
