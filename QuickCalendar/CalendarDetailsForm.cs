@@ -1,4 +1,3 @@
-using System.Windows.Forms.VisualStyles;
 using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
@@ -230,7 +229,7 @@ public partial class CalendarDetailsForm : Form
         if (lvwDatesNotableDates.SelectedItems.Count != 1)
             return;
 
-        var item = lvwDatesNotableDates.SelectedItems[0].Tag as INotableDatesGenerator;
+        var item = (lvwDatesNotableDates.SelectedItems[0].Tag as INotableDatesGenerator);
         if (item == null)
             return;
 

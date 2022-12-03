@@ -8,7 +8,7 @@ public partial class DateSelectionForm : Form
 {
     private DateRange DateRange { get; set; } = DateRange.Default;
 
-    public static DateRange? SelectDateRange(DateRange defaultValue, Form? form = null)
+    public static DateRange? EditDateRange(DateRange defaultValue, Form? form = null)
     {
         var instance = new DateSelectionForm();
         instance.DateRange = defaultValue;

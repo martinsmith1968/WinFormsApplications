@@ -60,6 +60,7 @@ namespace QuickCalendar
             this.ctxmnuDatesListCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ctxmnuDatesListExport = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblGeneratedDatesDisplay = new System.Windows.Forms.Label();
             this.panButtonBar.SuspendLayout();
             this.tbcEditors.SuspendLayout();
             this.tabEditorFixedDateGenerator.SuspendLayout();
@@ -303,6 +304,7 @@ namespace QuickCalendar
             // panGeneratedDates
             // 
             this.panGeneratedDates.Controls.Add(this.lvwGeneratedDates);
+            this.panGeneratedDates.Controls.Add(this.lblGeneratedDatesDisplay);
             this.panGeneratedDates.Dock = System.Windows.Forms.DockStyle.Right;
             this.panGeneratedDates.Location = new System.Drawing.Point(325, 0);
             this.panGeneratedDates.Name = "panGeneratedDates";
@@ -361,6 +363,16 @@ namespace QuickCalendar
             this.ctxmnuDatesListExport.Size = new System.Drawing.Size(117, 22);
             this.ctxmnuDatesListExport.Text = "&Export...";
             // 
+            // lblGeneratedDatesDisplay
+            // 
+            this.lblGeneratedDatesDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblGeneratedDatesDisplay.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblGeneratedDatesDisplay.Location = new System.Drawing.Point(0, 247);
+            this.lblGeneratedDatesDisplay.Name = "lblGeneratedDatesDisplay";
+            this.lblGeneratedDatesDisplay.Size = new System.Drawing.Size(240, 23);
+            this.lblGeneratedDatesDisplay.TabIndex = 1;
+            this.lblGeneratedDatesDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // NotableDatesGeneratorEditorForm
             // 
             this.AcceptButton = this.btnOK;
@@ -375,7 +387,7 @@ namespace QuickCalendar
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NotableDatesGeneratorEditorForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Date Generator Editor";
             this.Load += new System.EventHandler(this.DateGeneratorEditorForm_Load);
             this.panButtonBar.ResumeLayout(false);
@@ -425,5 +437,6 @@ namespace QuickCalendar
         private ToolStripMenuItem ctxmnuDatesListCopy;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem ctxmnuDatesListExport;
+        private Label lblGeneratedDatesDisplay;
     }
 }

@@ -215,7 +215,7 @@ public partial class MainForm : Form
     private void tsmnuViewJumpToDate_Click(object sender, EventArgs e)
     {
         var dateRange = new DateRange(mcalCalendar.SelectionRange.Start, mcalCalendar.SelectionRange.End);
-        dateRange = DateSelectionForm.SelectDateRange(dateRange);
+        dateRange = DateSelectionForm.EditDateRange(dateRange);
         if (dateRange != null)
         {
             SelectDates(dateRange.StartDate, dateRange.EndDate);
@@ -225,7 +225,7 @@ public partial class MainForm : Form
     private void tsmnuViewResize_Click(object sender, EventArgs e)
     {
         var calendarSize = new CalendarSize(mcalCalendar.CalendarDimensions.Width, mcalCalendar.CalendarDimensions.Height, "Current");
-        calendarSize = CalendarSizeForm.SelectCalendarSize(calendarSize);
+        calendarSize = CalendarSizeForm.EditCalendarSize(calendarSize);
         if (calendarSize != null)
         {
             SetCalendarDimensions(new Size(calendarSize.Width, calendarSize.Height));

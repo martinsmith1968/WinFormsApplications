@@ -1,4 +1,4 @@
-﻿using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Models;
 
 #pragma warning disable IDE1006
 
@@ -8,7 +8,7 @@ public partial class CalendarSizeForm : Form
 {
     private CalendarSize CalendarSize { get; set; } = CalendarSize.Default;
 
-    public static CalendarSize? SelectCalendarSize(CalendarSize defaultValue, Form? form = null)
+    public static CalendarSize? EditCalendarSize(CalendarSize defaultValue, Form? form = null)
     {
         var instance = new CalendarSizeForm();
         instance.CalendarSize = defaultValue;
