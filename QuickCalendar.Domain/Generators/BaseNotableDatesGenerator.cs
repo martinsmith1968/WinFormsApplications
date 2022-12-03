@@ -2,11 +2,12 @@ using System.Globalization;
 using DNX.Helpers.Reflection;
 using DNX.Helpers.Strings;
 using Newtonsoft.Json;
+using QuickCalendar.Domain.Interfaces;
 using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Generators;
 
-public abstract class BaseNotableDatesGenerator : INotableDatesGenerator
+public abstract class BaseNotableDatesGenerator : INotableDatesGenerator, ICopyable<BaseNotableDatesGenerator>
 {
     public string GeneratorTypeName => GetType().Name.RemoveStartsAndEndsWith("NotableDates", "Generator");
 
@@ -65,5 +66,10 @@ public abstract class BaseNotableDatesGenerator : INotableDatesGenerator
     public void PopulateFromDefinitionValue(string text)
     {
         JsonConvert.PopulateObject(text, this);
+    }
+
+    public void CopyFrom(BaseNotableDatesGenerator other)
+    {
+        DescriptionTemplate = other.DescriptionTemplate;
     }
 }

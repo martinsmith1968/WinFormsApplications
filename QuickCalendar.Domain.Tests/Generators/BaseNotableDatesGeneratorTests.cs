@@ -1,11 +1,13 @@
-﻿using FluentAssertions;
+using AutoFixture;
+using FluentAssertions;
 using QuickCalendar.Domain.Generators;
+using QuickCalendar.Domain.Interfaces;
 using QuickCalendar.Domain.Models;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Generators;
 
-internal class TestNotableDatesGenerator : BaseNotableDatesGenerator
+public class TestNotableDatesGenerator : BaseNotableDatesGenerator, ICopyable<TestNotableDatesGenerator>
 {
     public DateTime DateToUse { get; set; }
 
@@ -18,10 +20,19 @@ internal class TestNotableDatesGenerator : BaseNotableDatesGenerator
             new(DateToUse, InterpolateTemplate(DescriptionTemplate, DateToUse, Sequence))
         };
     }
+
+    public void CopyFrom(TestNotableDatesGenerator other)
+    {
+        base.CopyFrom(other);
+        DateToUse = other.DateToUse;
+        Sequence = other.Sequence;
+    }
 }
 
 public class BaseNotableDatesGeneratorTests
 {
+    private static readonly Fixture AutoFixture = new();
+
     [Fact]
     public void Generate_should_create_descriptions_using_appropriate_values()
     {
@@ -114,5 +125,28 @@ public class BaseNotableDatesGeneratorTests
         result.DateToUse.Should().Be(instance.DateToUse);
         result.Sequence.Should().Be(instance.Sequence);
         result.DescriptionTemplate.Should().Be(instance.DescriptionTemplate);
+    }
+
+    [Theory]
+    [MemberData(nameof(CopyFrom_Data))]
+    public void CopyFrom_can_populate_properties_as_expected(TestNotableDatesGenerator generator, string expected)
+    {
+        var instance = new TestNotableDatesGenerator();
+        instance.CopyFrom(generator);
+
+        var result = instance.GetDefinitionValue();
+
+        result.Should().Be(expected);
+    }
+
+    public static IEnumerable<object[]> CopyFrom_Data()
+    {
+        var instance1 = AutoFixture.Create<TestNotableDatesGenerator>();
+        yield return new object[] { instance1, instance1.GetDefinitionValue() };
+
+        var instance2 = AutoFixture.Build<TestNotableDatesGenerator>()
+            .With(x => x.DescriptionTemplate, (string?)null)
+            .Create();
+        yield return new object[] { instance2, instance2.GetDefinitionValue() };
     }
 }
