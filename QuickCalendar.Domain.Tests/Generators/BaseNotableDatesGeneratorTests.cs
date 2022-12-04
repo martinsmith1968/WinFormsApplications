@@ -1,3 +1,4 @@
+using System.Globalization;
 using AutoFixture;
 using FluentAssertions;
 using QuickCalendar.Domain.Generators;
@@ -13,6 +14,8 @@ public class TestNotableDatesGenerator : BaseNotableDatesGenerator, ICopyable<Te
 
     public int Sequence { get; set; }
 
+    public TimeSpan Interval { get; set; }
+
     public override IList<NotableDate> Generate()
     {
         return new List<NotableDate>()
@@ -26,6 +29,7 @@ public class TestNotableDatesGenerator : BaseNotableDatesGenerator, ICopyable<Te
         base.CopyFrom(other);
         DateToUse = other.DateToUse;
         Sequence = other.Sequence;
+        Interval = other.Interval;
     }
 }
 
@@ -42,7 +46,8 @@ public class BaseNotableDatesGeneratorTests
         {
             DateToUse = now,
             DescriptionTemplate = "Today is {yyyyMMdd} - {sequence}",
-            Sequence = now.Second + 1
+            Sequence = now.Second + 1,
+            Interval = TimeSpan.FromSeconds(DateTime.UtcNow.Millisecond)
         };
 
         // Act
@@ -66,7 +71,8 @@ public class BaseNotableDatesGeneratorTests
         {
             DateToUse = now,
             DescriptionTemplate = "Sprint {yyyy}.{sequence:00}",
-            Sequence = now.Second + 1
+            Sequence = now.Second + 1,
+            Interval = TimeSpan.FromSeconds(DateTime.UtcNow.Millisecond)
         };
 
         // Act
@@ -90,7 +96,8 @@ public class BaseNotableDatesGeneratorTests
         {
             DateToUse = now,
             DescriptionTemplate = "Sprint {yyyy}.{sequence:00}",
-            Sequence = now.Second + 1
+            Sequence = now.Second + 1,
+            Interval = TimeSpan.FromSeconds(DateTime.UtcNow.Millisecond)
         };
 
         // Act
@@ -100,6 +107,7 @@ public class BaseNotableDatesGeneratorTests
         result.Should().NotBeNullOrWhiteSpace();
         result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.DateToUse)}\":\"{instance.DateToUse:s}\"");
         result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.Sequence)}\":{instance.Sequence}");
+        result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.Interval)}\":\"{instance.Interval:c}\"");
         result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.DescriptionTemplate)}\":\"{instance.DescriptionTemplate}\"");
     }
 
@@ -112,7 +120,8 @@ public class BaseNotableDatesGeneratorTests
         {
             DateToUse = now,
             DescriptionTemplate = "Sprint {yyyy}.{sequence:00}",
-            Sequence = now.Second + 1
+            Sequence = now.Second + 1,
+            Interval = TimeSpan.FromSeconds(DateTime.UtcNow.Millisecond)
         };
 
         var text = instance.GetDefinitionValue();
@@ -124,6 +133,7 @@ public class BaseNotableDatesGeneratorTests
         // Assert
         result.DateToUse.Should().Be(instance.DateToUse);
         result.Sequence.Should().Be(instance.Sequence);
+        result.Interval.Should().Be(instance.Interval);
         result.DescriptionTemplate.Should().Be(instance.DescriptionTemplate);
     }
 
@@ -134,9 +144,29 @@ public class BaseNotableDatesGeneratorTests
         var instance = new TestNotableDatesGenerator();
         instance.CopyFrom(generator);
 
+        // Act
         var result = instance.GetDefinitionValue();
 
+        // Assert
         result.Should().Be(expected);
+    }
+
+    [Fact]
+    public void GetDefinitionText_can_report_properties_successfully()
+    {
+        var instance = AutoFixture.Create<TestNotableDatesGenerator>();
+
+        // Act
+        var result = instance.GetDefinitionText();
+
+        // Assert
+        result.Should().NotBeNullOrWhiteSpace();
+        result.Should().Contain(nameof(TestNotableDatesGenerator.DateToUse));
+        result.Should().Contain(instance.DateToUse.ToString(CultureInfo.CurrentCulture));
+        result.Should().Contain(nameof(TestNotableDatesGenerator.Sequence));
+        result.Should().Contain(instance.Sequence.ToString());
+        result.Should().Contain(nameof(TestNotableDatesGenerator.DescriptionTemplate));
+        result.Should().Contain(instance.DescriptionTemplate);
     }
 
     public static IEnumerable<object[]> CopyFrom_Data()

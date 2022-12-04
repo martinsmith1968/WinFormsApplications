@@ -195,7 +195,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
 
     private void nudStartDateEndDateGeneratorIntervalValue_ValueChanged(object sender, EventArgs e)
     {
-        _notableDatesStartDateEndDateGenerator.IntervalPeriod.Value = nudStartDateEndDateGeneratorIntervalValue.Value.ToInt32();
+        _notableDatesStartDateEndDateGenerator.IntervalPeriod.Value = nudStartDateEndDateGeneratorIntervalValue.Value.ToUInt32();
         PopulateGeneratedDates();
     }
 
@@ -219,7 +219,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
 
     private void nudStartDateRepeatCountGeneratorInterval_ValueChanged(object sender, EventArgs e)
     {
-        _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.Value = nudStartDateRepeatCountGeneratorInterval.Value.ToInt32();
+        _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.Value = nudStartDateRepeatCountGeneratorInterval.Value.ToUInt32();
         PopulateGeneratedDates();
     }
 
