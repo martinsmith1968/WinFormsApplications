@@ -6,7 +6,7 @@ namespace QuickCalendar.Domain.Models;
 
 public class CalendarSet : ICopyable<CalendarSet>
 {
-    private const string ModelVersion = "1";
+    private const int CurrentModelVersion = 1;
 
     public const string DefaultName = "Default";
     public const string DefaultDescription = "A default Calendar";
@@ -17,7 +17,7 @@ public class CalendarSet : ICopyable<CalendarSet>
         Description = description;
     }
 
-    public string Version => ModelVersion;
+    public int Version => CurrentModelVersion;
 
     public string Name { get; set; }
 
@@ -29,7 +29,7 @@ public class CalendarSet : ICopyable<CalendarSet>
 
     public string DateDisplayFormat { get; set; } = DateFormats.NamedDateFormats.First().Key;
 
-    public CalendarSetVisuals VisualDetails { get; } = new();
+    public CalendarSetVisuals VisualDetails { get; set; } = new();
 
     public CalendarSetDates Dates { get; } = new();
 
@@ -67,6 +67,46 @@ public class CalendarSet : ICopyable<CalendarSet>
             {
                 StartDate = new DateTime(2023, 1, 11),
                 EndDate = new DateTime(2023, 12, 31),
+                IntervalPeriod = IntervalPeriod.Create(IntervalType.Days, 14),
+                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
+            }
+        );
+
+        calendarSet.Dates.DatesGenerators.Add(
+            new NotableDatesStartDateEndDateGenerator()
+            {
+                StartDate = new DateTime(2024, 1, 10),
+                EndDate = new DateTime(2024, 12, 31),
+                IntervalPeriod = IntervalPeriod.Create(IntervalType.Days, 14),
+                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
+            }
+        );
+
+        calendarSet.Dates.DatesGenerators.Add(
+            new NotableDatesStartDateEndDateGenerator()
+            {
+                StartDate = new DateTime(2025, 1, 8),
+                EndDate = new DateTime(2025, 12, 31),
+                IntervalPeriod = IntervalPeriod.Create(IntervalType.Days, 14),
+                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
+            }
+        );
+
+        calendarSet.Dates.DatesGenerators.Add(
+            new NotableDatesStartDateEndDateGenerator()
+            {
+                StartDate = new DateTime(2026, 1, 7),
+                EndDate = new DateTime(2026, 12, 31),
+                IntervalPeriod = IntervalPeriod.Create(IntervalType.Days, 14),
+                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
+            }
+        );
+
+        calendarSet.Dates.DatesGenerators.Add(
+            new NotableDatesStartDateEndDateGenerator()
+            {
+                StartDate = new DateTime(2027, 1, 6),
+                EndDate = new DateTime(2027, 12, 31),
                 IntervalPeriod = IntervalPeriod.Create(IntervalType.Days, 14),
                 DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
             }

@@ -15,38 +15,38 @@ public class CalendarSetParserTests
     private static readonly Fixture AutoFixture = new();
 
     private static CalendarSetDates BuildDatesInstance()
-        => AutoFixture.Build<CalendarSetDates>()
-            .With(x => x.DatesGenerators,
-                new INotableDatesGenerator[]
-                {
-                    new NotableDatesFixedDateGenerator()
-                    {
-                        Date = DateTime.UtcNow.Date,
-                        DescriptionTemplate = "Today"
-                    }
-                }.ToList())
-            .With(x => x.MonthlyDatesGenerators,
-                new INotableDatesGenerator[]
-                {
-                    new NotableDatesStartDateEndDateGenerator()
-                    {
-                        StartDate = DateTime.UtcNow.Date,
-                        EndDate = DateTime.UtcNow.Date.AddYears(1),
-                        DescriptionTemplate = "Month: {MMM yyyy}"
-                    }
-                }.ToList())
-            .With(x => x.AnnualDatesGenerators,
-                new INotableDatesGenerator[]
-                {
-                    new NotableDatesStartDateRepeatCountGenerator()
-                    {
-                        StartDate = DateTime.Parse("1968-08-11"),
-                        RepeatCount = 100,
-                        IntervalPeriod = IntervalPeriod.Create(IntervalType.Years, 1),
-                        DescriptionTemplate = "My {Sequence} Birthday"
-                    }
-                }.ToList())
-            .Create();
+    {
+        var calendarSetDates = AutoFixture.Create<CalendarSetDates>();
+
+        calendarSetDates.DatesGenerators.Add(
+            new NotableDatesFixedDateGenerator()
+            {
+                Date = DateTime.UtcNow.Date,
+                DescriptionTemplate = "Today"
+            }
+        );
+
+        calendarSetDates.MonthlyDatesGenerators.Add(
+            new NotableDatesStartDateEndDateGenerator()
+            {
+                StartDate = DateTime.UtcNow.Date,
+                EndDate = DateTime.UtcNow.Date.AddYears(1),
+                DescriptionTemplate = "Month: {MMM yyyy}"
+            }
+        );
+
+        calendarSetDates.AnnualDatesGenerators.Add(
+            new NotableDatesStartDateRepeatCountGenerator()
+            {
+                StartDate = DateTime.Parse("1968-08-11"),
+                RepeatCount = 100,
+                IntervalPeriod = IntervalPeriod.Create(IntervalType.Years, 1),
+                DescriptionTemplate = "My {Sequence} Birthday"
+            }
+        );
+
+        return calendarSetDates;
+    }
 
     private static CalendarSetVisuals BuildCalendarSetVisuals()
         => AutoFixture.Build<CalendarSetVisuals>()
@@ -57,16 +57,20 @@ public class CalendarSetParserTests
             .Create();
 
     private static CalendarSet BuildCalendarSetInstance(CalendarSetVisuals? visuals = null, CalendarSetDates? dates = null)
-        => AutoFixture.Build<CalendarSet>()
-            .With(x => x.VisualDetails, visuals ?? BuildCalendarSetVisuals())
-            .With(x => x.Dates, dates ?? BuildDatesInstance())
-            .Create();
+    {
+        var calendarSet = AutoFixture.Create<CalendarSet>();
+
+        calendarSet.VisualDetails.CopyFrom(visuals ?? BuildCalendarSetVisuals());
+        calendarSet.Dates.CopyFrom(dates ?? BuildDatesInstance());
+
+        return calendarSet;
+    }
 
     [Fact]
     public void Parse_can_write_a_CalendarSet_successfully()
     {
-        var x1 = BuildCalendarSetVisuals();
-        var x2 = new CalendarSetDates()
+        var calendarSetVisuals = BuildCalendarSetVisuals();
+        var calendarSetDates = new CalendarSetDates()
         {
             DatesGenerators =
             {
@@ -77,7 +81,7 @@ public class CalendarSetParserTests
                 }
             }
         };
-        var instance = BuildCalendarSetInstance(x1, x2);
+        var instance = BuildCalendarSetInstance(calendarSetVisuals, calendarSetDates);
 
         // Act
         var result = CalendarSetParser.GenerateJson(instance);
@@ -97,7 +101,7 @@ public class CalendarSetParserTests
         // Act
         var result = CalendarSetParser.ParseFromJson(definitionText);
 
-        // Asert
+        // Assert
         result.Should().NotBeNull();
         result.Name.Should().Be(instance.Name);
         result.Version.Should().Be(instance.Version);
