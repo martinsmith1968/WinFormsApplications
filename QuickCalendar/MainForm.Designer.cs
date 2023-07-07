@@ -28,379 +28,350 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.msMain = new System.Windows.Forms.MenuStrip();
-            this.tsmnuFile = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuEdit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuEditCalendar = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmnuEditProgramOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuView = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuViewToday = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuViewJumpToDate = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuViewResize = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmnuHelpUsageGuide = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsmnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.ssMain = new System.Windows.Forms.StatusStrip();
-            this.tslblInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tslblSelectedDatesDescriptions = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tslblSelectedDaysCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tslblSelectedDaysRange = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tslblCalendarSetName = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsMain = new System.Windows.Forms.ToolStrip();
-            this.tsbtnFileExit = new System.Windows.Forms.ToolStripButton();
-            this.tssep1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbtnEditProgramOptions = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbtnEditCalendar = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbtnViewToday = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnViewJumpToDate = new System.Windows.Forms.ToolStripButton();
-            this.tsbtnViewResize = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbtnHelpAbout = new System.Windows.Forms.ToolStripButton();
-            this.mcalCalendar = new System.Windows.Forms.MonthCalendar();
-            this.msMain.SuspendLayout();
-            this.ssMain.SuspendLayout();
-            this.tsMain.SuspendLayout();
-            this.SuspendLayout();
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            msMain = new MenuStrip();
+            tsmnuFile = new ToolStripMenuItem();
+            tsmnuFileExit = new ToolStripMenuItem();
+            tsmnuEdit = new ToolStripMenuItem();
+            tsmnuEditCalendar = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            tsmnuEditProgramOptions = new ToolStripMenuItem();
+            tsmnuView = new ToolStripMenuItem();
+            tsmnuViewToday = new ToolStripMenuItem();
+            tsmnuViewJumpToDate = new ToolStripMenuItem();
+            tsmnuViewResize = new ToolStripMenuItem();
+            tsmnuHelp = new ToolStripMenuItem();
+            tsmnuHelpUsageGuide = new ToolStripMenuItem();
+            toolStripSeparator5 = new ToolStripSeparator();
+            tsmnuHelpAbout = new ToolStripMenuItem();
+            ssMain = new StatusStrip();
+            tslblInfo = new ToolStripStatusLabel();
+            tslblSelectedDatesDescriptions = new ToolStripStatusLabel();
+            tslblSelectedDaysCount = new ToolStripStatusLabel();
+            tslblSelectedDaysRange = new ToolStripStatusLabel();
+            tslblCalendarSetName = new ToolStripStatusLabel();
+            tsMain = new ToolStrip();
+            tsbtnFileExit = new ToolStripButton();
+            tssep1 = new ToolStripSeparator();
+            tsbtnEditProgramOptions = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
+            tsbtnEditCalendar = new ToolStripButton();
+            toolStripSeparator4 = new ToolStripSeparator();
+            tsbtnViewToday = new ToolStripButton();
+            tsbtnViewJumpToDate = new ToolStripButton();
+            tsbtnViewResize = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            tsbtnHelpAbout = new ToolStripButton();
+            mcalCalendar = new MonthCalendar();
+            msMain.SuspendLayout();
+            ssMain.SuspendLayout();
+            tsMain.SuspendLayout();
+            SuspendLayout();
             // 
             // msMain
             // 
-            this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmnuFile,
-            this.tsmnuEdit,
-            this.tsmnuView,
-            this.tsmnuHelp});
-            this.msMain.Location = new System.Drawing.Point(0, 0);
-            this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(753, 24);
-            this.msMain.TabIndex = 0;
-            this.msMain.Text = "menuStrip1";
+            msMain.Items.AddRange(new ToolStripItem[] { tsmnuFile, tsmnuEdit, tsmnuView, tsmnuHelp });
+            msMain.Location = new Point(0, 0);
+            msMain.Name = "msMain";
+            msMain.Size = new Size(753, 24);
+            msMain.TabIndex = 0;
+            msMain.Text = "menuStrip1";
             // 
             // tsmnuFile
             // 
-            this.tsmnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmnuFileExit});
-            this.tsmnuFile.Name = "tsmnuFile";
-            this.tsmnuFile.Size = new System.Drawing.Size(37, 20);
-            this.tsmnuFile.Text = "&File";
+            tsmnuFile.DropDownItems.AddRange(new ToolStripItem[] { tsmnuFileExit });
+            tsmnuFile.Name = "tsmnuFile";
+            tsmnuFile.Size = new Size(37, 20);
+            tsmnuFile.Text = "&File";
             // 
             // tsmnuFileExit
             // 
-            this.tsmnuFileExit.Image = global::QuickCalendar.Properties.Resources.exit4;
-            this.tsmnuFileExit.Name = "tsmnuFileExit";
-            this.tsmnuFileExit.Size = new System.Drawing.Size(93, 22);
-            this.tsmnuFileExit.Text = "E&xit";
-            this.tsmnuFileExit.ToolTipText = "Exit Application";
-            this.tsmnuFileExit.Click += new System.EventHandler(this.tsmnuFileExit_Click);
+            tsmnuFileExit.Image = Properties.Resources.exit4;
+            tsmnuFileExit.Name = "tsmnuFileExit";
+            tsmnuFileExit.Size = new Size(93, 22);
+            tsmnuFileExit.Text = "E&xit";
+            tsmnuFileExit.ToolTipText = "Exit Application";
+            tsmnuFileExit.Click += tsmnuFileExit_Click;
             // 
             // tsmnuEdit
             // 
-            this.tsmnuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmnuEditCalendar,
-            this.toolStripSeparator3,
-            this.tsmnuEditProgramOptions});
-            this.tsmnuEdit.Name = "tsmnuEdit";
-            this.tsmnuEdit.Size = new System.Drawing.Size(39, 20);
-            this.tsmnuEdit.Text = "&Edit";
+            tsmnuEdit.DropDownItems.AddRange(new ToolStripItem[] { tsmnuEditCalendar, toolStripSeparator3, tsmnuEditProgramOptions });
+            tsmnuEdit.Name = "tsmnuEdit";
+            tsmnuEdit.Size = new Size(39, 20);
+            tsmnuEdit.Text = "&Edit";
             // 
             // tsmnuEditCalendar
             // 
-            this.tsmnuEditCalendar.Image = global::QuickCalendar.Properties.Resources.edit_calendar1;
-            this.tsmnuEditCalendar.Name = "tsmnuEditCalendar";
-            this.tsmnuEditCalendar.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.tsmnuEditCalendar.Size = new System.Drawing.Size(217, 22);
-            this.tsmnuEditCalendar.Text = "Cal&endar...";
-            this.tsmnuEditCalendar.ToolTipText = "View and Change the settings for this Calendar";
-            this.tsmnuEditCalendar.Click += new System.EventHandler(this.tsmnuEditCalendar_Click);
+            tsmnuEditCalendar.Image = Properties.Resources.edit_calendar1;
+            tsmnuEditCalendar.Name = "tsmnuEditCalendar";
+            tsmnuEditCalendar.ShortcutKeys = Keys.Control | Keys.E;
+            tsmnuEditCalendar.Size = new Size(217, 22);
+            tsmnuEditCalendar.Text = "Cal&endar...";
+            tsmnuEditCalendar.ToolTipText = "View and Change the settings for this Calendar";
+            tsmnuEditCalendar.Click += tsmnuEditCalendar_Click;
             // 
             // toolStripSeparator3
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(214, 6);
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(214, 6);
             // 
             // tsmnuEditProgramOptions
             // 
-            this.tsmnuEditProgramOptions.Image = global::QuickCalendar.Properties.Resources.settings3;
-            this.tsmnuEditProgramOptions.Name = "tsmnuEditProgramOptions";
-            this.tsmnuEditProgramOptions.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.tsmnuEditProgramOptions.Size = new System.Drawing.Size(217, 22);
-            this.tsmnuEditProgramOptions.Text = "Program &Options...";
-            this.tsmnuEditProgramOptions.Click += new System.EventHandler(this.tsmnuEditProgramOptions_Click);
+            tsmnuEditProgramOptions.Image = Properties.Resources.settings3;
+            tsmnuEditProgramOptions.Name = "tsmnuEditProgramOptions";
+            tsmnuEditProgramOptions.ShortcutKeys = Keys.Control | Keys.O;
+            tsmnuEditProgramOptions.Size = new Size(217, 22);
+            tsmnuEditProgramOptions.Text = "Program &Options...";
+            tsmnuEditProgramOptions.Click += tsmnuEditProgramOptions_Click;
             // 
             // tsmnuView
             // 
-            this.tsmnuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmnuViewToday,
-            this.tsmnuViewJumpToDate,
-            this.tsmnuViewResize});
-            this.tsmnuView.Name = "tsmnuView";
-            this.tsmnuView.Size = new System.Drawing.Size(44, 20);
-            this.tsmnuView.Text = "&View";
+            tsmnuView.DropDownItems.AddRange(new ToolStripItem[] { tsmnuViewToday, tsmnuViewJumpToDate, tsmnuViewResize });
+            tsmnuView.Name = "tsmnuView";
+            tsmnuView.Size = new Size(44, 20);
+            tsmnuView.Text = "&View";
             // 
             // tsmnuViewToday
             // 
-            this.tsmnuViewToday.Image = global::QuickCalendar.Properties.Resources.jump_today1;
-            this.tsmnuViewToday.Name = "tsmnuViewToday";
-            this.tsmnuViewToday.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.tsmnuViewToday.Size = new System.Drawing.Size(191, 22);
-            this.tsmnuViewToday.Text = "&Today";
-            this.tsmnuViewToday.ToolTipText = "Jump to Today";
-            this.tsmnuViewToday.Click += new System.EventHandler(this.tsmnuViewToday_Click);
+            tsmnuViewToday.Image = Properties.Resources.jump_today1;
+            tsmnuViewToday.Name = "tsmnuViewToday";
+            tsmnuViewToday.ShortcutKeys = Keys.Control | Keys.T;
+            tsmnuViewToday.Size = new Size(191, 22);
+            tsmnuViewToday.Text = "&Today";
+            tsmnuViewToday.ToolTipText = "Jump to Today";
+            tsmnuViewToday.Click += tsmnuViewToday_Click;
             // 
             // tsmnuViewJumpToDate
             // 
-            this.tsmnuViewJumpToDate.Image = global::QuickCalendar.Properties.Resources.jump_date1;
-            this.tsmnuViewJumpToDate.Name = "tsmnuViewJumpToDate";
-            this.tsmnuViewJumpToDate.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.J)));
-            this.tsmnuViewJumpToDate.Size = new System.Drawing.Size(191, 22);
-            this.tsmnuViewJumpToDate.Text = "&Jump to Date...";
-            this.tsmnuViewJumpToDate.ToolTipText = "Jump to Specified Date";
-            this.tsmnuViewJumpToDate.Click += new System.EventHandler(this.tsmnuViewJumpToDate_Click);
+            tsmnuViewJumpToDate.Image = Properties.Resources.jump_date1;
+            tsmnuViewJumpToDate.Name = "tsmnuViewJumpToDate";
+            tsmnuViewJumpToDate.ShortcutKeys = Keys.Control | Keys.J;
+            tsmnuViewJumpToDate.Size = new Size(191, 22);
+            tsmnuViewJumpToDate.Text = "&Jump to Date...";
+            tsmnuViewJumpToDate.ToolTipText = "Jump to Specified Date";
+            tsmnuViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
             // 
             // tsmnuViewResize
             // 
-            this.tsmnuViewResize.Image = global::QuickCalendar.Properties.Resources.resize_form3;
-            this.tsmnuViewResize.Name = "tsmnuViewResize";
-            this.tsmnuViewResize.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.tsmnuViewResize.Size = new System.Drawing.Size(191, 22);
-            this.tsmnuViewResize.Text = "&Resize...";
-            this.tsmnuViewResize.ToolTipText = "Resize Form to specific Layout";
-            this.tsmnuViewResize.Click += new System.EventHandler(this.tsmnuViewResize_Click);
+            tsmnuViewResize.Image = Properties.Resources.resize_form3;
+            tsmnuViewResize.Name = "tsmnuViewResize";
+            tsmnuViewResize.ShortcutKeys = Keys.Control | Keys.R;
+            tsmnuViewResize.Size = new Size(191, 22);
+            tsmnuViewResize.Text = "&Resize...";
+            tsmnuViewResize.ToolTipText = "Resize Form to specific Layout";
+            tsmnuViewResize.Click += tsmnuViewResize_Click;
             // 
             // tsmnuHelp
             // 
-            this.tsmnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmnuHelpUsageGuide,
-            this.toolStripSeparator5,
-            this.tsmnuHelpAbout});
-            this.tsmnuHelp.Name = "tsmnuHelp";
-            this.tsmnuHelp.Size = new System.Drawing.Size(44, 20);
-            this.tsmnuHelp.Text = "&Help";
+            tsmnuHelp.DropDownItems.AddRange(new ToolStripItem[] { tsmnuHelpUsageGuide, toolStripSeparator5, tsmnuHelpAbout });
+            tsmnuHelp.Name = "tsmnuHelp";
+            tsmnuHelp.Size = new Size(44, 20);
+            tsmnuHelp.Text = "&Help";
             // 
             // tsmnuHelpUsageGuide
             // 
-            this.tsmnuHelpUsageGuide.Image = global::QuickCalendar.Properties.Resources.usage_guide1;
-            this.tsmnuHelpUsageGuide.Name = "tsmnuHelpUsageGuide";
-            this.tsmnuHelpUsageGuide.Size = new System.Drawing.Size(149, 22);
-            this.tsmnuHelpUsageGuide.Text = "Usage Guide...";
-            this.tsmnuHelpUsageGuide.Click += new System.EventHandler(this.tsmnuHelpUsageGuide_Click);
+            tsmnuHelpUsageGuide.Image = Properties.Resources.usage_guide1;
+            tsmnuHelpUsageGuide.Name = "tsmnuHelpUsageGuide";
+            tsmnuHelpUsageGuide.Size = new Size(149, 22);
+            tsmnuHelpUsageGuide.Text = "Usage Guide...";
+            tsmnuHelpUsageGuide.Click += tsmnuHelpUsageGuide_Click;
             // 
             // toolStripSeparator5
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(146, 6);
+            toolStripSeparator5.Name = "toolStripSeparator5";
+            toolStripSeparator5.Size = new Size(146, 6);
             // 
             // tsmnuHelpAbout
             // 
-            this.tsmnuHelpAbout.Image = global::QuickCalendar.Properties.Resources.about1;
-            this.tsmnuHelpAbout.Name = "tsmnuHelpAbout";
-            this.tsmnuHelpAbout.Size = new System.Drawing.Size(149, 22);
-            this.tsmnuHelpAbout.Text = "&About...";
-            this.tsmnuHelpAbout.ToolTipText = "Show Application Details";
-            this.tsmnuHelpAbout.Click += new System.EventHandler(this.tsmnuHelpAbout_Click);
+            tsmnuHelpAbout.Image = Properties.Resources.about1;
+            tsmnuHelpAbout.Name = "tsmnuHelpAbout";
+            tsmnuHelpAbout.Size = new Size(149, 22);
+            tsmnuHelpAbout.Text = "&About...";
+            tsmnuHelpAbout.ToolTipText = "Show Application Details";
+            tsmnuHelpAbout.Click += tsmnuHelpAbout_Click;
             // 
             // ssMain
             // 
-            this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tslblInfo,
-            this.tslblSelectedDatesDescriptions,
-            this.tslblSelectedDaysCount,
-            this.tslblSelectedDaysRange,
-            this.tslblCalendarSetName});
-            this.ssMain.Location = new System.Drawing.Point(0, 416);
-            this.ssMain.Name = "ssMain";
-            this.ssMain.ShowItemToolTips = true;
-            this.ssMain.Size = new System.Drawing.Size(753, 22);
-            this.ssMain.TabIndex = 1;
-            this.ssMain.Text = "statusStrip1";
+            ssMain.Items.AddRange(new ToolStripItem[] { tslblInfo, tslblSelectedDatesDescriptions, tslblSelectedDaysCount, tslblSelectedDaysRange, tslblCalendarSetName });
+            ssMain.Location = new Point(0, 416);
+            ssMain.Name = "ssMain";
+            ssMain.ShowItemToolTips = true;
+            ssMain.Size = new Size(753, 22);
+            ssMain.TabIndex = 1;
+            ssMain.Text = "statusStrip1";
             // 
             // tslblInfo
             // 
-            this.tslblInfo.Name = "tslblInfo";
-            this.tslblInfo.Size = new System.Drawing.Size(410, 17);
-            this.tslblInfo.Spring = true;
-            this.tslblInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            tslblInfo.Name = "tslblInfo";
+            tslblInfo.Size = new Size(410, 17);
+            tslblInfo.Spring = true;
+            tslblInfo.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // tslblSelectedDatesDescriptions
             // 
-            this.tslblSelectedDatesDescriptions.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.tslblSelectedDatesDescriptions.Name = "tslblSelectedDatesDescriptions";
-            this.tslblSelectedDatesDescriptions.Size = new System.Drawing.Size(94, 17);
-            this.tslblSelectedDatesDescriptions.Text = "Date Description";
+            tslblSelectedDatesDescriptions.ForeColor = SystemColors.Highlight;
+            tslblSelectedDatesDescriptions.Name = "tslblSelectedDatesDescriptions";
+            tslblSelectedDatesDescriptions.Size = new Size(94, 17);
+            tslblSelectedDatesDescriptions.Text = "Date Description";
             // 
             // tslblSelectedDaysCount
             // 
-            this.tslblSelectedDaysCount.Name = "tslblSelectedDaysCount";
-            this.tslblSelectedDaysCount.Size = new System.Drawing.Size(115, 17);
-            this.tslblSelectedDaysCount.Text = "Selected Days Range";
+            tslblSelectedDaysCount.Name = "tslblSelectedDaysCount";
+            tslblSelectedDaysCount.Size = new Size(115, 17);
+            tslblSelectedDaysCount.Text = "Selected Days Range";
             // 
             // tslblSelectedDaysRange
             // 
-            this.tslblSelectedDaysRange.Name = "tslblSelectedDaysRange";
-            this.tslblSelectedDaysRange.Size = new System.Drawing.Size(74, 17);
-            this.tslblSelectedDaysRange.Text = "Selected Day";
-            this.tslblSelectedDaysRange.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            tslblSelectedDaysRange.Name = "tslblSelectedDaysRange";
+            tslblSelectedDaysRange.Size = new Size(74, 17);
+            tslblSelectedDaysRange.Text = "Selected Day";
+            tslblSelectedDaysRange.TextAlign = ContentAlignment.MiddleRight;
             // 
             // tslblCalendarSetName
             // 
-            this.tslblCalendarSetName.Name = "tslblCalendarSetName";
-            this.tslblCalendarSetName.Size = new System.Drawing.Size(45, 17);
-            this.tslblCalendarSetName.Text = "Default";
+            tslblCalendarSetName.Name = "tslblCalendarSetName";
+            tslblCalendarSetName.Size = new Size(45, 17);
+            tslblCalendarSetName.Text = "Default";
             // 
             // tsMain
             // 
-            this.tsMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsbtnFileExit,
-            this.tssep1,
-            this.tsbtnEditProgramOptions,
-            this.toolStripSeparator2,
-            this.tsbtnEditCalendar,
-            this.toolStripSeparator4,
-            this.tsbtnViewToday,
-            this.tsbtnViewJumpToDate,
-            this.tsbtnViewResize,
-            this.toolStripSeparator1,
-            this.tsbtnHelpAbout});
-            this.tsMain.Location = new System.Drawing.Point(0, 24);
-            this.tsMain.Name = "tsMain";
-            this.tsMain.Size = new System.Drawing.Size(753, 25);
-            this.tsMain.TabIndex = 1;
-            this.tsMain.Text = "tsMain";
+            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, tssep1, tsbtnEditProgramOptions, toolStripSeparator2, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, tsbtnViewResize, toolStripSeparator1, tsbtnHelpAbout });
+            tsMain.Location = new Point(0, 24);
+            tsMain.Name = "tsMain";
+            tsMain.Size = new Size(753, 25);
+            tsMain.TabIndex = 1;
+            tsMain.Text = "tsMain";
             // 
             // tsbtnFileExit
             // 
-            this.tsbtnFileExit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnFileExit.Image = global::QuickCalendar.Properties.Resources.exit4;
-            this.tsbtnFileExit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnFileExit.Name = "tsbtnFileExit";
-            this.tsbtnFileExit.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnFileExit.Text = "Exit";
-            this.tsbtnFileExit.ToolTipText = "Exit Application";
-            this.tsbtnFileExit.Click += new System.EventHandler(this.tsmnuFileExit_Click);
+            tsbtnFileExit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnFileExit.Image = Properties.Resources.exit4;
+            tsbtnFileExit.ImageTransparentColor = Color.Magenta;
+            tsbtnFileExit.Name = "tsbtnFileExit";
+            tsbtnFileExit.Size = new Size(23, 22);
+            tsbtnFileExit.Text = "Exit";
+            tsbtnFileExit.ToolTipText = "Exit Application";
+            tsbtnFileExit.Click += tsmnuFileExit_Click;
             // 
             // tssep1
             // 
-            this.tssep1.Name = "tssep1";
-            this.tssep1.Size = new System.Drawing.Size(6, 25);
+            tssep1.Name = "tssep1";
+            tssep1.Size = new Size(6, 25);
             // 
             // tsbtnEditProgramOptions
             // 
-            this.tsbtnEditProgramOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnEditProgramOptions.Image = global::QuickCalendar.Properties.Resources.settings3;
-            this.tsbtnEditProgramOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnEditProgramOptions.Name = "tsbtnEditProgramOptions";
-            this.tsbtnEditProgramOptions.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnEditProgramOptions.Text = "Program Options and Settings";
-            this.tsbtnEditProgramOptions.Click += new System.EventHandler(this.tsmnuEditProgramOptions_Click);
+            tsbtnEditProgramOptions.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnEditProgramOptions.Image = Properties.Resources.settings3;
+            tsbtnEditProgramOptions.ImageTransparentColor = Color.Magenta;
+            tsbtnEditProgramOptions.Name = "tsbtnEditProgramOptions";
+            tsbtnEditProgramOptions.Size = new Size(23, 22);
+            tsbtnEditProgramOptions.Text = "Program Options and Settings";
+            tsbtnEditProgramOptions.Click += tsmnuEditProgramOptions_Click;
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 25);
             // 
             // tsbtnEditCalendar
             // 
-            this.tsbtnEditCalendar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnEditCalendar.Image = global::QuickCalendar.Properties.Resources.edit_calendar1;
-            this.tsbtnEditCalendar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnEditCalendar.Name = "tsbtnEditCalendar";
-            this.tsbtnEditCalendar.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnEditCalendar.Text = "toolStripButton1";
-            this.tsbtnEditCalendar.Click += new System.EventHandler(this.tsmnuEditCalendar_Click);
+            tsbtnEditCalendar.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnEditCalendar.Image = Properties.Resources.edit_calendar1;
+            tsbtnEditCalendar.ImageTransparentColor = Color.Magenta;
+            tsbtnEditCalendar.Name = "tsbtnEditCalendar";
+            tsbtnEditCalendar.Size = new Size(23, 22);
+            tsbtnEditCalendar.Text = "toolStripButton1";
+            tsbtnEditCalendar.Click += tsmnuEditCalendar_Click;
             // 
             // toolStripSeparator4
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            toolStripSeparator4.Name = "toolStripSeparator4";
+            toolStripSeparator4.Size = new Size(6, 25);
             // 
             // tsbtnViewToday
             // 
-            this.tsbtnViewToday.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnViewToday.Image = global::QuickCalendar.Properties.Resources.jump_today1;
-            this.tsbtnViewToday.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnViewToday.Name = "tsbtnViewToday";
-            this.tsbtnViewToday.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnViewToday.Text = "&Today";
-            this.tsbtnViewToday.ToolTipText = "Jump to Today";
-            this.tsbtnViewToday.Click += new System.EventHandler(this.tsmnuViewToday_Click);
+            tsbtnViewToday.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnViewToday.Image = Properties.Resources.jump_today1;
+            tsbtnViewToday.ImageTransparentColor = Color.Magenta;
+            tsbtnViewToday.Name = "tsbtnViewToday";
+            tsbtnViewToday.Size = new Size(23, 22);
+            tsbtnViewToday.Text = "&Today";
+            tsbtnViewToday.ToolTipText = "Jump to Today";
+            tsbtnViewToday.Click += tsmnuViewToday_Click;
             // 
             // tsbtnViewJumpToDate
             // 
-            this.tsbtnViewJumpToDate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnViewJumpToDate.Image = global::QuickCalendar.Properties.Resources.jump_date1;
-            this.tsbtnViewJumpToDate.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnViewJumpToDate.Name = "tsbtnViewJumpToDate";
-            this.tsbtnViewJumpToDate.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnViewJumpToDate.Text = "&Jump to Date...";
-            this.tsbtnViewJumpToDate.ToolTipText = "Jump to Specified Date";
-            this.tsbtnViewJumpToDate.Click += new System.EventHandler(this.tsmnuViewJumpToDate_Click);
+            tsbtnViewJumpToDate.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnViewJumpToDate.Image = Properties.Resources.jump_date1;
+            tsbtnViewJumpToDate.ImageTransparentColor = Color.Magenta;
+            tsbtnViewJumpToDate.Name = "tsbtnViewJumpToDate";
+            tsbtnViewJumpToDate.Size = new Size(23, 22);
+            tsbtnViewJumpToDate.Text = "&Jump to Date...";
+            tsbtnViewJumpToDate.ToolTipText = "Jump to Specified Date";
+            tsbtnViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
             // 
             // tsbtnViewResize
             // 
-            this.tsbtnViewResize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnViewResize.Image = global::QuickCalendar.Properties.Resources.resize_form3;
-            this.tsbtnViewResize.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnViewResize.Name = "tsbtnViewResize";
-            this.tsbtnViewResize.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnViewResize.Text = "&Resize...";
-            this.tsbtnViewResize.ToolTipText = "Resize Form to specific Layout";
-            this.tsbtnViewResize.Click += new System.EventHandler(this.tsmnuViewResize_Click);
+            tsbtnViewResize.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnViewResize.Image = Properties.Resources.resize_form3;
+            tsbtnViewResize.ImageTransparentColor = Color.Magenta;
+            tsbtnViewResize.Name = "tsbtnViewResize";
+            tsbtnViewResize.Size = new Size(23, 22);
+            tsbtnViewResize.Text = "&Resize...";
+            tsbtnViewResize.ToolTipText = "Resize Form to specific Layout";
+            tsbtnViewResize.Click += tsmnuViewResize_Click;
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(6, 25);
             // 
             // tsbtnHelpAbout
             // 
-            this.tsbtnHelpAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbtnHelpAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbtnHelpAbout.Image")));
-            this.tsbtnHelpAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbtnHelpAbout.Name = "tsbtnHelpAbout";
-            this.tsbtnHelpAbout.Size = new System.Drawing.Size(23, 22);
-            this.tsbtnHelpAbout.Text = "toolStripButton1";
-            this.tsbtnHelpAbout.Click += new System.EventHandler(this.tsmnuHelpAbout_Click);
+            tsbtnHelpAbout.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnHelpAbout.Image = (Image)resources.GetObject("tsbtnHelpAbout.Image");
+            tsbtnHelpAbout.ImageTransparentColor = Color.Magenta;
+            tsbtnHelpAbout.Name = "tsbtnHelpAbout";
+            tsbtnHelpAbout.Size = new Size(23, 22);
+            tsbtnHelpAbout.Text = "toolStripButton1";
+            tsbtnHelpAbout.Click += tsmnuHelpAbout_Click;
             // 
             // mcalCalendar
             // 
-            this.mcalCalendar.CalendarDimensions = new System.Drawing.Size(3, 1);
-            this.mcalCalendar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.mcalCalendar.Location = new System.Drawing.Point(0, 49);
-            this.mcalCalendar.Name = "mcalCalendar";
-            this.mcalCalendar.ShowWeekNumbers = true;
-            this.mcalCalendar.TabIndex = 0;
+            mcalCalendar.CalendarDimensions = new Size(3, 1);
+            mcalCalendar.Dock = DockStyle.Top;
+            mcalCalendar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            mcalCalendar.Location = new Point(0, 49);
+            mcalCalendar.Name = "mcalCalendar";
+            mcalCalendar.ShowWeekNumbers = true;
+            mcalCalendar.TabIndex = 0;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(753, 438);
-            this.Controls.Add(this.mcalCalendar);
-            this.Controls.Add(this.tsMain);
-            this.Controls.Add(this.ssMain);
-            this.Controls.Add(this.msMain);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.KeyPreview = true;
-            this.MainMenuStrip = this.msMain;
-            this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Main Form";
-            this.Load += new System.EventHandler(this.MainForm_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.MainForm_KeyPress);
-            this.msMain.ResumeLayout(false);
-            this.msMain.PerformLayout();
-            this.ssMain.ResumeLayout(false);
-            this.ssMain.PerformLayout();
-            this.tsMain.ResumeLayout(false);
-            this.tsMain.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(753, 438);
+            Controls.Add(mcalCalendar);
+            Controls.Add(tsMain);
+            Controls.Add(ssMain);
+            Controls.Add(msMain);
+            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
+            MainMenuStrip = msMain;
+            Name = "MainForm";
+            StartPosition = FormStartPosition.Manual;
+            Text = "Main Form";
+            Load += MainForm_Load;
+            KeyPress += MainForm_KeyPress;
+            msMain.ResumeLayout(false);
+            msMain.PerformLayout();
+            ssMain.ResumeLayout(false);
+            ssMain.PerformLayout();
+            tsMain.ResumeLayout(false);
+            tsMain.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

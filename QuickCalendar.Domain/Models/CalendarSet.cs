@@ -11,10 +11,15 @@ public class CalendarSet : ICopyable<CalendarSet>
     public const string DefaultName = "Default";
     public const string DefaultDescription = "A default Calendar";
 
+    public const string DefaultFontName = "Segoe UI";
+    public const int DefaultFontSize = 9;
+
     public CalendarSet(string name, string? description = null)
     {
-        Name        = name;
-        Description = description;
+        Name            = name;
+        Description     = description;
+        DisplayFontName = DefaultFontName;
+        DisplayFontSize = DefaultFontSize;
     }
 
     public int Version => CurrentModelVersion;
@@ -22,6 +27,10 @@ public class CalendarSet : ICopyable<CalendarSet>
     public string Name { get; set; }
 
     public string? Description { get; set; }
+
+    public string DisplayFontName { get; set; }
+
+    public float DisplayFontSize { get; set; }
 
     public DateTime MinimumDate { get; set; } = DateTime.MinValue;
 

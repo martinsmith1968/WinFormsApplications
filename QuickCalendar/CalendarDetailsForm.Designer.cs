@@ -28,487 +28,514 @@ namespace QuickCalendar
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalendarDetailsForm));
-            this.panButtonBar = new System.Windows.Forms.Panel();
-            this.lblErrorText = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOK = new System.Windows.Forms.Button();
-            this.tbcEditor = new System.Windows.Forms.TabControl();
-            this.tabDetails = new System.Windows.Forms.TabPage();
-            this.lblDetailsExampleDateDisplayFormat = new System.Windows.Forms.Label();
-            this.txtDetailsDateDisplayFormat = new System.Windows.Forms.TextBox();
-            this.lblDetailsDateDisplayFormat = new System.Windows.Forms.Label();
-            this.dtpDetailsMaximumDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpDetailsMinimumDate = new System.Windows.Forms.DateTimePicker();
-            this.lblDetailsMaximumDate = new System.Windows.Forms.Label();
-            this.lblDetailsMinimumDate = new System.Windows.Forms.Label();
-            this.txtDetailsDescription = new System.Windows.Forms.TextBox();
-            this.lblDetailsDescription = new System.Windows.Forms.Label();
-            this.txtDetailsName = new System.Windows.Forms.TextBox();
-            this.lblDetailsName = new System.Windows.Forms.Label();
-            this.tabVisualDetails = new System.Windows.Forms.TabPage();
-            this.cboVisualsFirstVisibleMonth = new System.Windows.Forms.ComboBox();
-            this.lblVisualsFirstVisibleMonth = new System.Windows.Forms.Label();
-            this.chkVisualsCloseOnEscape = new System.Windows.Forms.CheckBox();
-            this.cboVisualsFirstDayOfWeek = new System.Windows.Forms.ComboBox();
-            this.lblVisualsFirstDayOfWeek = new System.Windows.Forms.Label();
-            this.chkVisualsShowTodayCircle = new System.Windows.Forms.CheckBox();
-            this.chkVisualsShowToday = new System.Windows.Forms.CheckBox();
-            this.chkVisualsShowWeekNumbers = new System.Windows.Forms.CheckBox();
-            this.tabDates = new System.Windows.Forms.TabPage();
-            this.lvwDatesNotableDates = new System.Windows.Forms.ListView();
-            this.colDatesColGeneratorType = new System.Windows.Forms.ColumnHeader();
-            this.colDatesGeneratedCount = new System.Windows.Forms.ColumnHeader();
-            this.colDatesDefinition = new System.Windows.Forms.ColumnHeader();
-            this.tsDatesContext = new System.Windows.Forms.ToolStrip();
-            this.tsctxDatesAdd = new System.Windows.Forms.ToolStripButton();
-            this.tsctxDatesRemove = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsctxDatesEdit = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsctxDatesMoveUp = new System.Windows.Forms.ToolStripButton();
-            this.tsctxDatesMoveDown = new System.Windows.Forms.ToolStripButton();
-            this.timerErrorMessageReset = new System.Windows.Forms.Timer(this.components);
-            this.panButtonBar.SuspendLayout();
-            this.tbcEditor.SuspendLayout();
-            this.tabDetails.SuspendLayout();
-            this.tabVisualDetails.SuspendLayout();
-            this.tabDates.SuspendLayout();
-            this.tsDatesContext.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            var resources = new System.ComponentModel.ComponentResourceManager(typeof(CalendarDetailsForm));
+            panButtonBar = new Panel();
+            lblErrorText = new Label();
+            btnCancel = new Button();
+            btnOK = new Button();
+            tbcEditor = new TabControl();
+            tabDetails = new TabPage();
+            btnSetDisplayFont = new Button();
+            txtDisplayFont = new TextBox();
+            lblDisplayFont = new Label();
+            lblDetailsExampleDateDisplayFormat = new Label();
+            txtDetailsDateDisplayFormat = new TextBox();
+            lblDetailsDateDisplayFormat = new Label();
+            dtpDetailsMaximumDate = new DateTimePicker();
+            dtpDetailsMinimumDate = new DateTimePicker();
+            lblDetailsMaximumDate = new Label();
+            lblDetailsMinimumDate = new Label();
+            txtDetailsDescription = new TextBox();
+            lblDetailsDescription = new Label();
+            txtDetailsName = new TextBox();
+            lblDetailsName = new Label();
+            tabVisualDetails = new TabPage();
+            cboVisualsFirstVisibleMonth = new ComboBox();
+            lblVisualsFirstVisibleMonth = new Label();
+            chkVisualsCloseOnEscape = new CheckBox();
+            cboVisualsFirstDayOfWeek = new ComboBox();
+            lblVisualsFirstDayOfWeek = new Label();
+            chkVisualsShowTodayCircle = new CheckBox();
+            chkVisualsShowToday = new CheckBox();
+            chkVisualsShowWeekNumbers = new CheckBox();
+            tabDates = new TabPage();
+            lvwDatesNotableDates = new ListView();
+            colDatesColGeneratorType = new ColumnHeader();
+            colDatesGeneratedCount = new ColumnHeader();
+            colDatesDefinition = new ColumnHeader();
+            tsDatesContext = new ToolStrip();
+            tsctxDatesAdd = new ToolStripButton();
+            tsctxDatesRemove = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
+            tsctxDatesEdit = new ToolStripButton();
+            toolStripSeparator1 = new ToolStripSeparator();
+            tsctxDatesMoveUp = new ToolStripButton();
+            tsctxDatesMoveDown = new ToolStripButton();
+            timerErrorMessageReset = new System.Windows.Forms.Timer(components);
+            dlgFontBrowser = new FontDialog();
+            panButtonBar.SuspendLayout();
+            tbcEditor.SuspendLayout();
+            tabDetails.SuspendLayout();
+            tabVisualDetails.SuspendLayout();
+            tabDates.SuspendLayout();
+            tsDatesContext.SuspendLayout();
+            SuspendLayout();
             // 
             // panButtonBar
             // 
-            this.panButtonBar.Controls.Add(this.lblErrorText);
-            this.panButtonBar.Controls.Add(this.btnCancel);
-            this.panButtonBar.Controls.Add(this.btnOK);
-            this.panButtonBar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panButtonBar.Location = new System.Drawing.Point(0, 327);
-            this.panButtonBar.Name = "panButtonBar";
-            this.panButtonBar.Size = new System.Drawing.Size(587, 38);
-            this.panButtonBar.TabIndex = 0;
+            panButtonBar.Controls.Add(lblErrorText);
+            panButtonBar.Controls.Add(btnCancel);
+            panButtonBar.Controls.Add(btnOK);
+            panButtonBar.Dock = DockStyle.Bottom;
+            panButtonBar.Location = new Point(0, 327);
+            panButtonBar.Name = "panButtonBar";
+            panButtonBar.Size = new Size(587, 38);
+            panButtonBar.TabIndex = 0;
             // 
             // lblErrorText
             // 
-            this.lblErrorText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblErrorText.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorText.Location = new System.Drawing.Point(4, 10);
-            this.lblErrorText.Name = "lblErrorText";
-            this.lblErrorText.Size = new System.Drawing.Size(418, 19);
-            this.lblErrorText.TabIndex = 2;
-            this.lblErrorText.Text = "Error Message";
+            lblErrorText.BorderStyle = BorderStyle.FixedSingle;
+            lblErrorText.ForeColor = Color.Red;
+            lblErrorText.Location = new Point(4, 10);
+            lblErrorText.Name = "lblErrorText";
+            lblErrorText.Size = new Size(418, 19);
+            lblErrorText.TabIndex = 2;
+            lblErrorText.Text = "Error Message";
             // 
             // btnCancel
             // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(509, 8);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCancel.Location = new Point(509, 8);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(75, 23);
+            btnCancel.TabIndex = 1;
+            btnCancel.Text = "Cancel";
+            btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnOK
             // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOK.Location = new System.Drawing.Point(428, 8);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
-            this.btnOK.TabIndex = 0;
-            this.btnOK.Text = "OK";
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            btnOK.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnOK.Location = new Point(428, 8);
+            btnOK.Name = "btnOK";
+            btnOK.Size = new Size(75, 23);
+            btnOK.TabIndex = 0;
+            btnOK.Text = "OK";
+            btnOK.UseVisualStyleBackColor = true;
+            btnOK.Click += btnOK_Click;
             // 
             // tbcEditor
             // 
-            this.tbcEditor.Controls.Add(this.tabDetails);
-            this.tbcEditor.Controls.Add(this.tabVisualDetails);
-            this.tbcEditor.Controls.Add(this.tabDates);
-            this.tbcEditor.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tbcEditor.Location = new System.Drawing.Point(0, 0);
-            this.tbcEditor.Name = "tbcEditor";
-            this.tbcEditor.SelectedIndex = 0;
-            this.tbcEditor.Size = new System.Drawing.Size(587, 274);
-            this.tbcEditor.TabIndex = 1;
+            tbcEditor.Controls.Add(tabDetails);
+            tbcEditor.Controls.Add(tabVisualDetails);
+            tbcEditor.Controls.Add(tabDates);
+            tbcEditor.Dock = DockStyle.Top;
+            tbcEditor.Location = new Point(0, 0);
+            tbcEditor.Name = "tbcEditor";
+            tbcEditor.SelectedIndex = 0;
+            tbcEditor.Size = new Size(587, 305);
+            tbcEditor.TabIndex = 1;
             // 
             // tabDetails
             // 
-            this.tabDetails.Controls.Add(this.lblDetailsExampleDateDisplayFormat);
-            this.tabDetails.Controls.Add(this.txtDetailsDateDisplayFormat);
-            this.tabDetails.Controls.Add(this.lblDetailsDateDisplayFormat);
-            this.tabDetails.Controls.Add(this.dtpDetailsMaximumDate);
-            this.tabDetails.Controls.Add(this.dtpDetailsMinimumDate);
-            this.tabDetails.Controls.Add(this.lblDetailsMaximumDate);
-            this.tabDetails.Controls.Add(this.lblDetailsMinimumDate);
-            this.tabDetails.Controls.Add(this.txtDetailsDescription);
-            this.tabDetails.Controls.Add(this.lblDetailsDescription);
-            this.tabDetails.Controls.Add(this.txtDetailsName);
-            this.tabDetails.Controls.Add(this.lblDetailsName);
-            this.tabDetails.Location = new System.Drawing.Point(4, 24);
-            this.tabDetails.Name = "tabDetails";
-            this.tabDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDetails.Size = new System.Drawing.Size(579, 246);
-            this.tabDetails.TabIndex = 0;
-            this.tabDetails.Text = "Details";
-            this.tabDetails.UseVisualStyleBackColor = true;
+            tabDetails.Controls.Add(btnSetDisplayFont);
+            tabDetails.Controls.Add(txtDisplayFont);
+            tabDetails.Controls.Add(lblDisplayFont);
+            tabDetails.Controls.Add(lblDetailsExampleDateDisplayFormat);
+            tabDetails.Controls.Add(txtDetailsDateDisplayFormat);
+            tabDetails.Controls.Add(lblDetailsDateDisplayFormat);
+            tabDetails.Controls.Add(dtpDetailsMaximumDate);
+            tabDetails.Controls.Add(dtpDetailsMinimumDate);
+            tabDetails.Controls.Add(lblDetailsMaximumDate);
+            tabDetails.Controls.Add(lblDetailsMinimumDate);
+            tabDetails.Controls.Add(txtDetailsDescription);
+            tabDetails.Controls.Add(lblDetailsDescription);
+            tabDetails.Controls.Add(txtDetailsName);
+            tabDetails.Controls.Add(lblDetailsName);
+            tabDetails.Location = new Point(4, 24);
+            tabDetails.Name = "tabDetails";
+            tabDetails.Padding = new Padding(3);
+            tabDetails.Size = new Size(579, 277);
+            tabDetails.TabIndex = 0;
+            tabDetails.Text = "Details";
+            tabDetails.UseVisualStyleBackColor = true;
+            // 
+            // btnSetDisplayFont
+            // 
+            btnSetDisplayFont.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSetDisplayFont.Location = new Point(496, 144);
+            btnSetDisplayFont.Name = "btnSetDisplayFont";
+            btnSetDisplayFont.Size = new Size(75, 23);
+            btnSetDisplayFont.TabIndex = 6;
+            btnSetDisplayFont.Text = "&Font...";
+            btnSetDisplayFont.UseVisualStyleBackColor = true;
+            btnSetDisplayFont.Click += btnSetDisplayFont_Click;
+            // 
+            // txtDisplayFont
+            // 
+            txtDisplayFont.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtDisplayFont.Location = new Point(91, 145);
+            txtDisplayFont.Name = "txtDisplayFont";
+            txtDisplayFont.ReadOnly = true;
+            txtDisplayFont.Size = new Size(399, 23);
+            txtDisplayFont.TabIndex = 5;
+            // 
+            // lblDisplayFont
+            // 
+            lblDisplayFont.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblDisplayFont.AutoSize = true;
+            lblDisplayFont.Location = new Point(12, 148);
+            lblDisplayFont.Name = "lblDisplayFont";
+            lblDisplayFont.Size = new Size(78, 15);
+            lblDisplayFont.TabIndex = 4;
+            lblDisplayFont.Text = "Display Font :";
             // 
             // lblDetailsExampleDateDisplayFormat
             // 
-            this.lblDetailsExampleDateDisplayFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDetailsExampleDateDisplayFormat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblDetailsExampleDateDisplayFormat.Location = new System.Drawing.Point(285, 219);
-            this.lblDetailsExampleDateDisplayFormat.Name = "lblDetailsExampleDateDisplayFormat";
-            this.lblDetailsExampleDateDisplayFormat.Size = new System.Drawing.Size(286, 23);
-            this.lblDetailsExampleDateDisplayFormat.TabIndex = 10;
-            this.lblDetailsExampleDateDisplayFormat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblDetailsExampleDateDisplayFormat.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblDetailsExampleDateDisplayFormat.BorderStyle = BorderStyle.FixedSingle;
+            lblDetailsExampleDateDisplayFormat.Location = new Point(287, 243);
+            lblDetailsExampleDateDisplayFormat.Name = "lblDetailsExampleDateDisplayFormat";
+            lblDetailsExampleDateDisplayFormat.Size = new Size(286, 23);
+            lblDetailsExampleDateDisplayFormat.TabIndex = 10;
+            lblDetailsExampleDateDisplayFormat.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // txtDetailsDateDisplayFormat
             // 
-            this.txtDetailsDateDisplayFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtDetailsDateDisplayFormat.Location = new System.Drawing.Point(137, 219);
-            this.txtDetailsDateDisplayFormat.Name = "txtDetailsDateDisplayFormat";
-            this.txtDetailsDateDisplayFormat.Size = new System.Drawing.Size(142, 23);
-            this.txtDetailsDateDisplayFormat.TabIndex = 9;
-            this.txtDetailsDateDisplayFormat.TextChanged += new System.EventHandler(this.txtDateDisplayFormat_TextChanged);
+            txtDetailsDateDisplayFormat.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            txtDetailsDateDisplayFormat.Location = new Point(139, 244);
+            txtDetailsDateDisplayFormat.Name = "txtDetailsDateDisplayFormat";
+            txtDetailsDateDisplayFormat.Size = new Size(142, 23);
+            txtDetailsDateDisplayFormat.TabIndex = 9;
+            txtDetailsDateDisplayFormat.TextChanged += txtDateDisplayFormat_TextChanged;
             // 
             // lblDetailsDateDisplayFormat
             // 
-            this.lblDetailsDateDisplayFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDetailsDateDisplayFormat.AutoSize = true;
-            this.lblDetailsDateDisplayFormat.Location = new System.Drawing.Point(12, 222);
-            this.lblDetailsDateDisplayFormat.Name = "lblDetailsDateDisplayFormat";
-            this.lblDetailsDateDisplayFormat.Size = new System.Drawing.Size(119, 15);
-            this.lblDetailsDateDisplayFormat.TabIndex = 8;
-            this.lblDetailsDateDisplayFormat.Text = "Date Display &Format :";
+            lblDetailsDateDisplayFormat.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblDetailsDateDisplayFormat.AutoSize = true;
+            lblDetailsDateDisplayFormat.Location = new Point(12, 247);
+            lblDetailsDateDisplayFormat.Name = "lblDetailsDateDisplayFormat";
+            lblDetailsDateDisplayFormat.Size = new Size(119, 15);
+            lblDetailsDateDisplayFormat.TabIndex = 8;
+            lblDetailsDateDisplayFormat.Text = "Date Display Format :";
             // 
             // dtpDetailsMaximumDate
             // 
-            this.dtpDetailsMaximumDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dtpDetailsMaximumDate.Location = new System.Drawing.Point(137, 190);
-            this.dtpDetailsMaximumDate.Name = "dtpDetailsMaximumDate";
-            this.dtpDetailsMaximumDate.Size = new System.Drawing.Size(142, 23);
-            this.dtpDetailsMaximumDate.TabIndex = 7;
+            dtpDetailsMaximumDate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            dtpDetailsMaximumDate.Location = new Point(139, 214);
+            dtpDetailsMaximumDate.Name = "dtpDetailsMaximumDate";
+            dtpDetailsMaximumDate.Size = new Size(142, 23);
+            dtpDetailsMaximumDate.TabIndex = 7;
             // 
             // dtpDetailsMinimumDate
             // 
-            this.dtpDetailsMinimumDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dtpDetailsMinimumDate.Location = new System.Drawing.Point(137, 161);
-            this.dtpDetailsMinimumDate.Name = "dtpDetailsMinimumDate";
-            this.dtpDetailsMinimumDate.Size = new System.Drawing.Size(142, 23);
-            this.dtpDetailsMinimumDate.TabIndex = 6;
+            dtpDetailsMinimumDate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            dtpDetailsMinimumDate.Location = new Point(139, 185);
+            dtpDetailsMinimumDate.Name = "dtpDetailsMinimumDate";
+            dtpDetailsMinimumDate.Size = new Size(142, 23);
+            dtpDetailsMinimumDate.TabIndex = 6;
             // 
             // lblDetailsMaximumDate
             // 
-            this.lblDetailsMaximumDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDetailsMaximumDate.AutoSize = true;
-            this.lblDetailsMaximumDate.Location = new System.Drawing.Point(12, 196);
-            this.lblDetailsMaximumDate.Name = "lblDetailsMaximumDate";
-            this.lblDetailsMaximumDate.Size = new System.Drawing.Size(95, 15);
-            this.lblDetailsMaximumDate.TabIndex = 5;
-            this.lblDetailsMaximumDate.Text = "Maximum Date :";
+            lblDetailsMaximumDate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblDetailsMaximumDate.AutoSize = true;
+            lblDetailsMaximumDate.Location = new Point(12, 220);
+            lblDetailsMaximumDate.Name = "lblDetailsMaximumDate";
+            lblDetailsMaximumDate.Size = new Size(95, 15);
+            lblDetailsMaximumDate.TabIndex = 5;
+            lblDetailsMaximumDate.Text = "Maximum Date :";
             // 
             // lblDetailsMinimumDate
             // 
-            this.lblDetailsMinimumDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblDetailsMinimumDate.AutoSize = true;
-            this.lblDetailsMinimumDate.Location = new System.Drawing.Point(12, 167);
-            this.lblDetailsMinimumDate.Name = "lblDetailsMinimumDate";
-            this.lblDetailsMinimumDate.Size = new System.Drawing.Size(93, 15);
-            this.lblDetailsMinimumDate.TabIndex = 4;
-            this.lblDetailsMinimumDate.Text = "Minimum Date :";
+            lblDetailsMinimumDate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblDetailsMinimumDate.AutoSize = true;
+            lblDetailsMinimumDate.Location = new Point(12, 191);
+            lblDetailsMinimumDate.Name = "lblDetailsMinimumDate";
+            lblDetailsMinimumDate.Size = new Size(93, 15);
+            lblDetailsMinimumDate.TabIndex = 4;
+            lblDetailsMinimumDate.Text = "Minimum Date :";
             // 
             // txtDetailsDescription
             // 
-            this.txtDetailsDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetailsDescription.Location = new System.Drawing.Point(91, 48);
-            this.txtDetailsDescription.Multiline = true;
-            this.txtDetailsDescription.Name = "txtDetailsDescription";
-            this.txtDetailsDescription.Size = new System.Drawing.Size(480, 104);
-            this.txtDetailsDescription.TabIndex = 3;
+            txtDetailsDescription.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            txtDetailsDescription.Location = new Point(91, 48);
+            txtDetailsDescription.Multiline = true;
+            txtDetailsDescription.Name = "txtDetailsDescription";
+            txtDetailsDescription.Size = new Size(480, 91);
+            txtDetailsDescription.TabIndex = 3;
             // 
             // lblDetailsDescription
             // 
-            this.lblDetailsDescription.AutoSize = true;
-            this.lblDetailsDescription.Location = new System.Drawing.Point(12, 51);
-            this.lblDetailsDescription.Name = "lblDetailsDescription";
-            this.lblDetailsDescription.Size = new System.Drawing.Size(73, 15);
-            this.lblDetailsDescription.TabIndex = 2;
-            this.lblDetailsDescription.Text = "&Description :";
+            lblDetailsDescription.AutoSize = true;
+            lblDetailsDescription.Location = new Point(12, 51);
+            lblDetailsDescription.Name = "lblDetailsDescription";
+            lblDetailsDescription.Size = new Size(73, 15);
+            lblDetailsDescription.TabIndex = 2;
+            lblDetailsDescription.Text = "Description :";
             // 
             // txtDetailsName
             // 
-            this.txtDetailsName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDetailsName.Location = new System.Drawing.Point(91, 18);
-            this.txtDetailsName.Name = "txtDetailsName";
-            this.txtDetailsName.ReadOnly = true;
-            this.txtDetailsName.Size = new System.Drawing.Size(480, 23);
-            this.txtDetailsName.TabIndex = 1;
-            this.txtDetailsName.Enter += new System.EventHandler(this.txtDetailsName_Enter);
+            txtDetailsName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtDetailsName.Location = new Point(91, 18);
+            txtDetailsName.Name = "txtDetailsName";
+            txtDetailsName.ReadOnly = true;
+            txtDetailsName.Size = new Size(480, 23);
+            txtDetailsName.TabIndex = 1;
+            txtDetailsName.Enter += txtDetailsName_Enter;
             // 
             // lblDetailsName
             // 
-            this.lblDetailsName.AutoSize = true;
-            this.lblDetailsName.Location = new System.Drawing.Point(12, 21);
-            this.lblDetailsName.Name = "lblDetailsName";
-            this.lblDetailsName.Size = new System.Drawing.Size(45, 15);
-            this.lblDetailsName.TabIndex = 0;
-            this.lblDetailsName.Text = "&Name :";
+            lblDetailsName.AutoSize = true;
+            lblDetailsName.Location = new Point(12, 21);
+            lblDetailsName.Name = "lblDetailsName";
+            lblDetailsName.Size = new Size(45, 15);
+            lblDetailsName.TabIndex = 0;
+            lblDetailsName.Text = "Name :";
             // 
             // tabVisualDetails
             // 
-            this.tabVisualDetails.Controls.Add(this.cboVisualsFirstVisibleMonth);
-            this.tabVisualDetails.Controls.Add(this.lblVisualsFirstVisibleMonth);
-            this.tabVisualDetails.Controls.Add(this.chkVisualsCloseOnEscape);
-            this.tabVisualDetails.Controls.Add(this.cboVisualsFirstDayOfWeek);
-            this.tabVisualDetails.Controls.Add(this.lblVisualsFirstDayOfWeek);
-            this.tabVisualDetails.Controls.Add(this.chkVisualsShowTodayCircle);
-            this.tabVisualDetails.Controls.Add(this.chkVisualsShowToday);
-            this.tabVisualDetails.Controls.Add(this.chkVisualsShowWeekNumbers);
-            this.tabVisualDetails.Location = new System.Drawing.Point(4, 24);
-            this.tabVisualDetails.Name = "tabVisualDetails";
-            this.tabVisualDetails.Padding = new System.Windows.Forms.Padding(3);
-            this.tabVisualDetails.Size = new System.Drawing.Size(579, 246);
-            this.tabVisualDetails.TabIndex = 1;
-            this.tabVisualDetails.Text = "Visual Details";
-            this.tabVisualDetails.UseVisualStyleBackColor = true;
+            tabVisualDetails.Controls.Add(cboVisualsFirstVisibleMonth);
+            tabVisualDetails.Controls.Add(lblVisualsFirstVisibleMonth);
+            tabVisualDetails.Controls.Add(chkVisualsCloseOnEscape);
+            tabVisualDetails.Controls.Add(cboVisualsFirstDayOfWeek);
+            tabVisualDetails.Controls.Add(lblVisualsFirstDayOfWeek);
+            tabVisualDetails.Controls.Add(chkVisualsShowTodayCircle);
+            tabVisualDetails.Controls.Add(chkVisualsShowToday);
+            tabVisualDetails.Controls.Add(chkVisualsShowWeekNumbers);
+            tabVisualDetails.Location = new Point(4, 24);
+            tabVisualDetails.Name = "tabVisualDetails";
+            tabVisualDetails.Padding = new Padding(3);
+            tabVisualDetails.Size = new Size(579, 277);
+            tabVisualDetails.TabIndex = 1;
+            tabVisualDetails.Text = "Visual Details";
+            tabVisualDetails.UseVisualStyleBackColor = true;
             // 
             // cboVisualsFirstVisibleMonth
             // 
-            this.cboVisualsFirstVisibleMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboVisualsFirstVisibleMonth.FormattingEnabled = true;
-            this.cboVisualsFirstVisibleMonth.Location = new System.Drawing.Point(162, 143);
-            this.cboVisualsFirstVisibleMonth.Name = "cboVisualsFirstVisibleMonth";
-            this.cboVisualsFirstVisibleMonth.Size = new System.Drawing.Size(138, 23);
-            this.cboVisualsFirstVisibleMonth.TabIndex = 7;
+            cboVisualsFirstVisibleMonth.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboVisualsFirstVisibleMonth.FormattingEnabled = true;
+            cboVisualsFirstVisibleMonth.Location = new Point(162, 143);
+            cboVisualsFirstVisibleMonth.Name = "cboVisualsFirstVisibleMonth";
+            cboVisualsFirstVisibleMonth.Size = new Size(138, 23);
+            cboVisualsFirstVisibleMonth.TabIndex = 7;
             // 
             // lblVisualsFirstVisibleMonth
             // 
-            this.lblVisualsFirstVisibleMonth.AutoSize = true;
-            this.lblVisualsFirstVisibleMonth.Location = new System.Drawing.Point(12, 146);
-            this.lblVisualsFirstVisibleMonth.Name = "lblVisualsFirstVisibleMonth";
-            this.lblVisualsFirstVisibleMonth.Size = new System.Drawing.Size(111, 15);
-            this.lblVisualsFirstVisibleMonth.TabIndex = 6;
-            this.lblVisualsFirstVisibleMonth.Text = "First Visible &Month :";
+            lblVisualsFirstVisibleMonth.AutoSize = true;
+            lblVisualsFirstVisibleMonth.Location = new Point(12, 146);
+            lblVisualsFirstVisibleMonth.Name = "lblVisualsFirstVisibleMonth";
+            lblVisualsFirstVisibleMonth.Size = new Size(111, 15);
+            lblVisualsFirstVisibleMonth.TabIndex = 6;
+            lblVisualsFirstVisibleMonth.Text = "First Visible &Month :";
             // 
             // chkVisualsCloseOnEscape
             // 
-            this.chkVisualsCloseOnEscape.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkVisualsCloseOnEscape.Location = new System.Drawing.Point(12, 121);
-            this.chkVisualsCloseOnEscape.Name = "chkVisualsCloseOnEscape";
-            this.chkVisualsCloseOnEscape.Size = new System.Drawing.Size(166, 19);
-            this.chkVisualsCloseOnEscape.TabIndex = 5;
-            this.chkVisualsCloseOnEscape.Text = "Close on &Escape :";
-            this.chkVisualsCloseOnEscape.UseVisualStyleBackColor = true;
+            chkVisualsCloseOnEscape.CheckAlign = ContentAlignment.MiddleRight;
+            chkVisualsCloseOnEscape.Location = new Point(12, 121);
+            chkVisualsCloseOnEscape.Name = "chkVisualsCloseOnEscape";
+            chkVisualsCloseOnEscape.Size = new Size(166, 19);
+            chkVisualsCloseOnEscape.TabIndex = 5;
+            chkVisualsCloseOnEscape.Text = "Close on &Escape :";
+            chkVisualsCloseOnEscape.UseVisualStyleBackColor = true;
             // 
             // cboVisualsFirstDayOfWeek
             // 
-            this.cboVisualsFirstDayOfWeek.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboVisualsFirstDayOfWeek.FormattingEnabled = true;
-            this.cboVisualsFirstDayOfWeek.Location = new System.Drawing.Point(162, 93);
-            this.cboVisualsFirstDayOfWeek.Name = "cboVisualsFirstDayOfWeek";
-            this.cboVisualsFirstDayOfWeek.Size = new System.Drawing.Size(138, 23);
-            this.cboVisualsFirstDayOfWeek.TabIndex = 4;
+            cboVisualsFirstDayOfWeek.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboVisualsFirstDayOfWeek.FormattingEnabled = true;
+            cboVisualsFirstDayOfWeek.Location = new Point(162, 93);
+            cboVisualsFirstDayOfWeek.Name = "cboVisualsFirstDayOfWeek";
+            cboVisualsFirstDayOfWeek.Size = new Size(138, 23);
+            cboVisualsFirstDayOfWeek.TabIndex = 4;
             // 
             // lblVisualsFirstDayOfWeek
             // 
-            this.lblVisualsFirstDayOfWeek.AutoSize = true;
-            this.lblVisualsFirstDayOfWeek.Location = new System.Drawing.Point(12, 96);
-            this.lblVisualsFirstDayOfWeek.Name = "lblVisualsFirstDayOfWeek";
-            this.lblVisualsFirstDayOfWeek.Size = new System.Drawing.Size(104, 15);
-            this.lblVisualsFirstDayOfWeek.TabIndex = 3;
-            this.lblVisualsFirstDayOfWeek.Text = "&First Day of Week :";
+            lblVisualsFirstDayOfWeek.AutoSize = true;
+            lblVisualsFirstDayOfWeek.Location = new Point(12, 96);
+            lblVisualsFirstDayOfWeek.Name = "lblVisualsFirstDayOfWeek";
+            lblVisualsFirstDayOfWeek.Size = new Size(104, 15);
+            lblVisualsFirstDayOfWeek.TabIndex = 3;
+            lblVisualsFirstDayOfWeek.Text = "&First Day of Week :";
             // 
             // chkVisualsShowTodayCircle
             // 
-            this.chkVisualsShowTodayCircle.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkVisualsShowTodayCircle.Location = new System.Drawing.Point(12, 71);
-            this.chkVisualsShowTodayCircle.Name = "chkVisualsShowTodayCircle";
-            this.chkVisualsShowTodayCircle.Size = new System.Drawing.Size(166, 19);
-            this.chkVisualsShowTodayCircle.TabIndex = 2;
-            this.chkVisualsShowTodayCircle.Text = "Show Today &Circle :";
-            this.chkVisualsShowTodayCircle.UseVisualStyleBackColor = true;
+            chkVisualsShowTodayCircle.CheckAlign = ContentAlignment.MiddleRight;
+            chkVisualsShowTodayCircle.Location = new Point(12, 71);
+            chkVisualsShowTodayCircle.Name = "chkVisualsShowTodayCircle";
+            chkVisualsShowTodayCircle.Size = new Size(166, 19);
+            chkVisualsShowTodayCircle.TabIndex = 2;
+            chkVisualsShowTodayCircle.Text = "Show Today &Circle :";
+            chkVisualsShowTodayCircle.UseVisualStyleBackColor = true;
             // 
             // chkVisualsShowToday
             // 
-            this.chkVisualsShowToday.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkVisualsShowToday.Location = new System.Drawing.Point(12, 46);
-            this.chkVisualsShowToday.Name = "chkVisualsShowToday";
-            this.chkVisualsShowToday.Size = new System.Drawing.Size(166, 19);
-            this.chkVisualsShowToday.TabIndex = 1;
-            this.chkVisualsShowToday.Text = "Show &Today :";
-            this.chkVisualsShowToday.UseVisualStyleBackColor = true;
+            chkVisualsShowToday.CheckAlign = ContentAlignment.MiddleRight;
+            chkVisualsShowToday.Location = new Point(12, 46);
+            chkVisualsShowToday.Name = "chkVisualsShowToday";
+            chkVisualsShowToday.Size = new Size(166, 19);
+            chkVisualsShowToday.TabIndex = 1;
+            chkVisualsShowToday.Text = "Show &Today :";
+            chkVisualsShowToday.UseVisualStyleBackColor = true;
             // 
             // chkVisualsShowWeekNumbers
             // 
-            this.chkVisualsShowWeekNumbers.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkVisualsShowWeekNumbers.Location = new System.Drawing.Point(12, 21);
-            this.chkVisualsShowWeekNumbers.Name = "chkVisualsShowWeekNumbers";
-            this.chkVisualsShowWeekNumbers.Size = new System.Drawing.Size(166, 19);
-            this.chkVisualsShowWeekNumbers.TabIndex = 0;
-            this.chkVisualsShowWeekNumbers.Text = "Show &Week Numbers :";
-            this.chkVisualsShowWeekNumbers.UseVisualStyleBackColor = true;
+            chkVisualsShowWeekNumbers.CheckAlign = ContentAlignment.MiddleRight;
+            chkVisualsShowWeekNumbers.Location = new Point(12, 21);
+            chkVisualsShowWeekNumbers.Name = "chkVisualsShowWeekNumbers";
+            chkVisualsShowWeekNumbers.Size = new Size(166, 19);
+            chkVisualsShowWeekNumbers.TabIndex = 0;
+            chkVisualsShowWeekNumbers.Text = "Show &Week Numbers :";
+            chkVisualsShowWeekNumbers.UseVisualStyleBackColor = true;
             // 
             // tabDates
             // 
-            this.tabDates.Controls.Add(this.lvwDatesNotableDates);
-            this.tabDates.Controls.Add(this.tsDatesContext);
-            this.tabDates.Location = new System.Drawing.Point(4, 24);
-            this.tabDates.Name = "tabDates";
-            this.tabDates.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDates.Size = new System.Drawing.Size(579, 246);
-            this.tabDates.TabIndex = 2;
-            this.tabDates.Text = "Dates";
-            this.tabDates.UseVisualStyleBackColor = true;
+            tabDates.Controls.Add(lvwDatesNotableDates);
+            tabDates.Controls.Add(tsDatesContext);
+            tabDates.Location = new Point(4, 24);
+            tabDates.Name = "tabDates";
+            tabDates.Padding = new Padding(3);
+            tabDates.Size = new Size(579, 277);
+            tabDates.TabIndex = 2;
+            tabDates.Text = "Dates";
+            tabDates.UseVisualStyleBackColor = true;
             // 
             // lvwDatesNotableDates
             // 
-            this.lvwDatesNotableDates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colDatesColGeneratorType,
-            this.colDatesGeneratedCount,
-            this.colDatesDefinition});
-            this.lvwDatesNotableDates.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lvwDatesNotableDates.FullRowSelect = true;
-            this.lvwDatesNotableDates.Location = new System.Drawing.Point(3, 3);
-            this.lvwDatesNotableDates.MultiSelect = false;
-            this.lvwDatesNotableDates.Name = "lvwDatesNotableDates";
-            this.lvwDatesNotableDates.Size = new System.Drawing.Size(550, 190);
-            this.lvwDatesNotableDates.TabIndex = 1;
-            this.lvwDatesNotableDates.UseCompatibleStateImageBehavior = false;
-            this.lvwDatesNotableDates.View = System.Windows.Forms.View.Details;
-            this.lvwDatesNotableDates.DoubleClick += new System.EventHandler(this.lvwDatesNotableDates_DoubleClick);
+            lvwDatesNotableDates.Columns.AddRange(new ColumnHeader[] { colDatesColGeneratorType, colDatesGeneratedCount, colDatesDefinition });
+            lvwDatesNotableDates.Dock = DockStyle.Top;
+            lvwDatesNotableDates.FullRowSelect = true;
+            lvwDatesNotableDates.Location = new Point(3, 3);
+            lvwDatesNotableDates.MultiSelect = false;
+            lvwDatesNotableDates.Name = "lvwDatesNotableDates";
+            lvwDatesNotableDates.Size = new Size(550, 190);
+            lvwDatesNotableDates.TabIndex = 1;
+            lvwDatesNotableDates.UseCompatibleStateImageBehavior = false;
+            lvwDatesNotableDates.View = View.Details;
+            lvwDatesNotableDates.DoubleClick += lvwDatesNotableDates_DoubleClick;
             // 
             // colDatesColGeneratorType
             // 
-            this.colDatesColGeneratorType.Text = "Type";
-            this.colDatesColGeneratorType.Width = 90;
+            colDatesColGeneratorType.Text = "Type";
+            colDatesColGeneratorType.Width = 90;
             // 
             // colDatesGeneratedCount
             // 
-            this.colDatesGeneratedCount.Text = "Count";
-            this.colDatesGeneratedCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            colDatesGeneratedCount.Text = "Count";
+            colDatesGeneratedCount.TextAlign = HorizontalAlignment.Center;
             // 
             // colDatesDefinition
             // 
-            this.colDatesDefinition.Text = "Definition";
-            this.colDatesDefinition.Width = 330;
+            colDatesDefinition.Text = "Definition";
+            colDatesDefinition.Width = 330;
             // 
             // tsDatesContext
             // 
-            this.tsDatesContext.Dock = System.Windows.Forms.DockStyle.Right;
-            this.tsDatesContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsctxDatesAdd,
-            this.tsctxDatesRemove,
-            this.toolStripSeparator2,
-            this.tsctxDatesEdit,
-            this.toolStripSeparator1,
-            this.tsctxDatesMoveUp,
-            this.tsctxDatesMoveDown});
-            this.tsDatesContext.Location = new System.Drawing.Point(553, 3);
-            this.tsDatesContext.Name = "tsDatesContext";
-            this.tsDatesContext.Padding = new System.Windows.Forms.Padding(0);
-            this.tsDatesContext.Size = new System.Drawing.Size(23, 240);
-            this.tsDatesContext.TabIndex = 2;
-            this.tsDatesContext.Text = "toolStrip1";
+            tsDatesContext.Dock = DockStyle.Right;
+            tsDatesContext.Items.AddRange(new ToolStripItem[] { tsctxDatesAdd, tsctxDatesRemove, toolStripSeparator2, tsctxDatesEdit, toolStripSeparator1, tsctxDatesMoveUp, tsctxDatesMoveDown });
+            tsDatesContext.Location = new Point(553, 3);
+            tsDatesContext.Name = "tsDatesContext";
+            tsDatesContext.Padding = new Padding(0);
+            tsDatesContext.Size = new Size(23, 271);
+            tsDatesContext.TabIndex = 2;
+            tsDatesContext.Text = "toolStrip1";
             // 
             // tsctxDatesAdd
             // 
-            this.tsctxDatesAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsctxDatesAdd.Image = global::QuickCalendar.Properties.Resources.add1;
-            this.tsctxDatesAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsctxDatesAdd.Name = "tsctxDatesAdd";
-            this.tsctxDatesAdd.Size = new System.Drawing.Size(22, 20);
-            this.tsctxDatesAdd.ToolTipText = "Add...";
-            this.tsctxDatesAdd.Click += new System.EventHandler(this.tsctxDatesAdd_Click);
+            tsctxDatesAdd.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsctxDatesAdd.Image = Properties.Resources.add1;
+            tsctxDatesAdd.ImageTransparentColor = Color.Magenta;
+            tsctxDatesAdd.Name = "tsctxDatesAdd";
+            tsctxDatesAdd.Size = new Size(22, 20);
+            tsctxDatesAdd.ToolTipText = "Add...";
+            tsctxDatesAdd.Click += tsctxDatesAdd_Click;
             // 
             // tsctxDatesRemove
             // 
-            this.tsctxDatesRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsctxDatesRemove.Image = global::QuickCalendar.Properties.Resources.remove1;
-            this.tsctxDatesRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsctxDatesRemove.Name = "tsctxDatesRemove";
-            this.tsctxDatesRemove.Size = new System.Drawing.Size(22, 20);
-            this.tsctxDatesRemove.ToolTipText = "Remove";
-            this.tsctxDatesRemove.Click += new System.EventHandler(this.tsctxDatesRemove_Click);
+            tsctxDatesRemove.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsctxDatesRemove.Image = Properties.Resources.remove1;
+            tsctxDatesRemove.ImageTransparentColor = Color.Magenta;
+            tsctxDatesRemove.Name = "tsctxDatesRemove";
+            tsctxDatesRemove.Size = new Size(22, 20);
+            tsctxDatesRemove.ToolTipText = "Remove";
+            tsctxDatesRemove.Click += tsctxDatesRemove_Click;
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(22, 6);
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(22, 6);
             // 
             // tsctxDatesEdit
             // 
-            this.tsctxDatesEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsctxDatesEdit.Image = global::QuickCalendar.Properties.Resources.edit3;
-            this.tsctxDatesEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsctxDatesEdit.Name = "tsctxDatesEdit";
-            this.tsctxDatesEdit.Size = new System.Drawing.Size(22, 20);
-            this.tsctxDatesEdit.ToolTipText = "Edit";
-            this.tsctxDatesEdit.Click += new System.EventHandler(this.tsctxDatesEdit_Click);
+            tsctxDatesEdit.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsctxDatesEdit.Image = Properties.Resources.edit3;
+            tsctxDatesEdit.ImageTransparentColor = Color.Magenta;
+            tsctxDatesEdit.Name = "tsctxDatesEdit";
+            tsctxDatesEdit.Size = new Size(22, 20);
+            tsctxDatesEdit.ToolTipText = "Edit";
+            tsctxDatesEdit.Click += tsctxDatesEdit_Click;
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(22, 6);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(22, 6);
             // 
             // tsctxDatesMoveUp
             // 
-            this.tsctxDatesMoveUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsctxDatesMoveUp.Image = global::QuickCalendar.Properties.Resources.up1;
-            this.tsctxDatesMoveUp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsctxDatesMoveUp.Name = "tsctxDatesMoveUp";
-            this.tsctxDatesMoveUp.Size = new System.Drawing.Size(22, 20);
-            this.tsctxDatesMoveUp.ToolTipText = "Move Up";
-            this.tsctxDatesMoveUp.Click += new System.EventHandler(this.tsctxDatesMoveUp_Click);
+            tsctxDatesMoveUp.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsctxDatesMoveUp.Image = Properties.Resources.up1;
+            tsctxDatesMoveUp.ImageTransparentColor = Color.Magenta;
+            tsctxDatesMoveUp.Name = "tsctxDatesMoveUp";
+            tsctxDatesMoveUp.Size = new Size(22, 20);
+            tsctxDatesMoveUp.ToolTipText = "Move Up";
+            tsctxDatesMoveUp.Click += tsctxDatesMoveUp_Click;
             // 
             // tsctxDatesMoveDown
             // 
-            this.tsctxDatesMoveDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsctxDatesMoveDown.Image = global::QuickCalendar.Properties.Resources.down1;
-            this.tsctxDatesMoveDown.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsctxDatesMoveDown.Name = "tsctxDatesMoveDown";
-            this.tsctxDatesMoveDown.Size = new System.Drawing.Size(22, 20);
-            this.tsctxDatesMoveDown.ToolTipText = "Move Down";
-            this.tsctxDatesMoveDown.Click += new System.EventHandler(this.tsctxDatesMoveDown_Click);
+            tsctxDatesMoveDown.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsctxDatesMoveDown.Image = Properties.Resources.down1;
+            tsctxDatesMoveDown.ImageTransparentColor = Color.Magenta;
+            tsctxDatesMoveDown.Name = "tsctxDatesMoveDown";
+            tsctxDatesMoveDown.Size = new Size(22, 20);
+            tsctxDatesMoveDown.ToolTipText = "Move Down";
+            tsctxDatesMoveDown.Click += tsctxDatesMoveDown_Click;
             // 
             // timerErrorMessageReset
             // 
-            this.timerErrorMessageReset.Tick += new System.EventHandler(this.timerErrorMessageReset_Tick);
+            timerErrorMessageReset.Tick += timerErrorMessageReset_Tick;
+            // 
+            // dlgFontBrowser
+            // 
+            dlgFontBrowser.MinSize = 5;
             // 
             // CalendarDetailsForm
             // 
-            this.AcceptButton = this.btnOK;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(587, 365);
-            this.Controls.Add(this.tbcEditor);
-            this.Controls.Add(this.panButtonBar);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "CalendarDetailsForm";
-            this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Calendar Details";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CalendarDetailsForm_FormClosed);
-            this.Load += new System.EventHandler(this.CalendarDetailsForm_Load);
-            this.panButtonBar.ResumeLayout(false);
-            this.tbcEditor.ResumeLayout(false);
-            this.tabDetails.ResumeLayout(false);
-            this.tabDetails.PerformLayout();
-            this.tabVisualDetails.ResumeLayout(false);
-            this.tabVisualDetails.PerformLayout();
-            this.tabDates.ResumeLayout(false);
-            this.tabDates.PerformLayout();
-            this.tsDatesContext.ResumeLayout(false);
-            this.tsDatesContext.PerformLayout();
-            this.ResumeLayout(false);
-
+            AcceptButton = btnOK;
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnCancel;
+            ClientSize = new Size(587, 365);
+            Controls.Add(tbcEditor);
+            Controls.Add(panButtonBar);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            KeyPreview = true;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "CalendarDetailsForm";
+            ShowInTaskbar = false;
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Calendar Details";
+            FormClosed += CalendarDetailsForm_FormClosed;
+            Load += CalendarDetailsForm_Load;
+            panButtonBar.ResumeLayout(false);
+            tbcEditor.ResumeLayout(false);
+            tabDetails.ResumeLayout(false);
+            tabDetails.PerformLayout();
+            tabVisualDetails.ResumeLayout(false);
+            tabVisualDetails.PerformLayout();
+            tabDates.ResumeLayout(false);
+            tabDates.PerformLayout();
+            tsDatesContext.ResumeLayout(false);
+            tsDatesContext.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
@@ -553,5 +580,9 @@ namespace QuickCalendar
         private ToolStripButton tsctxDatesEdit;
         private Label lblErrorText;
         private System.Windows.Forms.Timer timerErrorMessageReset;
+        private Button btnSetDisplayFont;
+        private TextBox txtDisplayFont;
+        private Label lblDisplayFont;
+        private FontDialog dlgFontBrowser;
     }
 }

@@ -89,6 +89,8 @@ public partial class CalendarDetailsForm : Form
         // Details
         txtDetailsName.Text = calendarSet.Name;
         txtDetailsDescription.Text = calendarSet.Description;
+        txtDisplayFont.Font = calendarSet.GetFont();
+        txtDisplayFont.Text = $"{txtDisplayFont.Font.Name}, {txtDisplayFont.Font.Size} pt";
         dtpDetailsMinimumDate.Value = DateTimeExtensions.MaxOf(calendarSet.MinimumDate, dtpDetailsMinimumDate.MinDate);
         dtpDetailsMaximumDate.Value = DateTimeExtensions.MinOf(calendarSet.MaximumDate, dtpDetailsMaximumDate.MaxDate);
         txtDetailsDateDisplayFormat.Text = calendarSet.DateDisplayFormat;
@@ -123,6 +125,8 @@ public partial class CalendarDetailsForm : Form
     {
         // Details
         calendarSet.Description = txtDetailsDescription.Text;
+        calendarSet.DisplayFontName = txtDisplayFont.Font.Name;
+        calendarSet.DisplayFontSize = txtDisplayFont.Font.Size;
         calendarSet.MinimumDate = dtpDetailsMinimumDate.Value;
         calendarSet.MaximumDate = dtpDetailsMaximumDate.Value;
         calendarSet.DateDisplayFormat = txtDetailsDateDisplayFormat.Text;
@@ -262,5 +266,16 @@ public partial class CalendarDetailsForm : Form
     {
         ShowErrorMessage();
         timerErrorMessageReset.Enabled = false;
+    }
+
+    private void btnSetDisplayFont_Click(object sender, EventArgs e)
+    {
+        dlgFontBrowser.Font = txtDisplayFont.Font;
+        if (dlgFontBrowser.ShowDialog() == DialogResult.OK)
+        {
+            CalendarSet.DisplayFontName = dlgFontBrowser.Font.Name;
+            CalendarSet.DisplayFontSize = dlgFontBrowser.Font.Size;
+            txtDisplayFont.Font = CalendarSet.GetFont();
+        }
     }
 }

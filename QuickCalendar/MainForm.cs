@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using DNX.Helpers.Assemblies;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Extensions;
 
 // ReSharper disable LocalizableElement
 // ReSharper disable IdentifierTypo
@@ -42,6 +43,8 @@ public partial class MainForm : Form
         ShowInfoText($"Loading {nameof(CalendarSet)}: {calendarSet.Name}");
 
         CalendarSet = calendarSet;
+
+        mcalCalendar.Font = calendarSet.GetFont();
 
         tslblCalendarSetName.Text = CalendarSet.Name;
         tslblCalendarSetName.ToolTipText = calendarSet.Description;
