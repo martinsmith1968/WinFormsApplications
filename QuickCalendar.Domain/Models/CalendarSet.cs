@@ -134,4 +134,24 @@ public class CalendarSet : ICopyable<CalendarSet>
         VisualDetails.CopyFrom(other.VisualDetails);
         Dates.CopyFrom(other.Dates);
     }
+
+    public DateTime? FindPreviousMarkedDate(DateTime startDate)
+    {
+        var candidate = Dates.Dates
+            .Where(x => x.Date < startDate)
+            .OrderByDescending(x => x.Date)
+            .FirstOrDefault();
+
+        return candidate?.Date;
+    }
+
+    public DateTime? FindNextMarkedDate(DateTime startDate)
+    {
+        var candidate = Dates.Dates
+            .Where(x => x.Date > startDate)
+            .OrderBy(x => x.Date)
+            .FirstOrDefault();
+
+        return candidate?.Date;
+    }
 }

@@ -24,9 +24,11 @@ public partial class MainForm : Form
         mcalCalendar.Dock = DockStyle.Fill;
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
+        tsmnuViewToday.ShortcutKeys = Keys.Home | Keys.Control; // Can't set this via the UI :-o
+
         tsbtnFileExit.ToolTipText = tsmnuFileExit.ToolTipText;
         tsbtnEditCalendar.ToolTipText = tsmnuEditCalendar.ToolTipText;
-        tsbtnEditProgramOptions.ToolTipText = tsmnuEditProgramOptions.ToolTipText;
+        tsbtnFileProgramOptions.ToolTipText = tsmnuEditProgramOptions.ToolTipText;
         tsbtnViewToday.ToolTipText = tsmnuViewToday.ToolTipText;
         tsbtnViewJumpToDate.ToolTipText = tsmnuViewJumpToDate.ToolTipText;
         tsbtnViewResize.ToolTipText = tsmnuViewResize.ToolTipText;
@@ -225,6 +227,20 @@ public partial class MainForm : Form
         }
     }
 
+    private void tsmnuViewJumpToPreviousMarkedDate_Click(object sender, EventArgs e)
+    {
+        var targetDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start);
+        if (targetDate.HasValue)
+            SelectDate(targetDate.Value);
+    }
+
+    private void tsmnuViewJumpToNextMarkedDate_Click(object sender, EventArgs e)
+    {
+        var targetDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.Start);
+        if (targetDate.HasValue)
+            SelectDate(targetDate.Value);
+    }
+
     private void tsmnuViewResize_Click(object sender, EventArgs e)
     {
         var calendarSize = new CalendarSize(mcalCalendar.CalendarDimensions.Width, mcalCalendar.CalendarDimensions.Height, "Current");
@@ -253,11 +269,11 @@ public partial class MainForm : Form
     private void tsmnuHelpUsageGuide_Click(object sender, EventArgs e)
     {
         var usageGuideUrl = "https://github.com/martinsmith1968/WinFormApplications/QuickCalendar/usage-guide";
-        var ps = new ProcessStartInfo(usageGuideUrl)
+        var processStartInfo = new ProcessStartInfo(usageGuideUrl)
         {
             UseShellExecute = true,
             Verb = "open"
         };
-        Process.Start(ps);
+        Process.Start(processStartInfo);
     }
 }

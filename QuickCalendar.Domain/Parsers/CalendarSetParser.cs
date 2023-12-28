@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Parsers;
@@ -23,7 +23,7 @@ public class CalendarSetParser
     {
         try
         {
-            var json = JsonConvert.SerializeObject(calendarSet);
+            var json = JsonConvert.SerializeObject(calendarSet, Formatting.Indented);
 
             return json;
         }
