@@ -98,14 +98,14 @@ namespace QuickCalendar
             lblErrorText.ForeColor = Color.Red;
             lblErrorText.Location = new Point(4, 10);
             lblErrorText.Name = "lblErrorText";
-            lblErrorText.Size = new Size(418, 19);
+            lblErrorText.Size = new Size(409, 19);
             lblErrorText.TabIndex = 2;
             lblErrorText.Text = "Error Message";
             // 
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCancel.Location = new Point(509, 8);
+            btnCancel.Location = new Point(500, 8);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 1;
@@ -115,7 +115,7 @@ namespace QuickCalendar
             // btnOK
             // 
             btnOK.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnOK.Location = new Point(428, 8);
+            btnOK.Location = new Point(419, 8);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(75, 23);
             btnOK.TabIndex = 0;
@@ -509,6 +509,7 @@ namespace QuickCalendar
             MinimizeBox = false;
             Name = "CalendarDetailsForm";
             ShowInTaskbar = false;
+            SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Calendar Details";
             FormClosed += CalendarDetailsForm_FormClosed;

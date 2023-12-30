@@ -109,6 +109,7 @@ namespace QuickCalendar
             tsmnuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
             tsmnuFileOpen.Size = new Size(226, 22);
             tsmnuFileOpen.Text = "&Open...";
+            tsmnuFileOpen.ToolTipText = "Open a Calendar";
             tsmnuFileOpen.Click += tsmnuFileOpen_Click;
             // 
             // tsmnuFileSave
@@ -118,6 +119,7 @@ namespace QuickCalendar
             tsmnuFileSave.ShortcutKeys = Keys.Control | Keys.S;
             tsmnuFileSave.Size = new Size(226, 22);
             tsmnuFileSave.Text = "&Save";
+            tsmnuFileSave.ToolTipText = "Save the current Calendar";
             tsmnuFileSave.Click += tsmnuFileSave_Click;
             // 
             // tsmnuFileSaveAs
@@ -126,6 +128,7 @@ namespace QuickCalendar
             tsmnuFileSaveAs.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
             tsmnuFileSaveAs.Size = new Size(226, 22);
             tsmnuFileSaveAs.Text = "Save &As...";
+            tsmnuFileSaveAs.ToolTipText = "Save the current Calendar, under a new File name";
             tsmnuFileSaveAs.Click += tsmnuFileSaveAs_Click;
             // 
             // toolStripSeparator9
@@ -140,6 +143,7 @@ namespace QuickCalendar
             tsmnuFileProgramOptions.ShortcutKeys = Keys.Control | Keys.F12;
             tsmnuFileProgramOptions.Size = new Size(226, 22);
             tsmnuFileProgramOptions.Text = "Program &Options...";
+            tsmnuFileProgramOptions.ToolTipText = "Program Options and Settings";
             tsmnuFileProgramOptions.Click += tsmnuFileProgramOptions_Click;
             // 
             // toolStripSeparator8
@@ -245,6 +249,7 @@ namespace QuickCalendar
             tsmnuHelpUsageGuide.Name = "tsmnuHelpUsageGuide";
             tsmnuHelpUsageGuide.Size = new Size(162, 22);
             tsmnuHelpUsageGuide.Text = "Usage Guide...";
+            tsmnuHelpUsageGuide.ToolTipText = "View the online Guide";
             tsmnuHelpUsageGuide.Click += tsmnuHelpUsageGuide_Click;
             // 
             // toolStripSeparator5
@@ -329,7 +334,6 @@ namespace QuickCalendar
             tsbtnFileExit.Name = "tsbtnFileExit";
             tsbtnFileExit.Size = new Size(23, 22);
             tsbtnFileExit.Text = "Exit";
-            tsbtnFileExit.ToolTipText = "Exit Application";
             tsbtnFileExit.Click += tsmnuFileExit_Click;
             // 
             // toolStripSeparator10
@@ -449,7 +453,6 @@ namespace QuickCalendar
             tsbtnFileProgramOptions.ImageTransparentColor = Color.Magenta;
             tsbtnFileProgramOptions.Name = "tsbtnFileProgramOptions";
             tsbtnFileProgramOptions.Size = new Size(23, 22);
-            tsbtnFileProgramOptions.Text = "Program Options and Settings";
             tsbtnFileProgramOptions.Click += tsmnuFileProgramOptions_Click;
             // 
             // toolStripSeparator2

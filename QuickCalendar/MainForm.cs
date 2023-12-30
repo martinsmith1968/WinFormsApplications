@@ -1,4 +1,4 @@
-using System.Diagnostics;
+ using System.Diagnostics;
 using DNX.Helpers.Assemblies;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
@@ -47,13 +47,15 @@ public partial class MainForm : Form
         SetupToolbarButtonFromMenuItem(tsbtnFileProgramOptions, tsmnuFileProgramOptions);
         SetupToolbarButtonFromMenuItem(tsbtnFileExit, tsmnuFileExit);
 
-        tsbtnEditCalendar.ToolTipText = tsmnuEditCalendar.ToolTipText;
-        tsbtnViewToday.ToolTipText = tsmnuViewToday.ToolTipText;
-        tsbtnViewJumpToDate.ToolTipText = tsmnuViewJumpToDate.ToolTipText;
-        tsbtnViewJumpToPreviousMarkedDate.ToolTipText = tsmnuViewJumpToPreviousMarkedDate.ToolTipText;
-        tsbtnViewJumpToNextMarkedDate.ToolTipText = tsmnuViewJumpToNextMarkedDate.ToolTipText;
-        tsbtnViewResize.ToolTipText = tsmnuViewResize.ToolTipText;
-        tsbtnHelpAbout.ToolTipText = tsmnuHelpAbout.ToolTipText;
+        SetupToolbarButtonFromMenuItem(tsbtnEditCalendar, tsmnuEditCalendar);
+
+        SetupToolbarButtonFromMenuItem(tsbtnViewToday, tsmnuViewToday);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToDate, tsmnuViewJumpToDate);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToPreviousMarkedDate, tsmnuViewJumpToPreviousMarkedDate);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToNextMarkedDate, tsmnuViewJumpToNextMarkedDate);
+        SetupToolbarButtonFromMenuItem(tsbtnViewResize, tsmnuViewResize);
+
+        SetupToolbarButtonFromMenuItem(tsbtnHelpAbout, tsmnuHelpAbout);
     }
 
     private static void SetupToolbarButtonFromMenuItem(ToolStripButton button, ToolStripMenuItem menuItem)

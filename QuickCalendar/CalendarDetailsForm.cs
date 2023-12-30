@@ -37,7 +37,7 @@ public partial class CalendarDetailsForm : Form
         return result == DialogResult.OK;
     }
 
-    private void ShowErrorMessage(string? text = null)
+    private void ShowErrorMessage(string? text = null, TimeSpan? clearAfter = null)
     {
         text = string.IsNullOrWhiteSpace(text)
             ? text
@@ -45,15 +45,18 @@ public partial class CalendarDetailsForm : Form
 
         lblErrorText.Text = text;
 
-        timerErrorMessageReset.Interval = Convert.ToInt32(TimeSpan.FromSeconds(5).TotalMilliseconds);
-        timerErrorMessageReset.Enabled = true;
+        if (clearAfter.HasValue)
+        {
+            timerErrorMessageReset.Interval = Convert.ToInt32(clearAfter.Value.TotalMilliseconds);
+            timerErrorMessageReset.Enabled = true;
+        }
     }
 
     private bool ValidateForm()
     {
         if (string.IsNullOrWhiteSpace(txtDetailsName.Text))
         {
-            ShowErrorMessage($"{lblDetailsName.Text} must be specified");
+            ShowErrorMessage($"{lblDetailsName.Text} must be specified", TimeSpan.FromSeconds(5));
             txtDetailsName.SetFocusTo();
             return false;
         }
@@ -170,6 +173,8 @@ public partial class CalendarDetailsForm : Form
         LoadStaticData();
 
         LoadCalendarSetToForm(CalendarSet);
+
+        ActiveControl = txtDetailsDescription;
     }
 
     private void CalendarDetailsForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -190,7 +195,7 @@ public partial class CalendarDetailsForm : Form
         }
         catch (Exception ex)
         {
-            ShowErrorMessage(ex.Message);
+            ShowErrorMessage(ex.Message, TimeSpan.FromSeconds(10));
         }
     }
 
@@ -235,6 +240,7 @@ public partial class CalendarDetailsForm : Form
             return;
 
         var result = NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat);
+        // TODO:
     }
 
     private void tsctxDatesMoveUp_Click(object sender, EventArgs e)

@@ -12,12 +12,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Assets\Icons\appicon2.ico</ApplicationIcon>
     <Title>A quick and simple to use Calendar for date viewing</Title>
-    <Copyright>Copyright © 2004-2022 DNX Solutions</Copyright>
+    <Copyright>Copyright © 2004-2024 DNX Solutions</Copyright>
     <Authors>MartinSmith1968</Authors>
     <Company>DNX Solutions</Company>
     <Description>A quick and simple to Calendar application for date viewing and calculation.</Description>
-    <AssemblyVersion>2.1.1.*</AssemblyVersion>
-    <FileVersion>2.1.1.0</FileVersion>
+    <AssemblyVersion>2.1.2.*</AssemblyVersion>
+    <FileVersion>2.1.2.0</FileVersion>
     <Deterministic>false</Deterministic>
     <PackageIcon>appicon2.png</PackageIcon>
     <PackageProjectUrl>https://github.com/martinsmith1968/WinFormsApplications</PackageProjectUrl>

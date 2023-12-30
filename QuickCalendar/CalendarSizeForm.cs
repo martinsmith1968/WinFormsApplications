@@ -41,6 +41,8 @@ public partial class CalendarSizeForm : Form
             if (calendarSize.Width == CalendarSize.Width && calendarSize.Height == CalendarSize.Height)
                 cboCalendarSize.SelectedIndex = index;
         }
+
+        ActiveControl = cboCalendarSize;
     }
 
     private void cboCalendarSize_SelectedIndexChanged(object sender, EventArgs e)
