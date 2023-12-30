@@ -36,11 +36,11 @@ public partial class MainForm : Form
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
         // Can't set these via the UI :-(
-        tsmnuViewToday.ShortcutKeys = Keys.Home | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control;
+        tsmnuViewToday.ShortcutKeys                                = Keys.Home | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys             = Keys.OemOpenBrackets | Keys.Control;
         tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+[";
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control;
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+]";
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control;
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+]";
 
         SetupToolbarButtonFromMenuItem(tsbtnFileOpen, tsmnuFileOpen);
         SetupToolbarButtonFromMenuItem(tsbtnFileSave, tsmnuFileSave);
@@ -60,8 +60,9 @@ public partial class MainForm : Form
 
     private static void SetupToolbarButtonFromMenuItem(ToolStripButton button, ToolStripMenuItem menuItem)
     {
-        button.Text = menuItem.Text;
+        button.Text        = menuItem.Text;
         button.ToolTipText = menuItem.ToolTipText;
+        button.Image       = menuItem.Image;
     }
 
     public void LoadCalendarSet(CalendarSet calendarSet)
@@ -288,36 +289,72 @@ public partial class MainForm : Form
         dlgOpenFile.Filter = CalendarSetRepository.BuildFileDialogFileFilters();
         dlgOpenFile.FilterIndex = 0;
 
-        if (dlgOpenFile.ShowDialog() == DialogResult.OK)
+        if (dlgOpenFile.ShowDialog() != DialogResult.OK)
+            return;
+
+        var fileName = dlgOpenFile.FileName;
+
+        try
         {
-            var fileName = dlgOpenFile.FileName;
+            var calendarSet = CalendarSetRepository.LoadFromFile(fileName);
+            if (calendarSet == null)
+                throw new Exception($"Unable to load file : {fileName}");
 
-            try
-            {
-                var calendarSet = CalendarSetRepository.LoadFromFile(fileName);
-                if (calendarSet == null)
-                    throw new Exception($"Unable to load file : {fileName}");
+            LoadCalendarSet(calendarSet);
 
-                LoadCalendarSet(calendarSet);
-
-                UserSettings.Default.LastOpenedFileName = fileName;
-                UserSettings.Default.Save();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            UserSettings.Default.LastOpenedFileName = fileName;
+            UserSettings.Default.Save();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
     private void tsmnuFileSave_Click(object sender, EventArgs e)
     {
+        var fileName = CalendarSet.Name;    // TODO:
+        try
+        {
+            CalendarSetRepository.SaveToFile(CalendarSet, fileName);
 
+            UserSettings.Default.LastOpenedFileName = fileName;
+            UserSettings.Default.Save();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
     private void tsmnuFileSaveAs_Click(object sender, EventArgs e)
     {
+        dlgSaveFile.DefaultExt = CalendarSetRepository.DefaultFileExtension;
+        dlgSaveFile.AddExtension = true;
+        dlgSaveFile.RestoreDirectory = true;
+        dlgSaveFile.SupportMultiDottedExtensions = true;
+        dlgSaveFile.CheckFileExists = false;
+        dlgSaveFile.CheckPathExists = true;
+        dlgSaveFile.AutoUpgradeEnabled = true;
+        dlgSaveFile.Filter = CalendarSetRepository.BuildFileDialogFileFilters();
+        dlgSaveFile.FilterIndex = 0;
 
+        if (dlgSaveFile.ShowDialog() != DialogResult.OK)
+            return;
+
+        var fileName = dlgOpenFile.FileName;
+
+        try
+        {
+            CalendarSetRepository.SaveToFile(CalendarSet, fileName);
+
+            UserSettings.Default.LastOpenedFileName = fileName;
+            UserSettings.Default.Save();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 
     private void tsmnuFileProgramOptions_Click(object sender, EventArgs e)
