@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Reflection;
 using DNX.Helpers.Assemblies;
-using QuickCalendar.Properties;
 
 // ReSharper disable LocalizableElement
 
@@ -11,8 +10,6 @@ namespace QuickCalendar;
 
 partial class AboutBoxForm : Form
 {
-    private const string WebsiteUrl = "https://github.com/martinsmith1968/WinFormsApplications";
-
     public AboutBoxForm()
     {
         InitializeComponent();
@@ -22,12 +19,12 @@ partial class AboutBoxForm : Form
     {
         var assemblyDetails = new AssemblyDetails(Assembly.GetEntryAssembly());
 
-        Icon = Icon.ExtractAssociatedIcon(assemblyDetails.FileName);
-        Text = $"About {assemblyDetails.Title}";
-        labelProductName.Text = $"{assemblyDetails.Product} v{assemblyDetails.Version.Simplify(2)}";
-        labelCopyright.Text = assemblyDetails.Copyright;
-        linkWebsite.Text = WebsiteUrl;
-        linkWebsite.LinkArea = new LinkArea(0, linkWebsite.Text.Length);
+        Icon                    = Icon.ExtractAssociatedIcon(assemblyDetails.FileName);
+        Text                    = $"About {assemblyDetails.Title}";
+        labelProductName.Text   = $"{assemblyDetails.Product} v{assemblyDetails.Version.Simplify(2)}";
+        labelCopyright.Text     = assemblyDetails.Copyright;
+        linkWebsite.Text        = ProjectInfo.WebsiteUrl;
+        linkWebsite.LinkArea    = new LinkArea(0, linkWebsite.Text.Length);
         textBoxDescription.Text = assemblyDetails.Description;
     }
 

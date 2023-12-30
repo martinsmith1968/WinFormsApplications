@@ -385,7 +385,7 @@ public partial class MainForm : Form
 
     private void tsmnuHelpUsageGuide_Click(object sender, EventArgs e)
     {
-        var usageGuideUrl = "https://github.com/martinsmith1968/WinFormApplications/QuickCalendar/usage-guide";
+        var usageGuideUrl = ProjectInfo.Docs.UsageGuideUrl;
         var processStartInfo = new ProcessStartInfo(usageGuideUrl)
         {
             UseShellExecute = true,
