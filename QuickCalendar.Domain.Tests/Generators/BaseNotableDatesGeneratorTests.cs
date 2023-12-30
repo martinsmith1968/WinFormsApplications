@@ -169,14 +169,18 @@ public class BaseNotableDatesGeneratorTests
         result.Should().Contain(instance.DescriptionTemplate);
     }
 
-    public static IEnumerable<object[]> CopyFrom_Data()
+    public static TheoryData<TestNotableDatesGenerator, string> CopyFrom_Data()
     {
+        var data = new TheoryData<TestNotableDatesGenerator, string>();
+
         var instance1 = AutoFixture.Create<TestNotableDatesGenerator>();
-        yield return new object[] { instance1, instance1.GetDefinitionValue() };
+        data.Add(instance1, instance1.GetDefinitionValue());
 
         var instance2 = AutoFixture.Build<TestNotableDatesGenerator>()
             .With(x => x.DescriptionTemplate, (string?)null)
             .Create();
-        yield return new object[] { instance2, instance2.GetDefinitionValue() };
+        data.Add(instance2, instance2.GetDefinitionValue());
+
+        return data;
     }
 }

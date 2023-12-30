@@ -1,13 +1,8 @@
 using System.Drawing;
 using QuickCalendar.Domain.Interfaces;
+using QuickCalendar.Domain.Models.Types;
 
 namespace QuickCalendar.Domain.Models;
-
-public enum WindowStartLocationType
-{
-    Manual,
-    ScreenCentre
-}
 
 public class CalendarSetVisuals : ICopyable<CalendarSetVisuals>
 {
@@ -20,8 +15,6 @@ public class CalendarSetVisuals : ICopyable<CalendarSetVisuals>
     public DayOfWeek? FirstDayOfWeek { get; set; }
 
     public Size VisibleDimensions { get; set; } = new(3, 1);
-
-    public bool CloseOnEscape { get; set; }
 
     private int? _firstVisibleMonth;
 
@@ -64,7 +57,6 @@ public class CalendarSetVisuals : ICopyable<CalendarSetVisuals>
         ShowTodayCircle = other.ShowTodayCircle;
         FirstDayOfWeek = other.FirstDayOfWeek;
         VisibleDimensions = other.VisibleDimensions;
-        CloseOnEscape = other.CloseOnEscape;
         FirstVisibleMonth = other.FirstVisibleMonth;
         WindowStartLocation = other.WindowStartLocation;
         ManualWindowLocation = other.ManualWindowLocation;

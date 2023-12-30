@@ -43,18 +43,26 @@ public class NotableDateGeneratorFactoryTests
         instance.Should().BeNull();
     }
 
-    public static IEnumerable<object[]> Create_Data()
+    public static TheoryData<string, Type> Create_Data()
     {
-        return NotableDateGeneratorFactory.FactoryCandidateTypes.Select(t => new object[] { t.Name, t })
-            .Union(
-                NotableDateGeneratorFactory.FactoryCandidateTypes.Select(t => new object[] { t.Name.RemoveStartsWith("NotableDates"), t })
-            )
-            .Union(
-                NotableDateGeneratorFactory.FactoryCandidateTypes.Select(t => new object[] { t.Name.RemoveEndsWith("Generator"), t })
-            )
-            .Union(
-                NotableDateGeneratorFactory.FactoryCandidateTypes.Select(t => new object[] { t.Name.RemoveStartsAndEndsWith("NotableDates", "Generator"), t })
-            )
-            .ToArray();
+        var data = new TheoryData<string, Type>();
+
+        NotableDateGeneratorFactory.FactoryCandidateTypes
+            .ToList()
+            .ForEach(t => data.Add(t.Name, t));
+
+        NotableDateGeneratorFactory.FactoryCandidateTypes
+            .ToList()
+            .ForEach(t => data.Add(t.Name.RemoveStartsWith("NotableDates"), t));
+
+        NotableDateGeneratorFactory.FactoryCandidateTypes
+            .ToList()
+            .ForEach(t => data.Add(t.Name.RemoveEndsWith("Generator"), t));
+
+        NotableDateGeneratorFactory.FactoryCandidateTypes
+            .ToList()
+            .ForEach(t => data.Add(t.Name.RemoveStartsAndEndsWith("NotableDates", "Generator"), t));
+
+        return data;
     }
 }

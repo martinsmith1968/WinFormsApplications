@@ -104,8 +104,6 @@ public partial class CalendarDetailsForm : Form
                                                     .FirstOrDefault(x => x.Value == calendarSet.VisualDetails.FirstDayOfWeek)
                                                 ?? cboVisualsFirstDayOfWeek.Items[0];
 
-        chkVisualsCloseOnEscape.Checked = calendarSet.VisualDetails.CloseOnEscape;
-
         cboVisualsFirstVisibleMonth.SelectedItem = _firstVisibleMonthItems
                                                        .FirstOrDefault(x => x.Value == calendarSet.VisualDetails.FirstVisibleMonth)
                                                    ?? cboVisualsFirstVisibleMonth.Items[0];
@@ -136,7 +134,6 @@ public partial class CalendarDetailsForm : Form
         calendarSet.VisualDetails.ShowToday = chkVisualsShowToday.Checked;
         calendarSet.VisualDetails.ShowTodayCircle = chkVisualsShowTodayCircle.Checked;
         calendarSet.VisualDetails.FirstDayOfWeek = (cboVisualsFirstDayOfWeek.SelectedItem as ComboboxItem<DayOfWeek?>)?.Value;
-        calendarSet.VisualDetails.CloseOnEscape = chkVisualsCloseOnEscape.Checked;
         calendarSet.VisualDetails.FirstVisibleMonth = (cboVisualsFirstVisibleMonth.SelectedItem as ComboboxItem<int?>)?.Value;
     }
 

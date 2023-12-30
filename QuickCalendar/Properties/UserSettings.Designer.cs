@@ -12,7 +12,7 @@ namespace QuickCalendar.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
     internal sealed partial class UserSettings : global::System.Configuration.ApplicationSettingsBase {
         
         private static UserSettings defaultInstance = ((UserSettings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new UserSettings())));
@@ -37,24 +37,61 @@ namespace QuickCalendar.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastCalendarName {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CloseOnEscape {
             get {
-                return ((string)(this["LastCalendarName"]));
+                return ((bool)(this["CloseOnEscape"]));
             }
             set {
-                this["LastCalendarName"] = value;
+                this["CloseOnEscape"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection CalendarSets {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LoadLastOpenedFileOnStartup {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["CalendarSets"]));
+                return ((bool)(this["LoadLastOpenedFileOnStartup"]));
             }
             set {
-                this["CalendarSets"] = value;
+                this["LoadLastOpenedFileOnStartup"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastOpenedFileName {
+            get {
+                return ((string)(this["LastOpenedFileName"]));
+            }
+            set {
+                this["LastOpenedFileName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string ShowCalendarNameInStatusBar {
+            get {
+                return ((string)(this["ShowCalendarNameInStatusBar"]));
+            }
+            set {
+                this["ShowCalendarNameInStatusBar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("None")]
+        public string ShowCalendarNameInWindowTitle {
+            get {
+                return ((string)(this["ShowCalendarNameInWindowTitle"]));
+            }
+            set {
+                this["ShowCalendarNameInWindowTitle"] = value;
             }
         }
     }

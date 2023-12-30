@@ -24,27 +24,35 @@ public class DateTimeExtensionsTests
         result.Should().Be(expected);
     }
 
-    public static IEnumerable<object[]> MinOf_Data()
+    public static TheoryData<DateTime, DateTime, DateTime> MinOf_Data()
     {
+        var data = new TheoryData<DateTime, DateTime, DateTime>();
+
         var today = DateTime.UtcNow.Date;
 
-        yield return new object[] { today, today, today };
-        yield return new object[] { today.AddHours(12), today, today };
-        yield return new object[] { today.AddHours(12), today.AddHours(14), today.AddHours(12) };
-        yield return new object[] { today.AddHours(12), today.AddHours(4), today.AddHours(4) };
-        yield return new object[] { today, DateTimeExtensions.CalendarMinValue, DateTimeExtensions.CalendarMinValue };
-        yield return new object[] { today, DateTimeExtensions.CalendarMaxValue, today };
+        data.Add(today, today, today);
+        data.Add(today.AddHours(12), today, today);
+        data.Add(today.AddHours(12), today.AddHours(14), today.AddHours(12));
+        data.Add(today.AddHours(12), today.AddHours(4), today.AddHours(4));
+        data.Add(today, DateTimeExtensions.CalendarMinValue, DateTimeExtensions.CalendarMinValue);
+        data.Add(today, DateTimeExtensions.CalendarMaxValue, today);
+
+        return data;
     }
 
-    public static IEnumerable<object[]> MaxOf_Data()
+    public static TheoryData<DateTime, DateTime, DateTime> MaxOf_Data()
     {
+        var data = new TheoryData<DateTime, DateTime, DateTime>();
+
         var today = DateTime.UtcNow.Date;
 
-        yield return new object[] { today, today, today };
-        yield return new object[] { today.AddHours(12), today, today.AddHours(12) };
-        yield return new object[] { today.AddHours(12), today.AddHours(14), today.AddHours(14) };
-        yield return new object[] { today.AddHours(12), today.AddHours(4), today.AddHours(12) };
-        yield return new object[] { today, DateTimeExtensions.CalendarMaxValue, DateTimeExtensions.CalendarMaxValue };
-        yield return new object[] { today, DateTimeExtensions.CalendarMinValue, today };
+        data.Add(today, today, today);
+        data.Add(today.AddHours(12), today, today.AddHours(12));
+        data.Add(today.AddHours(12), today.AddHours(14), today.AddHours(14));
+        data.Add(today.AddHours(12), today.AddHours(4), today.AddHours(12));
+        data.Add(today, DateTimeExtensions.CalendarMaxValue, DateTimeExtensions.CalendarMaxValue);
+        data.Add(today, DateTimeExtensions.CalendarMinValue, today);
+
+        return data;
     }
 }

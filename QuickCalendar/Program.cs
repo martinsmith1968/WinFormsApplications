@@ -1,9 +1,8 @@
 using System.Reflection;
 using DNX.Helpers.Assemblies;
-using DNX.Helpers.Strings;
 using Ookii.CommandLine;
-using QuickCalendar.DataAccess;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Repositories;
 using QuickCalendar.Properties;
 
 namespace QuickCalendar;
@@ -11,8 +10,6 @@ namespace QuickCalendar;
 internal static class Program
 {
     public static IAssemblyDetails AssemblyDetails = new AssemblyDetails(Assembly.GetEntryAssembly());
-
-    private static readonly ICalendarSetsRepository CalendarSetsRepository = new CalendarSetsRepository();
 
     /// <summary>
     ///  The main entry point for the application.
@@ -24,57 +21,54 @@ internal static class Program
         {
             LoadUserSettings();
 
-            var arguments = CommandLineParser.Parse<Arguments>(args);
+            var arguments = Arguments.Parse(args, Arguments.Options);
             if (arguments == null)
                 throw new CommandLineArgumentException("Unable to parse Program Arguments");
-
-            var initialCalendarSet = LoadOrCreateCalendarSet(arguments.CalendarName);
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            // Determine FileName to open
+            var fileName = arguments.HasFileName
+                ? arguments.FileName
+                : UserSettings.Default.LoadLastOpenedFileOnStartup
+                    ? UserSettings.Default.LastOpenedFileName
+                    : string.Empty;
+
+            // Load Calendar
+            var initialCalendarSet = LoadOrCreateCalendarSet(fileName);
+
+            // Setup Main Form
             var mainForm = new MainForm();
-            mainForm.SetCalendarSet(initialCalendarSet);
+            mainForm.LoadCalendarSet(initialCalendarSet);
 
             Application.Run(mainForm);
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
             if (Win32.ApplicationHasConsole)
             {
-                Console.Error.WriteLine($"Error: {e.Message}");
+                Console.Error.WriteLine($"Error: {ex.Message}");
             }
             else
             {
-                MessageBox.Show(e.Message, AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
 
-    private static CalendarSet LoadOrCreateCalendarSet(string? calendarName)
+    private static CalendarSet LoadOrCreateCalendarSet(string? fileName)
     {
-        if (!string.IsNullOrWhiteSpace(calendarName))
-            calendarName = StringExtensions.CoalesceNullOrWhitespace(
-                calendarName,
-                UserSettings.Default.LastCalendarName,
-                CalendarSet.DefaultName
-            );
+        CalendarSet? calendarSet = null;
 
-        if (!string.IsNullOrWhiteSpace(calendarName))
+        if (!string.IsNullOrWhiteSpace(fileName))
         {
-            var namedCalendarSet = CalendarSetsRepository.LoadNamedCalendarSet(calendarName);
-            if (namedCalendarSet != null)
-                return namedCalendarSet;
+            calendarSet = CalendarSetRepository.LoadFromFile(fileName);
         }
 
-        var defaultCalendarSet = CalendarSetsRepository.LoadNamedCalendarSet(CalendarSet.DefaultName);
-        if (defaultCalendarSet != null)
-            return defaultCalendarSet;
-
-        var calendarSet = new CalendarSet(calendarName ?? CalendarSet.DefaultName);
-        calendarSet = CalendarSet.BuildMyCustomCalendarSet();   // TODO:
-        CalendarSetsRepository.SaveNamedCalendarSet(calendarSet);
+        //calendarSet ??= new CalendarSet(CalendarSet.DefaultName);
+        calendarSet ??= CalendarSetBuilder.BuildMyCustomCalendarSet();
 
         return calendarSet;
     }

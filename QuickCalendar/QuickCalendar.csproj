@@ -22,7 +22,7 @@
     <PackageIcon>appicon2.png</PackageIcon>
     <PackageProjectUrl>https://github.com/martinsmith1968/WinFormsApplications</PackageProjectUrl>
     <RepositoryUrl>https://github.com/martinsmith1968/WinFormsApplications</RepositoryUrl>
-    <Platforms>AnyCPU;x64</Platforms>
+    <Platforms>x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ookii.CommandLine" Version="2.4.0" />
+    <PackageReference Include="Ookii.CommandLine" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

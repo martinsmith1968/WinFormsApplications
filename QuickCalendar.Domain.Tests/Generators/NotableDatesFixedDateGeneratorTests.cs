@@ -55,14 +55,18 @@ public class NotableDatesFixedDateGeneratorTests
         result.Should().Be(expected);
     }
 
-    public static IEnumerable<object[]> CopyFrom_Data()
+    public static TheoryData<NotableDatesFixedDateGenerator, string> CopyFrom_Data()
     {
+        var data = new TheoryData<NotableDatesFixedDateGenerator, string>();
+
         var instance1 = AutoFixture.Create<NotableDatesFixedDateGenerator>();
-        yield return new object[] { instance1, instance1.GetDefinitionValue() };
+        data.Add(instance1, instance1.GetDefinitionValue());
 
         var instance2 = AutoFixture.Build<NotableDatesFixedDateGenerator>()
             .With(x => x.DescriptionTemplate, (string?)null)
             .Create();
-        yield return new object[] { instance2, instance2.GetDefinitionValue() };
+        data.Add(instance2, instance2.GetDefinitionValue());
+
+        return data;
     }
 }

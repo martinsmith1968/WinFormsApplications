@@ -2,6 +2,7 @@ using AutoFixture;
 using FluentAssertions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Models.Types;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Generators;
@@ -33,7 +34,7 @@ public class NotableDatesStartDateEndDateGeneratorTests
         {
             StartDate = now,
             EndDate = now.AddDays(365),
-            IntervalPeriod = IntervalPeriod.Create(IntervalType.Days, 14),
+            IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
             DescriptionTemplate = "Day {sequence}, {yyyy-MMM-dd}"
         };
 
@@ -66,14 +67,18 @@ public class NotableDatesStartDateEndDateGeneratorTests
         result.Should().Be(expected);
     }
 
-    public static IEnumerable<object[]> CopyFrom_Data()
+    public static TheoryData<NotableDatesStartDateEndDateGenerator, string> CopyFrom_Data()
     {
+        var data = new TheoryData<NotableDatesStartDateEndDateGenerator, string>();
+
         var instance1 = AutoFixture.Create<NotableDatesStartDateEndDateGenerator>();
-        yield return new object[] { instance1, instance1.GetDefinitionValue() };
+        data.Add(instance1, instance1.GetDefinitionValue());
 
         var instance2 = AutoFixture.Build<NotableDatesStartDateEndDateGenerator>()
             .With(x => x.DescriptionTemplate, (string?)null)
             .Create();
-        yield return new object[] { instance2, instance2.GetDefinitionValue() };
+        data.Add(instance2, instance2.GetDefinitionValue());
+
+        return data;
     }
 }

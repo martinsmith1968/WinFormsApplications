@@ -1,50 +1,43 @@
 using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Interfaces;
+using QuickCalendar.Domain.Models.Types;
 
 namespace QuickCalendar.Domain.Models;
-
-public enum IntervalType
-{
-    Days = 1,
-    Weeks,
-    Months,
-    Years
-}
 
 public class IntervalPeriod : ICopyable<IntervalPeriod>
 {
     public static IntervalPeriod Default => new()
     {
-        IntervalType = IntervalType.Days,
+        IntervalPeriodType = IntervalPeriodType.Days,
         Value = 1
     };
 
-    public static IntervalPeriod Create(IntervalType intervalType, uint value)
+    public static IntervalPeriod Create(IntervalPeriodType intervalPeriodType, uint value)
     {
-        if (!Enum.GetNames(typeof(IntervalType)).Contains(intervalType.ToString()))
-            throw new ArgumentOutOfRangeException(nameof(intervalType), $"{nameof(IntervalType)} is unknown");
+        if (!Enum.GetNames(typeof(IntervalPeriodType)).Contains(intervalPeriodType.ToString()))
+            throw new ArgumentOutOfRangeException(nameof(intervalPeriodType), $"{nameof(IntervalPeriodType)} is unknown");
         if (value <= 0)
             throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(Value)} is unknown");
 
         return new IntervalPeriod
         {
-            IntervalType = intervalType,
+            IntervalPeriodType = intervalPeriodType,
             Value = value
         };
     }
 
     public uint Value { get; set; }
 
-    public IntervalType IntervalType { get; set; }
+    public IntervalPeriodType IntervalPeriodType { get; set; }
 
     public DateTime AddTo(DateTime dateTime)
     {
-        return IntervalType switch
+        return IntervalPeriodType switch
         {
-            IntervalType.Days => dateTime.AddDays(Value.ToInt32()),
-            IntervalType.Months => dateTime.AddMonths(Value.ToInt32()),
-            IntervalType.Weeks => dateTime.AddDays(Value.ToInt32() * 7),
-            IntervalType.Years => dateTime.AddYears(Value.ToInt32()),
+            IntervalPeriodType.Days => dateTime.AddDays(Value.ToInt32()),
+            IntervalPeriodType.Months => dateTime.AddMonths(Value.ToInt32()),
+            IntervalPeriodType.Weeks => dateTime.AddDays(Value.ToInt32() * 7),
+            IntervalPeriodType.Years => dateTime.AddYears(Value.ToInt32()),
             _ => dateTime
         };
     }
@@ -52,6 +45,6 @@ public class IntervalPeriod : ICopyable<IntervalPeriod>
     public void CopyFrom(IntervalPeriod other)
     {
         Value = other.Value;
-        IntervalType = other.IntervalType;
+        IntervalPeriodType = other.IntervalPeriodType;
     }
 }

@@ -65,6 +65,10 @@ public partial class DateSelectionForm : Form
         tbcDateSelection.SelectedTab = DateRange.IsRange
             ? tabDateRange
             : tabSpecifiedDate;
+
+        ActiveControl = tbcDateSelection.SelectedTab == tabDateRange
+            ? dtpRangeStartDate
+            : dtpSpecifiedDate;
     }
 
     private void btnOK_Click(object sender, EventArgs e)

@@ -5,11 +5,20 @@
     <Setting Name="App_IsUpgraded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="LastCalendarName" Type="System.String" Scope="User">
+    <Setting Name="CloseOnEscape" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LoadLastOpenedFileOnStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LastOpenedFileName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="CalendarSets" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="ShowCalendarNameInStatusBar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="ShowCalendarNameInWindowTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">None</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -53,7 +53,6 @@ namespace QuickCalendar
             tabVisualDetails = new TabPage();
             cboVisualsFirstVisibleMonth = new ComboBox();
             lblVisualsFirstVisibleMonth = new Label();
-            chkVisualsCloseOnEscape = new CheckBox();
             cboVisualsFirstDayOfWeek = new ComboBox();
             lblVisualsFirstDayOfWeek = new Label();
             chkVisualsShowTodayCircle = new CheckBox();
@@ -296,7 +295,6 @@ namespace QuickCalendar
             // 
             tabVisualDetails.Controls.Add(cboVisualsFirstVisibleMonth);
             tabVisualDetails.Controls.Add(lblVisualsFirstVisibleMonth);
-            tabVisualDetails.Controls.Add(chkVisualsCloseOnEscape);
             tabVisualDetails.Controls.Add(cboVisualsFirstDayOfWeek);
             tabVisualDetails.Controls.Add(lblVisualsFirstDayOfWeek);
             tabVisualDetails.Controls.Add(chkVisualsShowTodayCircle);
@@ -314,7 +312,7 @@ namespace QuickCalendar
             // 
             cboVisualsFirstVisibleMonth.DropDownStyle = ComboBoxStyle.DropDownList;
             cboVisualsFirstVisibleMonth.FormattingEnabled = true;
-            cboVisualsFirstVisibleMonth.Location = new Point(162, 143);
+            cboVisualsFirstVisibleMonth.Location = new Point(162, 128);
             cboVisualsFirstVisibleMonth.Name = "cboVisualsFirstVisibleMonth";
             cboVisualsFirstVisibleMonth.Size = new Size(138, 23);
             cboVisualsFirstVisibleMonth.TabIndex = 7;
@@ -322,27 +320,17 @@ namespace QuickCalendar
             // lblVisualsFirstVisibleMonth
             // 
             lblVisualsFirstVisibleMonth.AutoSize = true;
-            lblVisualsFirstVisibleMonth.Location = new Point(12, 146);
+            lblVisualsFirstVisibleMonth.Location = new Point(12, 131);
             lblVisualsFirstVisibleMonth.Name = "lblVisualsFirstVisibleMonth";
             lblVisualsFirstVisibleMonth.Size = new Size(111, 15);
             lblVisualsFirstVisibleMonth.TabIndex = 6;
             lblVisualsFirstVisibleMonth.Text = "First Visible &Month :";
             // 
-            // chkVisualsCloseOnEscape
-            // 
-            chkVisualsCloseOnEscape.CheckAlign = ContentAlignment.MiddleRight;
-            chkVisualsCloseOnEscape.Location = new Point(12, 121);
-            chkVisualsCloseOnEscape.Name = "chkVisualsCloseOnEscape";
-            chkVisualsCloseOnEscape.Size = new Size(166, 19);
-            chkVisualsCloseOnEscape.TabIndex = 5;
-            chkVisualsCloseOnEscape.Text = "Close on &Escape :";
-            chkVisualsCloseOnEscape.UseVisualStyleBackColor = true;
-            // 
             // cboVisualsFirstDayOfWeek
             // 
             cboVisualsFirstDayOfWeek.DropDownStyle = ComboBoxStyle.DropDownList;
             cboVisualsFirstDayOfWeek.FormattingEnabled = true;
-            cboVisualsFirstDayOfWeek.Location = new Point(162, 93);
+            cboVisualsFirstDayOfWeek.Location = new Point(162, 96);
             cboVisualsFirstDayOfWeek.Name = "cboVisualsFirstDayOfWeek";
             cboVisualsFirstDayOfWeek.Size = new Size(138, 23);
             cboVisualsFirstDayOfWeek.TabIndex = 4;
@@ -350,7 +338,7 @@ namespace QuickCalendar
             // lblVisualsFirstDayOfWeek
             // 
             lblVisualsFirstDayOfWeek.AutoSize = true;
-            lblVisualsFirstDayOfWeek.Location = new Point(12, 96);
+            lblVisualsFirstDayOfWeek.Location = new Point(12, 99);
             lblVisualsFirstDayOfWeek.Name = "lblVisualsFirstDayOfWeek";
             lblVisualsFirstDayOfWeek.Size = new Size(104, 15);
             lblVisualsFirstDayOfWeek.TabIndex = 3;
@@ -562,7 +550,6 @@ namespace QuickCalendar
         private CheckBox chkVisualsShowWeekNumbers;
         private ComboBox cboVisualsFirstDayOfWeek;
         private Label lblVisualsFirstDayOfWeek;
-        private CheckBox chkVisualsCloseOnEscape;
         private ComboBox cboVisualsFirstVisibleMonth;
         private Label lblVisualsFirstVisibleMonth;
         private TabPage tabDates;

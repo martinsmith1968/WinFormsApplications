@@ -1,7 +1,7 @@
 using System.Text;
 using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Generators;
-using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Models.Types;
 
 // ReSharper disable IdentifierTypo
 
@@ -47,7 +47,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
             dtpStartDateEndDateGeneratorStartDate.Value = _notableDatesStartDateEndDateGenerator.StartDate;
             dtpStartDateEndDateGeneratorEndDate.Value = _notableDatesStartDateEndDateGenerator.EndDate;
             nudStartDateEndDateGeneratorIntervalValue.Value = _notableDatesStartDateEndDateGenerator.IntervalPeriod.Value;
-            cboStartDateEndDateGeneratorIntervalType.SelectedItem = _notableDatesStartDateEndDateGenerator.IntervalPeriod.IntervalType;
+            cboStartDateEndDateGeneratorIntervalType.SelectedItem = _notableDatesStartDateEndDateGenerator.IntervalPeriod.IntervalPeriodType;
         }
         else if (NotableDatesGenerator is NotableDatesStartDateRepeatCountGenerator notableDatesStartDateRepeatCountGenerator)
         {
@@ -56,9 +56,10 @@ public partial class NotableDatesGeneratorEditorForm : Form
             dtpStartDateRepeatCountGeneratorStartDate.Value = _notableDatesStartDateRepeatCountGenerator.StartDate;
             nudStartDateRepeatCountGeneratorRepeatCount.Value = _notableDatesStartDateRepeatCountGenerator.RepeatCount;
             nudStartDateEndDateGeneratorIntervalValue.Value = _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.Value;
-            cboStartDateEndDateGeneratorIntervalType.SelectedItem = _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.IntervalType;
+            cboStartDateEndDateGeneratorIntervalType.SelectedItem = _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.IntervalPeriodType;
         }
 
+        tbcEditors.SelectedIndex = 0;
         foreach (TabPage tab in tbcEditors.TabPages)
         {
             if ((Type)tab.Tag == NotableDatesGenerator.GetType())
@@ -160,7 +161,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
         tabEditorStartDateEndDateGenerator.Tag = typeof(NotableDatesStartDateEndDateGenerator);
         tabEditorStartDateRepeatCountGenerator.Tag = typeof(NotableDatesStartDateRepeatCountGenerator);
 
-        foreach (var intervalType in Enum.GetValues<IntervalType>())
+        foreach (var intervalType in Enum.GetValues<IntervalPeriodType>())
         {
             cboStartDateEndDateGeneratorIntervalType.Items.Add(intervalType);
         }
@@ -201,7 +202,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
 
     private void cboStartDateEndDateGeneratorIntervalType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _notableDatesStartDateEndDateGenerator.IntervalPeriod.IntervalType = Enum.Parse<IntervalType>(cboStartDateEndDateGeneratorIntervalType.SelectedItem.ToString());
+        _notableDatesStartDateEndDateGenerator.IntervalPeriod.IntervalPeriodType = Enum.Parse<IntervalPeriodType>(cboStartDateEndDateGeneratorIntervalType.SelectedItem.ToString());
         PopulateGeneratedDates();
     }
 
@@ -225,7 +226,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
 
     private void cboStartDateRepeatCountGeneratorInterval_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.IntervalType = Enum.Parse<IntervalType>(cboStartDateRepeatCountGeneratorInterval.SelectedItem.ToString());
+        _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.IntervalPeriodType = Enum.Parse<IntervalPeriodType>(cboStartDateRepeatCountGeneratorInterval.SelectedItem.ToString());
         PopulateGeneratedDates();
     }
 }

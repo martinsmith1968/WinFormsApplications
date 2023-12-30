@@ -1,6 +1,7 @@
 using AutoFixture;
 using FluentAssertions;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Models.Types;
 using Xunit;
 
 #pragma warning disable IDE0059
@@ -14,29 +15,29 @@ public class IntervalPeriodTests
     [Fact]
     public void Create_wont_accept_an_invalid_IntervalType()
     {
-        var intervalType = (IntervalType)int.MaxValue;
+        var intervalPeriodType = (IntervalPeriodType)int.MaxValue;
         var value = (uint)DateTime.UtcNow.Millisecond;
 
         // Act
         var ex = Assert.Throws<ArgumentOutOfRangeException>(
-            () => IntervalPeriod.Create(intervalType, value)
+            () => IntervalPeriod.Create(intervalPeriodType, value)
         );
 
         // Assert
         ex.Should().NotBeNull();
-        ex.ParamName.Should().Be(nameof(intervalType));
-        ex.Message.Should().Contain(nameof(IntervalType));
+        ex.ParamName.Should().Be(nameof(intervalPeriodType));
+        ex.Message.Should().Contain(nameof(IntervalPeriodType));
     }
 
     [Fact]
     public void Create_wont_accept_an_invalid_Value()
     {
-        var intervalType = AutoFixture.Create<IntervalType>();
+        var intervalPeriodType = AutoFixture.Create<IntervalPeriodType>();
         var value = (uint)0;
 
         // Act
         var ex = Assert.Throws<ArgumentOutOfRangeException>(
-            () => IntervalPeriod.Create(intervalType, value)
+            () => IntervalPeriod.Create(intervalPeriodType, value)
         );
 
         // Assert
@@ -48,15 +49,15 @@ public class IntervalPeriodTests
     [Fact]
     public void Create_populates_properties_correctly()
     {
-        var intervalType = AutoFixture.Create<IntervalType>();
+        var intervalPeriodType = AutoFixture.Create<IntervalPeriodType>();
         var value = (uint)DateTime.UtcNow.Millisecond;
 
         // Act
-        var instance = IntervalPeriod.Create(intervalType, value);
+        var instance = IntervalPeriod.Create(intervalPeriodType, value);
 
         // Assert
         instance.Should().NotBeNull();
-        instance.IntervalType.Should().Be(intervalType);
+        instance.IntervalPeriodType.Should().Be(intervalPeriodType);
         instance.Value.Should().Be(value);
     }
 
@@ -69,20 +70,24 @@ public class IntervalPeriodTests
         result.Should().Be(expectedResult);
     }
 
-    public static IEnumerable<object[]> AddTo_Data()
+    public static TheoryData<DateTime, IntervalPeriod, DateTime> AddTo_Data()
     {
-        var period7Days = IntervalPeriod.Create(IntervalType.Days, 7);
-        var period2Weeks = IntervalPeriod.Create(IntervalType.Weeks, 2);
-        var period1Month = IntervalPeriod.Create(IntervalType.Months, 1);
-        var period3Years = IntervalPeriod.Create(IntervalType.Years, 3);
-        var badPeriod = new IntervalPeriod { IntervalType = 0, Value = 10 };
+        var data = new TheoryData<DateTime, IntervalPeriod, DateTime>();
+
+        var period7Days = IntervalPeriod.Create(IntervalPeriodType.Days, 7);
+        var period2Weeks = IntervalPeriod.Create(IntervalPeriodType.Weeks, 2);
+        var period1Month = IntervalPeriod.Create(IntervalPeriodType.Months, 1);
+        var period3Years = IntervalPeriod.Create(IntervalPeriodType.Years, 3);
+        var badPeriod = new IntervalPeriod { IntervalPeriodType = 0, Value = 10 };
 
         var today = DateTime.UtcNow.Date;
 
-        yield return new object[] { today, period7Days, today.AddDays(7) };
-        yield return new object[] { today, period2Weeks, today.AddDays(14) };
-        yield return new object[] { today, period1Month, today.AddMonths(1) };
-        yield return new object[] { today, period3Years, today.AddYears(3) };
-        yield return new object[] { today, badPeriod, today };
+        data.Add(today, period7Days, today.AddDays(7));
+        data.Add(today, period2Weeks, today.AddDays(14));
+        data.Add(today, period1Month, today.AddMonths(1));
+        data.Add(today, period3Years, today.AddYears(3));
+        data.Add(today, badPeriod, today);
+
+        return data;
     }
 }

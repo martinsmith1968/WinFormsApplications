@@ -393,6 +393,16 @@ namespace QuickCalendar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap open_file_40455_24 {
+            get {
+                object obj = ResourceManager.GetObject("open_file_40455_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap open1 {
             get {
                 object obj = ResourceManager.GetObject("open1", resourceCulture);
@@ -456,6 +466,16 @@ namespace QuickCalendar.Properties {
         internal static System.Drawing.Bitmap resize_form3 {
             get {
                 object obj = ResourceManager.GetObject("resize_form3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Save_37110_24 {
+            get {
+                object obj = ResourceManager.GetObject("Save_37110_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

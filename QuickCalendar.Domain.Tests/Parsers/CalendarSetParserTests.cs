@@ -3,6 +3,7 @@ using AutoFixture;
 using FluentAssertions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Domain.Parsers;
 using Xunit;
 
@@ -40,7 +41,7 @@ public class CalendarSetParserTests
             {
                 StartDate = DateTime.Parse("1968-08-11"),
                 RepeatCount = 100,
-                IntervalPeriod = IntervalPeriod.Create(IntervalType.Years, 1),
+                IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Years, 1),
                 DescriptionTemplate = "My {Sequence} Birthday"
             }
         );
@@ -58,7 +59,8 @@ public class CalendarSetParserTests
 
     private static CalendarSet BuildCalendarSetInstance(CalendarSetVisuals? visuals = null, CalendarSetDates? dates = null)
     {
-        var calendarSet = AutoFixture.Create<CalendarSet>();
+        var now = DateTime.UtcNow;
+        var calendarSet = new CalendarSet($"Test_{now.Ticks}", $"A test instance from {now:s}");
 
         calendarSet.VisualDetails.CopyFrom(visuals ?? BuildCalendarSetVisuals());
         calendarSet.Dates.CopyFrom(dates ?? BuildDatesInstance());

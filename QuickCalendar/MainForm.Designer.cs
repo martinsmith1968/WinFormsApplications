@@ -1,4 +1,4 @@
-﻿namespace QuickCalendar
+namespace QuickCalendar
 {
     partial class MainForm
     {
@@ -28,9 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             msMain = new MenuStrip();
             tsmnuFile = new ToolStripMenuItem();
+            tsmnuFileOpen = new ToolStripMenuItem();
+            tsmnuFileSave = new ToolStripMenuItem();
+            tsmnuFileSaveAs = new ToolStripMenuItem();
+            toolStripSeparator9 = new ToolStripSeparator();
             tsmnuFileProgramOptions = new ToolStripMenuItem();
             toolStripSeparator8 = new ToolStripSeparator();
             tsmnuFileExit = new ToolStripMenuItem();
@@ -49,26 +54,33 @@
             tsmnuHelpAbout = new ToolStripMenuItem();
             ssMain = new StatusStrip();
             tslblInfo = new ToolStripStatusLabel();
+            tslblFileName = new ToolStripStatusLabel();
             tslblSelectedDatesDescriptions = new ToolStripStatusLabel();
             tslblSelectedDaysCount = new ToolStripStatusLabel();
             tslblSelectedDaysRange = new ToolStripStatusLabel();
             tslblCalendarSetName = new ToolStripStatusLabel();
             tsMain = new ToolStrip();
             tsbtnFileExit = new ToolStripButton();
+            toolStripSeparator10 = new ToolStripSeparator();
+            tsbtnFileOpen = new ToolStripButton();
+            tsbtnFileSave = new ToolStripButton();
             tssep1 = new ToolStripSeparator();
-            tsbtnFileProgramOptions = new ToolStripButton();
-            toolStripSeparator2 = new ToolStripSeparator();
             tsbtnEditCalendar = new ToolStripButton();
             toolStripSeparator4 = new ToolStripSeparator();
             tsbtnViewToday = new ToolStripButton();
             tsbtnViewJumpToDate = new ToolStripButton();
-            tsbtnViewJumpPreviousMarkedDate = new ToolStripButton();
-            tsbtnViewJumpNextMarkedDate = new ToolStripButton();
+            tsbtnViewJumpToPreviousMarkedDate = new ToolStripButton();
+            tsbtnViewJumpToNextMarkedDate = new ToolStripButton();
             toolStripSeparator6 = new ToolStripSeparator();
             tsbtnViewResize = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
+            tsbtnFileProgramOptions = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
             tsbtnHelpAbout = new ToolStripButton();
             mcalCalendar = new MonthCalendar();
+            dlgOpenFile = new OpenFileDialog();
+            dlgSaveFile = new SaveFileDialog();
+            tmrResetStatusBar = new System.Windows.Forms.Timer(components);
             msMain.SuspendLayout();
             ssMain.SuspendLayout();
             tsMain.SuspendLayout();
@@ -85,10 +97,41 @@
             // 
             // tsmnuFile
             // 
-            tsmnuFile.DropDownItems.AddRange(new ToolStripItem[] { tsmnuFileProgramOptions, toolStripSeparator8, tsmnuFileExit });
+            tsmnuFile.DropDownItems.AddRange(new ToolStripItem[] { tsmnuFileOpen, tsmnuFileSave, tsmnuFileSaveAs, toolStripSeparator9, tsmnuFileProgramOptions, toolStripSeparator8, tsmnuFileExit });
             tsmnuFile.Name = "tsmnuFile";
             tsmnuFile.Size = new Size(37, 20);
             tsmnuFile.Text = "&File";
+            // 
+            // tsmnuFileOpen
+            // 
+            tsmnuFileOpen.Image = Properties.Resources.open_file_40455_24;
+            tsmnuFileOpen.Name = "tsmnuFileOpen";
+            tsmnuFileOpen.ShortcutKeys = Keys.Control | Keys.O;
+            tsmnuFileOpen.Size = new Size(226, 22);
+            tsmnuFileOpen.Text = "&Open...";
+            tsmnuFileOpen.Click += tsmnuFileOpen_Click;
+            // 
+            // tsmnuFileSave
+            // 
+            tsmnuFileSave.Image = Properties.Resources.Save_37110_24;
+            tsmnuFileSave.Name = "tsmnuFileSave";
+            tsmnuFileSave.ShortcutKeys = Keys.Control | Keys.S;
+            tsmnuFileSave.Size = new Size(226, 22);
+            tsmnuFileSave.Text = "&Save";
+            tsmnuFileSave.Click += tsmnuFileSave_Click;
+            // 
+            // tsmnuFileSaveAs
+            // 
+            tsmnuFileSaveAs.Name = "tsmnuFileSaveAs";
+            tsmnuFileSaveAs.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
+            tsmnuFileSaveAs.Size = new Size(226, 22);
+            tsmnuFileSaveAs.Text = "Save &As...";
+            tsmnuFileSaveAs.Click += tsmnuFileSaveAs_Click;
+            // 
+            // toolStripSeparator9
+            // 
+            toolStripSeparator9.Name = "toolStripSeparator9";
+            toolStripSeparator9.Size = new Size(223, 6);
             // 
             // tsmnuFileProgramOptions
             // 
@@ -97,6 +140,7 @@
             tsmnuFileProgramOptions.ShortcutKeys = Keys.Control | Keys.F12;
             tsmnuFileProgramOptions.Size = new Size(226, 22);
             tsmnuFileProgramOptions.Text = "Program &Options...";
+            tsmnuFileProgramOptions.Click += tsmnuFileProgramOptions_Click;
             // 
             // toolStripSeparator8
             // 
@@ -140,8 +184,7 @@
             // 
             tsmnuViewToday.Image = Properties.Resources.jump_today1;
             tsmnuViewToday.Name = "tsmnuViewToday";
-            tsmnuViewToday.ShortcutKeys = Keys.Control | Keys.T;
-            tsmnuViewToday.Size = new Size(289, 22);
+            tsmnuViewToday.Size = new Size(235, 22);
             tsmnuViewToday.Text = "&Today";
             tsmnuViewToday.ToolTipText = "Jump to Today";
             tsmnuViewToday.Click += tsmnuViewToday_Click;
@@ -151,7 +194,7 @@
             tsmnuViewJumpToDate.Image = Properties.Resources.jump_date1;
             tsmnuViewJumpToDate.Name = "tsmnuViewJumpToDate";
             tsmnuViewJumpToDate.ShortcutKeys = Keys.Control | Keys.J;
-            tsmnuViewJumpToDate.Size = new Size(289, 22);
+            tsmnuViewJumpToDate.Size = new Size(235, 22);
             tsmnuViewJumpToDate.Text = "&Jump to Date...";
             tsmnuViewJumpToDate.ToolTipText = "Jump to Specified Date";
             tsmnuViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
@@ -160,8 +203,7 @@
             // 
             tsmnuViewJumpToPreviousMarkedDate.Image = Properties.Resources.previous_marked_date_1;
             tsmnuViewJumpToPreviousMarkedDate.Name = "tsmnuViewJumpToPreviousMarkedDate";
-            tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys = Keys.Control | Keys.Left;
-            tsmnuViewJumpToPreviousMarkedDate.Size = new Size(289, 22);
+            tsmnuViewJumpToPreviousMarkedDate.Size = new Size(235, 22);
             tsmnuViewJumpToPreviousMarkedDate.Text = "Jump to &Previous Marked Date";
             tsmnuViewJumpToPreviousMarkedDate.ToolTipText = "Jump to Previous Marked Date";
             tsmnuViewJumpToPreviousMarkedDate.Click += tsmnuViewJumpToPreviousMarkedDate_Click;
@@ -170,8 +212,7 @@
             // 
             tsmnuViewJumpToNextMarkedDate.Image = Properties.Resources.next_marked_date_1;
             tsmnuViewJumpToNextMarkedDate.Name = "tsmnuViewJumpToNextMarkedDate";
-            tsmnuViewJumpToNextMarkedDate.ShortcutKeys = Keys.Control | Keys.Right;
-            tsmnuViewJumpToNextMarkedDate.Size = new Size(289, 22);
+            tsmnuViewJumpToNextMarkedDate.Size = new Size(235, 22);
             tsmnuViewJumpToNextMarkedDate.Text = "Jump to &Next Marked Date";
             tsmnuViewJumpToNextMarkedDate.ToolTipText = "Jump to Next Marked Date";
             tsmnuViewJumpToNextMarkedDate.Click += tsmnuViewJumpToNextMarkedDate_Click;
@@ -179,14 +220,14 @@
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(286, 6);
+            toolStripSeparator7.Size = new Size(232, 6);
             // 
             // tsmnuViewResize
             // 
             tsmnuViewResize.Image = Properties.Resources.resize_form3;
             tsmnuViewResize.Name = "tsmnuViewResize";
             tsmnuViewResize.ShortcutKeys = Keys.Control | Keys.R;
-            tsmnuViewResize.Size = new Size(289, 22);
+            tsmnuViewResize.Size = new Size(235, 22);
             tsmnuViewResize.Text = "&Resize...";
             tsmnuViewResize.ToolTipText = "Resize Form to specific Layout";
             tsmnuViewResize.Click += tsmnuViewResize_Click;
@@ -223,7 +264,7 @@
             // 
             // ssMain
             // 
-            ssMain.Items.AddRange(new ToolStripItem[] { tslblInfo, tslblSelectedDatesDescriptions, tslblSelectedDaysCount, tslblSelectedDaysRange, tslblCalendarSetName });
+            ssMain.Items.AddRange(new ToolStripItem[] { tslblInfo, tslblFileName, tslblSelectedDatesDescriptions, tslblSelectedDaysCount, tslblSelectedDaysRange, tslblCalendarSetName });
             ssMain.Location = new Point(0, 416);
             ssMain.Name = "ssMain";
             ssMain.ShowItemToolTips = true;
@@ -234,9 +275,16 @@
             // tslblInfo
             // 
             tslblInfo.Name = "tslblInfo";
-            tslblInfo.Size = new Size(410, 17);
+            tslblInfo.Size = new Size(350, 17);
             tslblInfo.Spring = true;
             tslblInfo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // tslblFileName
+            // 
+            tslblFileName.Name = "tslblFileName";
+            tslblFileName.Size = new Size(60, 17);
+            tslblFileName.Text = "File Name";
+            tslblFileName.ToolTipText = "Calendar File Name";
             // 
             // tslblSelectedDatesDescriptions
             // 
@@ -266,7 +314,7 @@
             // 
             // tsMain
             // 
-            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, tssep1, tsbtnFileProgramOptions, toolStripSeparator2, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, tsbtnViewJumpPreviousMarkedDate, tsbtnViewJumpNextMarkedDate, toolStripSeparator6, tsbtnViewResize, toolStripSeparator1, tsbtnHelpAbout });
+            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, toolStripSeparator10, tsbtnFileOpen, tsbtnFileSave, tssep1, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, tsbtnViewJumpToPreviousMarkedDate, tsbtnViewJumpToNextMarkedDate, toolStripSeparator6, tsbtnViewResize, toolStripSeparator1, tsbtnFileProgramOptions, toolStripSeparator2, tsbtnHelpAbout });
             tsMain.Location = new Point(0, 24);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(753, 25);
@@ -284,25 +332,35 @@
             tsbtnFileExit.ToolTipText = "Exit Application";
             tsbtnFileExit.Click += tsmnuFileExit_Click;
             // 
+            // toolStripSeparator10
+            // 
+            toolStripSeparator10.Name = "toolStripSeparator10";
+            toolStripSeparator10.Size = new Size(6, 25);
+            // 
+            // tsbtnFileOpen
+            // 
+            tsbtnFileOpen.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnFileOpen.Image = Properties.Resources.open_file_40455_24;
+            tsbtnFileOpen.ImageTransparentColor = Color.Magenta;
+            tsbtnFileOpen.Name = "tsbtnFileOpen";
+            tsbtnFileOpen.Size = new Size(23, 22);
+            tsbtnFileOpen.Text = "&Open...";
+            tsbtnFileOpen.Click += tsmnuFileOpen_Click;
+            // 
+            // tsbtnFileSave
+            // 
+            tsbtnFileSave.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnFileSave.Image = Properties.Resources.Save_37110_24;
+            tsbtnFileSave.ImageTransparentColor = Color.Magenta;
+            tsbtnFileSave.Name = "tsbtnFileSave";
+            tsbtnFileSave.Size = new Size(23, 22);
+            tsbtnFileSave.Text = "toolStripButton2";
+            tsbtnFileSave.Click += tsmnuFileSave_Click;
+            // 
             // tssep1
             // 
             tssep1.Name = "tssep1";
             tssep1.Size = new Size(6, 25);
-            // 
-            // tsbtnFileProgramOptions
-            // 
-            tsbtnFileProgramOptions.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbtnFileProgramOptions.Image = Properties.Resources.settings3;
-            tsbtnFileProgramOptions.ImageTransparentColor = Color.Magenta;
-            tsbtnFileProgramOptions.Name = "tsbtnFileProgramOptions";
-            tsbtnFileProgramOptions.Size = new Size(23, 22);
-            tsbtnFileProgramOptions.Text = "Program Options and Settings";
-            tsbtnFileProgramOptions.Click += tsmnuEditProgramOptions_Click;
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 25);
             // 
             // tsbtnEditCalendar
             // 
@@ -341,27 +399,27 @@
             tsbtnViewJumpToDate.ToolTipText = "Jump to Specified Date";
             tsbtnViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
             // 
-            // tsbtnViewJumpPreviousMarkedDate
+            // tsbtnViewJumpToPreviousMarkedDate
             // 
-            tsbtnViewJumpPreviousMarkedDate.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbtnViewJumpPreviousMarkedDate.Image = Properties.Resources.previous_marked_date_1;
-            tsbtnViewJumpPreviousMarkedDate.ImageTransparentColor = Color.Magenta;
-            tsbtnViewJumpPreviousMarkedDate.Name = "tsbtnViewJumpPreviousMarkedDate";
-            tsbtnViewJumpPreviousMarkedDate.Size = new Size(23, 22);
-            tsbtnViewJumpPreviousMarkedDate.Text = "toolStripButton1";
-            tsbtnViewJumpPreviousMarkedDate.ToolTipText = "Jump to Previous Marked Date";
-            tsbtnViewJumpPreviousMarkedDate.Click += tsmnuViewJumpToPreviousMarkedDate_Click;
+            tsbtnViewJumpToPreviousMarkedDate.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnViewJumpToPreviousMarkedDate.Image = Properties.Resources.previous_marked_date_1;
+            tsbtnViewJumpToPreviousMarkedDate.ImageTransparentColor = Color.Magenta;
+            tsbtnViewJumpToPreviousMarkedDate.Name = "tsbtnViewJumpToPreviousMarkedDate";
+            tsbtnViewJumpToPreviousMarkedDate.Size = new Size(23, 22);
+            tsbtnViewJumpToPreviousMarkedDate.Text = "toolStripButton1";
+            tsbtnViewJumpToPreviousMarkedDate.ToolTipText = "Jump to Previous Marked Date";
+            tsbtnViewJumpToPreviousMarkedDate.Click += tsmnuViewJumpToPreviousMarkedDate_Click;
             // 
-            // tsbtnViewJumpNextMarkedDate
+            // tsbtnViewJumpToNextMarkedDate
             // 
-            tsbtnViewJumpNextMarkedDate.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            tsbtnViewJumpNextMarkedDate.Image = Properties.Resources.next_marked_date_1;
-            tsbtnViewJumpNextMarkedDate.ImageTransparentColor = Color.Magenta;
-            tsbtnViewJumpNextMarkedDate.Name = "tsbtnViewJumpNextMarkedDate";
-            tsbtnViewJumpNextMarkedDate.Size = new Size(23, 22);
-            tsbtnViewJumpNextMarkedDate.Text = "toolStripButton2";
-            tsbtnViewJumpNextMarkedDate.ToolTipText = "Jump to Next Marked Date";
-            tsbtnViewJumpNextMarkedDate.Click += tsmnuViewJumpToNextMarkedDate_Click;
+            tsbtnViewJumpToNextMarkedDate.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnViewJumpToNextMarkedDate.Image = Properties.Resources.next_marked_date_1;
+            tsbtnViewJumpToNextMarkedDate.ImageTransparentColor = Color.Magenta;
+            tsbtnViewJumpToNextMarkedDate.Name = "tsbtnViewJumpToNextMarkedDate";
+            tsbtnViewJumpToNextMarkedDate.Size = new Size(23, 22);
+            tsbtnViewJumpToNextMarkedDate.Text = "toolStripButton2";
+            tsbtnViewJumpToNextMarkedDate.ToolTipText = "Jump to Next Marked Date";
+            tsbtnViewJumpToNextMarkedDate.Click += tsmnuViewJumpToNextMarkedDate_Click;
             // 
             // toolStripSeparator6
             // 
@@ -384,6 +442,21 @@
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(6, 25);
             // 
+            // tsbtnFileProgramOptions
+            // 
+            tsbtnFileProgramOptions.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnFileProgramOptions.Image = Properties.Resources.settings3;
+            tsbtnFileProgramOptions.ImageTransparentColor = Color.Magenta;
+            tsbtnFileProgramOptions.Name = "tsbtnFileProgramOptions";
+            tsbtnFileProgramOptions.Size = new Size(23, 22);
+            tsbtnFileProgramOptions.Text = "Program Options and Settings";
+            tsbtnFileProgramOptions.Click += tsmnuFileProgramOptions_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 25);
+            // 
             // tsbtnHelpAbout
             // 
             tsbtnHelpAbout.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -403,6 +476,10 @@
             mcalCalendar.Name = "mcalCalendar";
             mcalCalendar.ShowWeekNumbers = true;
             mcalCalendar.TabIndex = 0;
+            // 
+            // tmrResetStatusBar
+            // 
+            tmrResetStatusBar.Tick += tmrResetStatusBar_Tick;
             // 
             // MainForm
             // 
@@ -470,11 +547,22 @@
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripMenuItem tsmnuViewJumpToPreviousMarkedDate;
         private ToolStripMenuItem tsmnuViewJumpToNextMarkedDate;
-        private ToolStripButton tsbtnViewJumpPreviousMarkedDate;
-        private ToolStripButton tsbtnViewJumpNextMarkedDate;
+        private ToolStripButton tsbtnViewJumpToPreviousMarkedDate;
+        private ToolStripButton tsbtnViewJumpToNextMarkedDate;
         private ToolStripSeparator toolStripSeparator6;
         private ToolStripSeparator toolStripSeparator7;
         private ToolStripMenuItem tsmnuFileProgramOptions;
         private ToolStripSeparator toolStripSeparator8;
+        private ToolStripMenuItem tsmnuFileOpen;
+        private ToolStripMenuItem tsmnuFileSave;
+        private ToolStripMenuItem tsmnuFileSaveAs;
+        private ToolStripSeparator toolStripSeparator9;
+        private ToolStripSeparator toolStripSeparator10;
+        private ToolStripButton tsbtnFileOpen;
+        private ToolStripButton tsbtnFileSave;
+        private OpenFileDialog dlgOpenFile;
+        private SaveFileDialog dlgSaveFile;
+        private ToolStripStatusLabel tslblFileName;
+        private System.Windows.Forms.Timer tmrResetStatusBar;
     }
 }
