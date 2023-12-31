@@ -16,18 +16,11 @@ namespace QuickCalendar;
 
 public partial class MainForm : Form
 {
-    public CalendarSet CalendarSet { get; private set; } = new(CalendarSet.DefaultName);
+    public CalendarSet CalendarSet { get; private set; } = CalendarSet.Default;
 
     public MainForm()
     {
         InitializeComponent();
-    }
-
-    private void LoadProgramOptions()
-    {
-        tsmnuFileExit.ShortcutKeyDisplayString = UserSettings.Default.CloseOnEscape
-            ? Keys.Escape.ToString()
-            : "";
     }
 
     private void SetupFormControls()
@@ -36,11 +29,15 @@ public partial class MainForm : Form
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
         // Can't set these via the UI :-(
-        tsmnuViewToday.ShortcutKeys                                = Keys.Home | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys             = Keys.OemOpenBrackets | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+[";
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control;
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+]";
+        tsmnuViewToday.ShortcutKeys                                  = Keys.Home | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys               = Keys.OemOpenBrackets | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString   = "Ctrl+[";
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeys                   = Keys.OemCloseBrackets | Keys.Control;
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString       = "Ctrl+]";
+        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys             = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+[";
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+Shift+]";
 
         SetupToolbarButtonFromMenuItem(tsbtnFileOpen, tsmnuFileOpen);
         SetupToolbarButtonFromMenuItem(tsbtnFileSave, tsmnuFileSave);
@@ -58,11 +55,18 @@ public partial class MainForm : Form
         SetupToolbarButtonFromMenuItem(tsbtnHelpAbout, tsmnuHelpAbout);
     }
 
+    private void LoadProgramOptions()
+    {
+        tsmnuFileExit.ShortcutKeyDisplayString = UserSettings.Default.CloseOnEscape
+            ? Keys.Escape.ToString()
+            : "";
+    }
+
     private static void SetupToolbarButtonFromMenuItem(ToolStripButton button, ToolStripMenuItem menuItem)
     {
-        button.Text        = menuItem.Text;
+        button.Text = menuItem.Text;
         button.ToolTipText = menuItem.ToolTipText;
-        button.Image       = menuItem.Image;
+        button.Image = menuItem.Image;
     }
 
     public void LoadCalendarSet(CalendarSet calendarSet)
@@ -215,10 +219,15 @@ public partial class MainForm : Form
 
     private void EnableNavigation()
     {
-        tsmnuViewJumpToNextMarkedDate.Enabled = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.End).HasValue;
-        tsmnuViewJumpToPreviousMarkedDate.Enabled = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start).HasValue;
+        var hasNextMarkedDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.End).HasValue;
+        var hasPreviousMarkedDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start).HasValue;
 
-        tsbtnViewJumpToNextMarkedDate.Enabled = tsmnuViewJumpToNextMarkedDate.Enabled;
+        tsmnuViewJumpToNextMarkedDate.Enabled       = hasNextMarkedDate;
+        tsmnuViewJumpToPreviousMarkedDate.Enabled   = hasPreviousMarkedDate;
+        tsmnuViewSelectToNextMarkedDate.Enabled     = hasNextMarkedDate;
+        tsmnuViewSelectToPreviousMarkedDate.Enabled = hasPreviousMarkedDate;
+
+        tsbtnViewJumpToNextMarkedDate.Enabled     = tsmnuViewJumpToNextMarkedDate.Enabled;
         tsbtnViewJumpToPreviousMarkedDate.Enabled = tsmnuViewJumpToPreviousMarkedDate.Enabled;
     }
 
@@ -302,8 +311,7 @@ public partial class MainForm : Form
 
             LoadCalendarSet(calendarSet);
 
-            UserSettings.Default.LastOpenedFileName = fileName;
-            UserSettings.Default.Save();
+            UserSettings.Default.Update(x => x.LastOpenedFileName = fileName);
         }
         catch (Exception ex)
         {
@@ -318,8 +326,7 @@ public partial class MainForm : Form
         {
             CalendarSetRepository.SaveToFile(CalendarSet, fileName);
 
-            UserSettings.Default.LastOpenedFileName = fileName;
-            UserSettings.Default.Save();
+            UserSettings.Default.Update(x => x.LastOpenedFileName = fileName);
         }
         catch (Exception ex)
         {
@@ -348,8 +355,7 @@ public partial class MainForm : Form
         {
             CalendarSetRepository.SaveToFile(CalendarSet, fileName);
 
-            UserSettings.Default.LastOpenedFileName = fileName;
-            UserSettings.Default.Save();
+            UserSettings.Default.Update(x => x.LastOpenedFileName = fileName);
         }
         catch (Exception ex)
         {
@@ -408,6 +414,20 @@ public partial class MainForm : Form
         var targetDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.Start);
         if (targetDate.HasValue)
             SelectDate(targetDate.Value);
+    }
+
+    private void tsmnuViewSelectToPreviousMarkedDate_Click(object sender, EventArgs e)
+    {
+        var targetDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start);
+        if (targetDate.HasValue)
+            SelectDates(targetDate.Value, mcalCalendar.SelectionRange.End);
+    }
+
+    private void tsmnuViewSelectToNextMarkedDate_Click(object sender, EventArgs e)
+    {
+        var targetDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.End);
+        if (targetDate.HasValue)
+            SelectDates(mcalCalendar.SelectionRange.Start, targetDate.Value);
     }
 
     private void tsmnuViewResize_Click(object sender, EventArgs e)

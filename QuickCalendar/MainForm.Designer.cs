@@ -43,9 +43,14 @@ namespace QuickCalendar
             tsmnuEditCalendar = new ToolStripMenuItem();
             tsmnuView = new ToolStripMenuItem();
             tsmnuViewToday = new ToolStripMenuItem();
+            toolStripSeparator12 = new ToolStripSeparator();
             tsmnuViewJumpToDate = new ToolStripMenuItem();
+            toolStripSeparator11 = new ToolStripSeparator();
             tsmnuViewJumpToPreviousMarkedDate = new ToolStripMenuItem();
             tsmnuViewJumpToNextMarkedDate = new ToolStripMenuItem();
+            toolStripSeparator14 = new ToolStripSeparator();
+            tsmnuViewSelectToPreviousMarkedDate = new ToolStripMenuItem();
+            tsmnuViewSelectToNextMarkedDate = new ToolStripMenuItem();
             toolStripSeparator7 = new ToolStripSeparator();
             tsmnuViewResize = new ToolStripMenuItem();
             tsmnuHelp = new ToolStripMenuItem();
@@ -69,6 +74,7 @@ namespace QuickCalendar
             toolStripSeparator4 = new ToolStripSeparator();
             tsbtnViewToday = new ToolStripButton();
             tsbtnViewJumpToDate = new ToolStripButton();
+            toolStripSeparator13 = new ToolStripSeparator();
             tsbtnViewJumpToPreviousMarkedDate = new ToolStripButton();
             tsbtnViewJumpToNextMarkedDate = new ToolStripButton();
             toolStripSeparator6 = new ToolStripSeparator();
@@ -179,7 +185,7 @@ namespace QuickCalendar
             // 
             // tsmnuView
             // 
-            tsmnuView.DropDownItems.AddRange(new ToolStripItem[] { tsmnuViewToday, tsmnuViewJumpToDate, tsmnuViewJumpToPreviousMarkedDate, tsmnuViewJumpToNextMarkedDate, toolStripSeparator7, tsmnuViewResize });
+            tsmnuView.DropDownItems.AddRange(new ToolStripItem[] { tsmnuViewToday, toolStripSeparator12, tsmnuViewJumpToDate, toolStripSeparator11, tsmnuViewJumpToPreviousMarkedDate, tsmnuViewJumpToNextMarkedDate, toolStripSeparator14, tsmnuViewSelectToPreviousMarkedDate, tsmnuViewSelectToNextMarkedDate, toolStripSeparator7, tsmnuViewResize });
             tsmnuView.Name = "tsmnuView";
             tsmnuView.Size = new Size(44, 20);
             tsmnuView.Text = "&View";
@@ -188,26 +194,36 @@ namespace QuickCalendar
             // 
             tsmnuViewToday.Image = Properties.Resources.jump_today1;
             tsmnuViewToday.Name = "tsmnuViewToday";
-            tsmnuViewToday.Size = new Size(235, 22);
+            tsmnuViewToday.Size = new Size(237, 22);
             tsmnuViewToday.Text = "&Today";
             tsmnuViewToday.ToolTipText = "Jump to Today";
             tsmnuViewToday.Click += tsmnuViewToday_Click;
+            // 
+            // toolStripSeparator12
+            // 
+            toolStripSeparator12.Name = "toolStripSeparator12";
+            toolStripSeparator12.Size = new Size(234, 6);
             // 
             // tsmnuViewJumpToDate
             // 
             tsmnuViewJumpToDate.Image = Properties.Resources.jump_date1;
             tsmnuViewJumpToDate.Name = "tsmnuViewJumpToDate";
             tsmnuViewJumpToDate.ShortcutKeys = Keys.Control | Keys.J;
-            tsmnuViewJumpToDate.Size = new Size(235, 22);
+            tsmnuViewJumpToDate.Size = new Size(237, 22);
             tsmnuViewJumpToDate.Text = "&Jump to Date...";
             tsmnuViewJumpToDate.ToolTipText = "Jump to Specified Date";
             tsmnuViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
+            // 
+            // toolStripSeparator11
+            // 
+            toolStripSeparator11.Name = "toolStripSeparator11";
+            toolStripSeparator11.Size = new Size(234, 6);
             // 
             // tsmnuViewJumpToPreviousMarkedDate
             // 
             tsmnuViewJumpToPreviousMarkedDate.Image = Properties.Resources.previous_marked_date_1;
             tsmnuViewJumpToPreviousMarkedDate.Name = "tsmnuViewJumpToPreviousMarkedDate";
-            tsmnuViewJumpToPreviousMarkedDate.Size = new Size(235, 22);
+            tsmnuViewJumpToPreviousMarkedDate.Size = new Size(237, 22);
             tsmnuViewJumpToPreviousMarkedDate.Text = "Jump to &Previous Marked Date";
             tsmnuViewJumpToPreviousMarkedDate.ToolTipText = "Jump to Previous Marked Date";
             tsmnuViewJumpToPreviousMarkedDate.Click += tsmnuViewJumpToPreviousMarkedDate_Click;
@@ -216,22 +232,43 @@ namespace QuickCalendar
             // 
             tsmnuViewJumpToNextMarkedDate.Image = Properties.Resources.next_marked_date_1;
             tsmnuViewJumpToNextMarkedDate.Name = "tsmnuViewJumpToNextMarkedDate";
-            tsmnuViewJumpToNextMarkedDate.Size = new Size(235, 22);
+            tsmnuViewJumpToNextMarkedDate.Size = new Size(237, 22);
             tsmnuViewJumpToNextMarkedDate.Text = "Jump to &Next Marked Date";
             tsmnuViewJumpToNextMarkedDate.ToolTipText = "Jump to Next Marked Date";
             tsmnuViewJumpToNextMarkedDate.Click += tsmnuViewJumpToNextMarkedDate_Click;
             // 
+            // toolStripSeparator14
+            // 
+            toolStripSeparator14.Name = "toolStripSeparator14";
+            toolStripSeparator14.Size = new Size(234, 6);
+            // 
+            // tsmnuViewSelectToPreviousMarkedDate
+            // 
+            tsmnuViewSelectToPreviousMarkedDate.Name = "tsmnuViewSelectToPreviousMarkedDate";
+            tsmnuViewSelectToPreviousMarkedDate.Size = new Size(237, 22);
+            tsmnuViewSelectToPreviousMarkedDate.Text = "Select to Pre&vious Marked Date";
+            tsmnuViewSelectToPreviousMarkedDate.ToolTipText = "Extend selection back to previous marked date";
+            tsmnuViewSelectToPreviousMarkedDate.Click += tsmnuViewSelectToPreviousMarkedDate_Click;
+            // 
+            // tsmnuViewSelectToNextMarkedDate
+            // 
+            tsmnuViewSelectToNextMarkedDate.Name = "tsmnuViewSelectToNextMarkedDate";
+            tsmnuViewSelectToNextMarkedDate.Size = new Size(237, 22);
+            tsmnuViewSelectToNextMarkedDate.Text = "Select to Ne&xt Marked Date";
+            tsmnuViewSelectToNextMarkedDate.ToolTipText = "Extend selection to next marked date";
+            tsmnuViewSelectToNextMarkedDate.Click += tsmnuViewSelectToNextMarkedDate_Click;
+            // 
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(232, 6);
+            toolStripSeparator7.Size = new Size(234, 6);
             // 
             // tsmnuViewResize
             // 
             tsmnuViewResize.Image = Properties.Resources.resize_form3;
             tsmnuViewResize.Name = "tsmnuViewResize";
             tsmnuViewResize.ShortcutKeys = Keys.Control | Keys.R;
-            tsmnuViewResize.Size = new Size(235, 22);
+            tsmnuViewResize.Size = new Size(237, 22);
             tsmnuViewResize.Text = "&Resize...";
             tsmnuViewResize.ToolTipText = "Resize Form to specific Layout";
             tsmnuViewResize.Click += tsmnuViewResize_Click;
@@ -319,7 +356,7 @@ namespace QuickCalendar
             // 
             // tsMain
             // 
-            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, toolStripSeparator10, tsbtnFileOpen, tsbtnFileSave, tssep1, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, tsbtnViewJumpToPreviousMarkedDate, tsbtnViewJumpToNextMarkedDate, toolStripSeparator6, tsbtnViewResize, toolStripSeparator1, tsbtnFileProgramOptions, toolStripSeparator2, tsbtnHelpAbout });
+            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, toolStripSeparator10, tsbtnFileOpen, tsbtnFileSave, tssep1, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, toolStripSeparator13, tsbtnViewJumpToPreviousMarkedDate, tsbtnViewJumpToNextMarkedDate, toolStripSeparator6, tsbtnViewResize, toolStripSeparator1, tsbtnFileProgramOptions, toolStripSeparator2, tsbtnHelpAbout });
             tsMain.Location = new Point(0, 24);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(753, 25);
@@ -402,6 +439,11 @@ namespace QuickCalendar
             tsbtnViewJumpToDate.Text = "&Jump to Date...";
             tsbtnViewJumpToDate.ToolTipText = "Jump to Specified Date";
             tsbtnViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
+            // 
+            // toolStripSeparator13
+            // 
+            toolStripSeparator13.Name = "toolStripSeparator13";
+            toolStripSeparator13.Size = new Size(6, 25);
             // 
             // tsbtnViewJumpToPreviousMarkedDate
             // 
@@ -567,5 +609,11 @@ namespace QuickCalendar
         private SaveFileDialog dlgSaveFile;
         private ToolStripStatusLabel tslblFileName;
         private System.Windows.Forms.Timer tmrResetStatusBar;
+        private ToolStripSeparator toolStripSeparator12;
+        private ToolStripSeparator toolStripSeparator11;
+        private ToolStripSeparator toolStripSeparator14;
+        private ToolStripMenuItem tsmnuViewSelectToPreviousMarkedDate;
+        private ToolStripMenuItem tsmnuViewSelectToNextMarkedDate;
+        private ToolStripSeparator toolStripSeparator13;
     }
 }

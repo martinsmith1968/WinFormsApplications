@@ -18,5 +18,12 @@ namespace QuickCalendar.Extensions
                 ? value
                 : CalendarSetDisplayNameType.None;
         }
+
+        public static void Update(this UserSettings userSettings, Action<UserSettings>? action)
+        {
+            action?.Invoke(userSettings);
+
+            userSettings.Save();
+        }
     }
 }
