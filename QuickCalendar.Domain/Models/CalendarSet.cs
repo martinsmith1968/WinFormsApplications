@@ -12,6 +12,16 @@ public class CalendarSet : ICopyable<CalendarSet>
     public const string DefaultFontName = "Segoe UI";
     public const float DefaultFontSize = 9;
 
+    public CalendarSet()
+        : this(DefaultName)
+    {
+    }
+
+    public CalendarSet(string name)
+        : this(name, null)
+    {
+    }
+
     public CalendarSet(string name, string? description = null)
     {
         Name            = name;
@@ -20,7 +30,7 @@ public class CalendarSet : ICopyable<CalendarSet>
         DisplayFontSize = DefaultFontSize;
     }
 
-    public int Version => CurrentModelVersion;
+    public int Version { get; set; } = CurrentModelVersion;
 
     public string Name { get; set; }
 
@@ -38,17 +48,21 @@ public class CalendarSet : ICopyable<CalendarSet>
 
     public CalendarSetVisuals VisualDetails { get; set; } = new();
 
-    public CalendarSetDates Dates { get; } = new();
+    public CalendarSetDates Dates { get; set; } = new();
 
     public static CalendarSet Default => new(DefaultName, DefaultDescription);
 
     public void CopyFrom(CalendarSet other)
     {
-        Name = other.Name;
-        Description = other.Description;
-        MinimumDate = other.MinimumDate;
-        MaximumDate = other.MaximumDate;
+        Version           = other.Version;
+        Name              = other.Name;
+        DisplayFontName   = other.DisplayFontName;
+        DisplayFontSize   = other.DisplayFontSize;
+        Description       = other.Description;
+        MinimumDate       = other.MinimumDate;
+        MaximumDate       = other.MaximumDate;
         DateDisplayFormat = other.DateDisplayFormat;
+
         VisualDetails.CopyFrom(other.VisualDetails);
         Dates.CopyFrom(other.Dates);
     }

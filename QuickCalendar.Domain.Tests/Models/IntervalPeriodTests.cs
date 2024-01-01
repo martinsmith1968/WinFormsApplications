@@ -11,6 +11,16 @@ namespace QuickCalendar.Domain.Tests.Models;
 public class IntervalPeriodTests
 {
     private static readonly Fixture AutoFixture = new();
+    private static readonly Random Randomizer = new();
+
+    internal static IntervalPeriod CreateRandomInstance()
+    {
+        return new IntervalPeriod()
+        {
+            IntervalPeriodType = AutoFixture.Create<IntervalPeriodType>(),
+            Value = Convert.ToUInt32(Randomizer.Next(1, 20)),
+        };
+    }
 
     [Fact]
     public void Create_wont_accept_an_invalid_IntervalType()

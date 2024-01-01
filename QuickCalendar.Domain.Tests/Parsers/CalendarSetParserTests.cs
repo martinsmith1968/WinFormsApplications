@@ -5,7 +5,10 @@ using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Domain.Parsers;
+using QuickCalendar.Domain.Repositories;
+using QuickCalendar.Domain.Tests.Models;
 using Xunit;
+using Xunit.Abstractions;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
@@ -14,6 +17,8 @@ namespace QuickCalendar.Domain.Tests.Parsers;
 public class CalendarSetParserTests
 {
     private static readonly Fixture AutoFixture = new();
+
+    private readonly ITestOutputHelper _outputHelper;
 
     private static CalendarSetDates BuildDatesInstance()
     {
@@ -68,22 +73,15 @@ public class CalendarSetParserTests
         return calendarSet;
     }
 
+    public CalendarSetParserTests(ITestOutputHelper outputHelper)
+    {
+        _outputHelper = outputHelper;
+    }
+
     [Fact]
     public void Parse_can_write_a_CalendarSet_successfully()
     {
-        var calendarSetVisuals = BuildCalendarSetVisuals();
-        var calendarSetDates = new CalendarSetDates()
-        {
-            DatesGenerators =
-            {
-                new NotableDatesFixedDateGenerator()
-                {
-                    Date = DateTime.UtcNow.Date,
-                    DescriptionTemplate = "Today"
-                }
-            }
-        };
-        var instance = BuildCalendarSetInstance(calendarSetVisuals, calendarSetDates);
+        var instance = CalendarSetTests.CreateRandomInstance();
 
         // Act
         var result = CalendarSetParser.GenerateJson(instance);
@@ -93,12 +91,43 @@ public class CalendarSetParserTests
     }
 
     [Fact]
+    public void Parse_can_write_my_Custom_CalendarSet_successfully()
+    {
+        var instance = CalendarSetBuilder.BuildMyCustomCalendarSet();
+
+        // Act
+        var result = CalendarSetParser.GenerateJson(instance);
+        _outputHelper.WriteLine($"{nameof(result)}: {result}");
+
+        // Assert
+        result.Should().NotBeNullOrWhiteSpace();
+    }
+
+    [Fact]
+    public void Parse_generates_identical_CalendarSets_identically()
+    {
+        var instance1 = CalendarSetTests.CreateRandomInstance();
+        var instance2 = CalendarSet.Default;
+        instance2.CopyFrom(instance1);
+
+        // Act
+        var result1 = CalendarSetParser.GenerateJson(instance1);
+        _outputHelper.WriteLine($"{nameof(result1)}: {result1}");
+        var result2 = CalendarSetParser.GenerateJson(instance2);
+        _outputHelper.WriteLine($"{nameof(result2)}: {result2}");
+
+        // Assert
+        result1.Should().NotBeNullOrWhiteSpace();
+        result2.Should().NotBeNullOrWhiteSpace();
+        result2.Should().Be(result1);
+    }
+
+    [Fact]
     public void Parser_can_read_and_populate_a_CalendarSet_successfully()
     {
-        var instance = BuildCalendarSetInstance();
+        var instance = CalendarSetTests.CreateRandomInstance();
 
-        var definitionText = CalendarSetParser.GenerateJson(instance)
-            ?? string.Empty;
+        var definitionText = CalendarSetParser.GenerateJson(instance);
 
         // Act
         var result = CalendarSetParser.ParseFromJson(definitionText);
@@ -113,9 +142,9 @@ public class CalendarSetParserTests
         result.MaximumDate.Should().Be(instance.MaximumDate);
 
         result.VisualDetails.Should().NotBeNull();
-        result.VisualDetails.Should().BeEquivalentTo(instance.VisualDetails);
+        CalendarSetVisualsTests.AssertAreEqual(instance.VisualDetails, result.VisualDetails);
 
         result.Dates.Should().NotBeNull();
-        result.Dates.Should().BeEquivalentTo(instance.Dates);
+        CalendarSetDatesTests.AssertAreEqual(instance.Dates, result.Dates);
     }
 }

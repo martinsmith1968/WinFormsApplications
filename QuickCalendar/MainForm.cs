@@ -39,20 +39,17 @@ public partial class MainForm : Form
         tsmnuViewSelectToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
         tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+Shift+]";
 
-        SetupToolbarButtonFromMenuItem(tsbtnFileOpen, tsmnuFileOpen);
-        SetupToolbarButtonFromMenuItem(tsbtnFileSave, tsmnuFileSave);
-        SetupToolbarButtonFromMenuItem(tsbtnFileProgramOptions, tsmnuFileProgramOptions);
-        SetupToolbarButtonFromMenuItem(tsbtnFileExit, tsmnuFileExit);
-
-        SetupToolbarButtonFromMenuItem(tsbtnEditCalendar, tsmnuEditCalendar);
-
-        SetupToolbarButtonFromMenuItem(tsbtnViewToday, tsmnuViewToday);
-        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToDate, tsmnuViewJumpToDate);
+        SetupToolbarButtonFromMenuItem(tsbtnFileOpen,                     tsmnuFileOpen);
+        SetupToolbarButtonFromMenuItem(tsbtnFileSave,                     tsmnuFileSave);
+        SetupToolbarButtonFromMenuItem(tsbtnFileProgramOptions,           tsmnuFileProgramOptions);
+        SetupToolbarButtonFromMenuItem(tsbtnFileExit,                     tsmnuFileExit);
+        SetupToolbarButtonFromMenuItem(tsbtnEditCalendar,                 tsmnuEditCalendar);
+        SetupToolbarButtonFromMenuItem(tsbtnViewToday,                    tsmnuViewToday);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToDate,               tsmnuViewJumpToDate);
         SetupToolbarButtonFromMenuItem(tsbtnViewJumpToPreviousMarkedDate, tsmnuViewJumpToPreviousMarkedDate);
-        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToNextMarkedDate, tsmnuViewJumpToNextMarkedDate);
-        SetupToolbarButtonFromMenuItem(tsbtnViewResize, tsmnuViewResize);
-
-        SetupToolbarButtonFromMenuItem(tsbtnHelpAbout, tsmnuHelpAbout);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToNextMarkedDate,     tsmnuViewJumpToNextMarkedDate);
+        SetupToolbarButtonFromMenuItem(tsbtnViewResize,                   tsmnuViewResize);
+        SetupToolbarButtonFromMenuItem(tsbtnHelpAbout,                    tsmnuHelpAbout);
     }
 
     private void LoadProgramOptions()
@@ -287,16 +284,17 @@ public partial class MainForm : Form
 
     private void tsmnuFileOpen_Click(object sender, EventArgs e)
     {
-        dlgOpenFile.DefaultExt = CalendarSetRepository.DefaultFileExtension;
-        dlgOpenFile.AddExtension = true;
-        dlgOpenFile.RestoreDirectory = true;
+        dlgOpenFile.DefaultExt                   = CalendarSetRepository.DefaultFileExtension;
+        dlgOpenFile.AddExtension                 = true;
+        dlgOpenFile.RestoreDirectory             = true;
         dlgOpenFile.SupportMultiDottedExtensions = true;
-        dlgOpenFile.Multiselect = false;
-        dlgOpenFile.CheckFileExists = true;
-        dlgOpenFile.CheckPathExists = true;
-        dlgOpenFile.AutoUpgradeEnabled = true;
-        dlgOpenFile.Filter = CalendarSetRepository.BuildFileDialogFileFilters();
-        dlgOpenFile.FilterIndex = 0;
+        dlgOpenFile.Multiselect                  = false;
+        dlgOpenFile.CheckFileExists              = true;
+        dlgOpenFile.CheckPathExists              = true;
+        dlgOpenFile.ShowHelp                     = true;
+        dlgOpenFile.AutoUpgradeEnabled           = true;
+        dlgOpenFile.Filter                       = CalendarSetRepository.BuildFileDialogFileFilters();
+        dlgOpenFile.FilterIndex                  = 0;
 
         if (dlgOpenFile.ShowDialog() != DialogResult.OK)
             return;
@@ -336,20 +334,22 @@ public partial class MainForm : Form
 
     private void tsmnuFileSaveAs_Click(object sender, EventArgs e)
     {
-        dlgSaveFile.DefaultExt = CalendarSetRepository.DefaultFileExtension;
-        dlgSaveFile.AddExtension = true;
-        dlgSaveFile.RestoreDirectory = true;
+        dlgSaveFile.DefaultExt                   = CalendarSetRepository.DefaultFileExtension;
+        dlgSaveFile.AddExtension                 = true;
+        dlgSaveFile.RestoreDirectory             = true;
         dlgSaveFile.SupportMultiDottedExtensions = true;
-        dlgSaveFile.CheckFileExists = false;
-        dlgSaveFile.CheckPathExists = true;
-        dlgSaveFile.AutoUpgradeEnabled = true;
-        dlgSaveFile.Filter = CalendarSetRepository.BuildFileDialogFileFilters();
-        dlgSaveFile.FilterIndex = 0;
+        dlgSaveFile.CheckFileExists              = false;
+        dlgSaveFile.CheckPathExists              = true;
+        dlgSaveFile.OverwritePrompt              = true;
+        dlgSaveFile.ShowHelp                     = true;
+        dlgSaveFile.AutoUpgradeEnabled           = true;
+        dlgSaveFile.Filter                       = CalendarSetRepository.BuildFileDialogFileFilters();
+        dlgSaveFile.FilterIndex                  = 0;
 
         if (dlgSaveFile.ShowDialog() != DialogResult.OK)
             return;
 
-        var fileName = dlgOpenFile.FileName;
+        var fileName = dlgSaveFile.FileName;
 
         try
         {

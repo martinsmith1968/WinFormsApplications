@@ -1,4 +1,5 @@
-﻿using DNX.Helpers.Reflection;
+using System.Reflection;
+using QuickCalendar.Domain.Extensions;
 
 namespace QuickCalendar.Domain.Generators;
 
@@ -24,7 +25,12 @@ public class NotableDateGeneratorFactory
 
         var instance = Activator.CreateInstance(targetType);
 
-        instance.PopulateFrom(properties);
+        if (properties != null)
+        {
+            const BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.FlattenHierarchy;
+
+            instance.PopulateFromDictionary(properties, flags, targetType);
+        }
 
         return instance as INotableDatesGenerator;
     }

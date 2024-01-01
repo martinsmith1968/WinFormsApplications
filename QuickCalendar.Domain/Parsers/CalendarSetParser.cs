@@ -1,15 +1,30 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using QuickCalendar.Domain.Formatters;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Parsers.Converters;
 
 namespace QuickCalendar.Domain.Parsers;
 
 public class CalendarSetParser
 {
+    private static readonly JsonSerializerSettings Settings = new()
+    {
+        ContractResolver = new CalendarSetContractResolver(),
+        Formatting = Formatting.Indented,
+        TypeNameHandling = TypeNameHandling.None,
+        Converters =
+        {
+            new StringEnumConverter(),
+            new CalendarSetDatesJsonConverter(),
+        }
+    };
+
     public static CalendarSet? ParseFromJson(string json)
     {
         try
         {
-            var calendarSet = JsonConvert.DeserializeObject<CalendarSet>(json);
+            var calendarSet = JsonConvert.DeserializeObject<CalendarSet>(json, Settings);
 
             return calendarSet;
         }
@@ -23,7 +38,7 @@ public class CalendarSetParser
     {
         try
         {
-            var json = JsonConvert.SerializeObject(calendarSet, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(calendarSet, Settings);
 
             return json;
         }
