@@ -57,7 +57,7 @@ public partial class MainForm : Form
     {
         tsmnuFileExit.ShortcutKeyDisplayString = UserSettings.Default.CloseOnEscape
             ? Keys.Escape.ToString()
-            : "";
+            : string.Empty;
     }
 
     private static void SetupToolbarButtonFromMenuItem(ToolStripButton button, ToolStripMenuItem menuItem)
@@ -243,11 +243,6 @@ public partial class MainForm : Form
         );
     }
 
-    private void SetFirstShownDate(DateTime dt)
-    {
-        mcalCalendar.SetDate(dt);
-    }
-
     private void ShowInfoText(string? text = null, TimeSpan? clearAfter = null)
     {
         tslblInfo.Text = text;
@@ -408,35 +403,45 @@ public partial class MainForm : Form
     {
         var targetDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start);
         if (targetDate.HasValue)
+        {
             SelectDate(targetDate.Value);
+        }
     }
 
     private void tsmnuViewJumpToNextMarkedDate_Click(object sender, EventArgs e)
     {
         var targetDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.Start);
         if (targetDate.HasValue)
+        {
             SelectDate(targetDate.Value);
+        }
     }
 
     private void tsmnuViewSelectToPreviousMarkedDate_Click(object sender, EventArgs e)
     {
         var targetDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start);
         if (targetDate.HasValue)
+        {
             SelectDates(targetDate.Value, mcalCalendar.SelectionRange.End);
+        }
     }
 
     private void tsmnuViewSelectToNextMarkedDate_Click(object sender, EventArgs e)
     {
         var targetDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.End);
         if (targetDate.HasValue)
+        {
             SelectDates(mcalCalendar.SelectionRange.Start, targetDate.Value);
+        }
     }
 
     private void tsmnuViewResetFirstVisibleMonth_Click(object sender, EventArgs e)
     {
         if (CalendarSet.VisualDetails.FirstVisibleMonth.HasValue)
         {
-            mcalCalendar.SetFirstVisibleMonth(CalendarSet.VisualDetails.FirstVisibleMonth.Value);
+            var firstVisibleDate = mcalCalendar.SetFirstVisibleMonth(CalendarSet.VisualDetails.FirstVisibleMonth.Value);
+
+            ShowInfoText($"Calendar View Reset to {firstVisibleDate:MMMM yyyy}", TimeSpan.FromSeconds(2));
         }
     }
 
@@ -470,10 +475,12 @@ public partial class MainForm : Form
 
     private void tmrResetStatusBar_Tick(object sender, EventArgs e)
     {
-        if (sender is Timer timer)
-            timer.Enabled = false;
-        else
-            tmrResetStatusBar.Enabled = false;
+        if (sender is not Timer timer)
+        {
+            timer = tmrResetStatusBar;
+        }
+
+        timer.Enabled = false;
 
         ShowInfoText();
     }

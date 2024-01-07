@@ -181,7 +181,7 @@ namespace QuickCalendar
             tsmnuEditCalendar.Image = Properties.Resources.edit_calendar1;
             tsmnuEditCalendar.Name = "tsmnuEditCalendar";
             tsmnuEditCalendar.ShortcutKeys = Keys.Control | Keys.E;
-            tsmnuEditCalendar.Size = new Size(180, 22);
+            tsmnuEditCalendar.Size = new Size(170, 22);
             tsmnuEditCalendar.Text = "Cal&endar...";
             tsmnuEditCalendar.ToolTipText = "View and Change the settings for this Calendar";
             tsmnuEditCalendar.Click += tsmnuEditCalendar_Click;

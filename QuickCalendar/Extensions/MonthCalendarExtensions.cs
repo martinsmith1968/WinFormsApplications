@@ -2,14 +2,12 @@ namespace QuickCalendar.Extensions;
 
 public static class MonthCalendarExtensions
 {
-    public static void SetFirstVisibleMonth(this MonthCalendar monthCalendar, int firstVisibleMonth)
+    public static DateTime SetFirstVisibleMonth(this MonthCalendar monthCalendar, int firstVisibleMonth)
     {
         var currentSelectionRange = monthCalendar.SelectionRange;
 
         try
         {
-            var activeDisplayedRange = monthCalendar.GetActiveDisplayRange();
-
             var targetFirstVisibleDate = new DateTime(DateTime.UtcNow.Year, firstVisibleMonth, 1);
 
             while (monthCalendar.GetActiveDisplayRange().Start > targetFirstVisibleDate)
@@ -33,6 +31,8 @@ public static class MonthCalendarExtensions
             monthCalendar.ResumeLayout();
             monthCalendar.Update();
         }
+
+        return monthCalendar.GetActiveDisplayRange().Start;
     }
 
     public static void SetSelectionRange(this MonthCalendar calendar, SelectionRange selectionRange)
