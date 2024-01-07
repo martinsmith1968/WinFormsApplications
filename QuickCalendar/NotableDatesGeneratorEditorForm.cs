@@ -202,7 +202,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
 
     private void cboStartDateEndDateGeneratorIntervalType_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _notableDatesStartDateEndDateGenerator.IntervalPeriod.IntervalPeriodType = Enum.Parse<IntervalPeriodType>(cboStartDateEndDateGeneratorIntervalType.SelectedItem.ToString());
+        _notableDatesStartDateEndDateGenerator.IntervalPeriod.IntervalPeriodType = Enum.Parse<IntervalPeriodType>(cboStartDateEndDateGeneratorIntervalType.SelectedItem?.ToString() ?? string.Empty);
         PopulateGeneratedDates();
     }
 
@@ -226,7 +226,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
 
     private void cboStartDateRepeatCountGeneratorInterval_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.IntervalPeriodType = Enum.Parse<IntervalPeriodType>(cboStartDateRepeatCountGeneratorInterval.SelectedItem.ToString());
+        _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.IntervalPeriodType = Enum.Parse<IntervalPeriodType>(cboStartDateRepeatCountGeneratorInterval.SelectedItem?.ToString() ?? string.Empty);
         PopulateGeneratedDates();
     }
 }

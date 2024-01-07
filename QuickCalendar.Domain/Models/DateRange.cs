@@ -2,7 +2,7 @@ namespace QuickCalendar.Domain.Models;
 
 public class DateRange : DateTimeRange
 {
-    public static DateRange Default => new(DateTime.UtcNow.Date);
+    public new static DateRange Default => new(DateTime.UtcNow.Date);
 
     public DateRange(DateTime date)
         : this(date.Date, date.Date)

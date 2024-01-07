@@ -1,3 +1,5 @@
+using QuickCalendar.Domain.Extensions;
+
 namespace QuickCalendar.Domain.Models;
 
 public class DateTimeRange
@@ -19,5 +21,10 @@ public class DateTimeRange
     {
         StartDate = startDate <= endDate ? startDate : endDate;
         EndDate = endDate >= startDate ? endDate : startDate;
+    }
+
+    public int GetMonthRange()
+    {
+        return StartDate.GetMonthsSpan(EndDate);
     }
 }

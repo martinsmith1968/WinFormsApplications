@@ -29,27 +29,28 @@ public partial class MainForm : Form
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
         // Can't set these via the UI :-(
-        tsmnuViewToday.ShortcutKeys                                  = Keys.Home | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys               = Keys.OemOpenBrackets | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString   = "Ctrl+[";
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeys                   = Keys.OemCloseBrackets | Keys.Control;
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString       = "Ctrl+]";
-        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys             = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewToday.ShortcutKeys = Keys.Home | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+[";
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control;
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+]";
+        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
         tsmnuViewSelectToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+[";
-        tsmnuViewSelectToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
-        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+Shift+]";
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+]";
 
-        SetupToolbarButtonFromMenuItem(tsbtnFileOpen,                     tsmnuFileOpen);
-        SetupToolbarButtonFromMenuItem(tsbtnFileSave,                     tsmnuFileSave);
-        SetupToolbarButtonFromMenuItem(tsbtnFileProgramOptions,           tsmnuFileProgramOptions);
-        SetupToolbarButtonFromMenuItem(tsbtnFileExit,                     tsmnuFileExit);
-        SetupToolbarButtonFromMenuItem(tsbtnEditCalendar,                 tsmnuEditCalendar);
-        SetupToolbarButtonFromMenuItem(tsbtnViewToday,                    tsmnuViewToday);
-        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToDate,               tsmnuViewJumpToDate);
+        SetupToolbarButtonFromMenuItem(tsbtnFileOpen, tsmnuFileOpen);
+        SetupToolbarButtonFromMenuItem(tsbtnFileSave, tsmnuFileSave);
+        SetupToolbarButtonFromMenuItem(tsbtnFileProgramOptions, tsmnuFileProgramOptions);
+        SetupToolbarButtonFromMenuItem(tsbtnFileExit, tsmnuFileExit);
+        SetupToolbarButtonFromMenuItem(tsbtnEditCalendar, tsmnuEditCalendar);
+        SetupToolbarButtonFromMenuItem(tsbtnViewToday, tsmnuViewToday);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToDate, tsmnuViewJumpToDate);
         SetupToolbarButtonFromMenuItem(tsbtnViewJumpToPreviousMarkedDate, tsmnuViewJumpToPreviousMarkedDate);
-        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToNextMarkedDate,     tsmnuViewJumpToNextMarkedDate);
-        SetupToolbarButtonFromMenuItem(tsbtnViewResize,                   tsmnuViewResize);
-        SetupToolbarButtonFromMenuItem(tsbtnHelpAbout,                    tsmnuHelpAbout);
+        SetupToolbarButtonFromMenuItem(tsbtnViewJumpToNextMarkedDate, tsmnuViewJumpToNextMarkedDate);
+        SetupToolbarButtonFromMenuItem(tsbtnViewResetFirstVisibleMonth, tsmnuViewResetFirstVisibleMonth);
+        SetupToolbarButtonFromMenuItem(tsbtnViewResize, tsmnuViewResize);
+        SetupToolbarButtonFromMenuItem(tsbtnHelpAbout, tsmnuHelpAbout);
     }
 
     private void LoadProgramOptions()
@@ -125,11 +126,7 @@ public partial class MainForm : Form
 
         if (calendarSetVisuals.FirstVisibleMonth.HasValue)
         {
-            mcalCalendar.SuspendLayout();
-            var firstDate = new DateTime(DateTime.UtcNow.Year, calendarSetVisuals.FirstVisibleMonth.Value, 1);
-            SetFirstShownDate(firstDate);
-            SetFirstShownDate(DateTime.UtcNow.Date);
-            mcalCalendar.ResumeLayout();
+            mcalCalendar.SetFirstVisibleMonth(calendarSetVisuals.FirstVisibleMonth.Value);
         }
 
         if (calendarSetVisuals.FirstDayOfWeek.HasValue)
@@ -219,13 +216,18 @@ public partial class MainForm : Form
         var hasNextMarkedDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.End).HasValue;
         var hasPreviousMarkedDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start).HasValue;
 
-        tsmnuViewJumpToNextMarkedDate.Enabled       = hasNextMarkedDate;
-        tsmnuViewJumpToPreviousMarkedDate.Enabled   = hasPreviousMarkedDate;
-        tsmnuViewSelectToNextMarkedDate.Enabled     = hasNextMarkedDate;
+        tsmnuViewJumpToNextMarkedDate.Enabled = hasNextMarkedDate;
+        tsmnuViewJumpToPreviousMarkedDate.Enabled = hasPreviousMarkedDate;
+        tsmnuViewSelectToNextMarkedDate.Enabled = hasNextMarkedDate;
         tsmnuViewSelectToPreviousMarkedDate.Enabled = hasPreviousMarkedDate;
 
-        tsbtnViewJumpToNextMarkedDate.Enabled     = tsmnuViewJumpToNextMarkedDate.Enabled;
+        tsmnuViewResetFirstVisibleMonth.Enabled = CalendarSet.VisualDetails.FirstVisibleMonth.HasValue;
+
+
+        tsbtnViewJumpToNextMarkedDate.Enabled = tsmnuViewJumpToNextMarkedDate.Enabled;
         tsbtnViewJumpToPreviousMarkedDate.Enabled = tsmnuViewJumpToPreviousMarkedDate.Enabled;
+
+        tsbtnViewResetFirstVisibleMonth.Enabled = tsmnuViewResetFirstVisibleMonth.Enabled;
     }
 
     private void SelectDate(DateTime dt)
@@ -284,17 +286,17 @@ public partial class MainForm : Form
 
     private void tsmnuFileOpen_Click(object sender, EventArgs e)
     {
-        dlgOpenFile.DefaultExt                   = CalendarSetRepository.DefaultFileExtension;
-        dlgOpenFile.AddExtension                 = true;
-        dlgOpenFile.RestoreDirectory             = true;
+        dlgOpenFile.DefaultExt = CalendarSetRepository.DefaultFileExtension;
+        dlgOpenFile.AddExtension = true;
+        dlgOpenFile.RestoreDirectory = true;
         dlgOpenFile.SupportMultiDottedExtensions = true;
-        dlgOpenFile.Multiselect                  = false;
-        dlgOpenFile.CheckFileExists              = true;
-        dlgOpenFile.CheckPathExists              = true;
-        dlgOpenFile.ShowHelp                     = true;
-        dlgOpenFile.AutoUpgradeEnabled           = true;
-        dlgOpenFile.Filter                       = CalendarSetRepository.BuildFileDialogFileFilters();
-        dlgOpenFile.FilterIndex                  = 0;
+        dlgOpenFile.Multiselect = false;
+        dlgOpenFile.CheckFileExists = true;
+        dlgOpenFile.CheckPathExists = true;
+        dlgOpenFile.ShowHelp = true;
+        dlgOpenFile.AutoUpgradeEnabled = true;
+        dlgOpenFile.Filter = CalendarSetRepository.BuildFileDialogFileFilters();
+        dlgOpenFile.FilterIndex = 0;
 
         if (dlgOpenFile.ShowDialog() != DialogResult.OK)
             return;
@@ -334,17 +336,17 @@ public partial class MainForm : Form
 
     private void tsmnuFileSaveAs_Click(object sender, EventArgs e)
     {
-        dlgSaveFile.DefaultExt                   = CalendarSetRepository.DefaultFileExtension;
-        dlgSaveFile.AddExtension                 = true;
-        dlgSaveFile.RestoreDirectory             = true;
+        dlgSaveFile.DefaultExt = CalendarSetRepository.DefaultFileExtension;
+        dlgSaveFile.AddExtension = true;
+        dlgSaveFile.RestoreDirectory = true;
         dlgSaveFile.SupportMultiDottedExtensions = true;
-        dlgSaveFile.CheckFileExists              = false;
-        dlgSaveFile.CheckPathExists              = true;
-        dlgSaveFile.OverwritePrompt              = true;
-        dlgSaveFile.ShowHelp                     = true;
-        dlgSaveFile.AutoUpgradeEnabled           = true;
-        dlgSaveFile.Filter                       = CalendarSetRepository.BuildFileDialogFileFilters();
-        dlgSaveFile.FilterIndex                  = 0;
+        dlgSaveFile.CheckFileExists = false;
+        dlgSaveFile.CheckPathExists = true;
+        dlgSaveFile.OverwritePrompt = true;
+        dlgSaveFile.ShowHelp = true;
+        dlgSaveFile.AutoUpgradeEnabled = true;
+        dlgSaveFile.Filter = CalendarSetRepository.BuildFileDialogFileFilters();
+        dlgSaveFile.FilterIndex = 0;
 
         if (dlgSaveFile.ShowDialog() != DialogResult.OK)
             return;
@@ -430,6 +432,14 @@ public partial class MainForm : Form
             SelectDates(mcalCalendar.SelectionRange.Start, targetDate.Value);
     }
 
+    private void tsmnuViewResetFirstVisibleMonth_Click(object sender, EventArgs e)
+    {
+        if (CalendarSet.VisualDetails.FirstVisibleMonth.HasValue)
+        {
+            mcalCalendar.SetFirstVisibleMonth(CalendarSet.VisualDetails.FirstVisibleMonth.Value);
+        }
+    }
+
     private void tsmnuViewResize_Click(object sender, EventArgs e)
     {
         var calendarSize = new CalendarSize(mcalCalendar.CalendarDimensions.Width, mcalCalendar.CalendarDimensions.Height, "Current");
@@ -442,8 +452,9 @@ public partial class MainForm : Form
 
     private void tsmnuHelpUsageGuide_Click(object sender, EventArgs e)
     {
-        var usageGuideUrl = ProjectInfo.Docs.UsageGuideUrl;
-        var processStartInfo = new ProcessStartInfo(usageGuideUrl)
+        const string targetUrl = ProjectInfo.Docs.UsageGuideUrl;
+
+        var processStartInfo = new ProcessStartInfo(targetUrl)
         {
             UseShellExecute = true,
             Verb = "open"

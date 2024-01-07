@@ -24,6 +24,16 @@ public class DateTimeExtensionsTests
         result.Should().Be(expected);
     }
 
+    [Theory]
+    [MemberData(nameof(GetMonthsSpan_Data))]
+    public void GetMonthsSpan_calculates_as_expected(DateTime dateTime1, DateTime dateTime2, int expectedResult)
+    {
+        var result = dateTime1.GetMonthsSpan(dateTime2);
+
+        // Assert
+        result.Should().Be(expectedResult);
+    }
+
     public static TheoryData<DateTime, DateTime, DateTime> MinOf_Data()
     {
         var data = new TheoryData<DateTime, DateTime, DateTime>();
@@ -54,5 +64,20 @@ public class DateTimeExtensionsTests
         data.Add(today, DateTimeExtensions.CalendarMinValue, today);
 
         return data;
+    }
+
+    public static TheoryData<DateTime, DateTime, int> GetMonthsSpan_Data()
+    {
+        var list = new TheoryData<DateTime, DateTime, int>
+        {
+            { new DateTime(2000, 01, 01), new DateTime(2000, 12, 31), 12 },
+            { new DateTime(2000, 12, 31), new DateTime(2000, 01, 01), 12 },
+            { new DateTime(2000, 01, 01), new DateTime(2000, 01, 31), 1 },
+            { new DateTime(2000, 01, 01), new DateTime(2000, 02, 01), 2 },
+            { new DateTime(2000, 01, 01), new DateTime(2000, 01, 01), 1 },
+        };
+
+
+        return list;
     }
 }

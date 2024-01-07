@@ -141,7 +141,8 @@ public class CalendarSetParserTests
     {
         var instance = CalendarSetTests.CreateRandomInstance();
 
-        var definitionText = CalendarSetParser.GenerateJson(instance);
+        var definitionText = CalendarSetParser.GenerateJson(instance)
+                             ?? string.Empty;
 
         // Act
         var result = CalendarSetParser.ParseFromJson(definitionText);

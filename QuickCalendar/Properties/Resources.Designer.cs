@@ -343,6 +343,26 @@ namespace QuickCalendar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap go_first_24 {
+            get {
+                object obj = ResourceManager.GetObject("go_first_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap go_first_view_24 {
+            get {
+                object obj = ResourceManager.GetObject("go_first_view_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap import_icon1 {
             get {
                 object obj = ResourceManager.GetObject("import_icon1", resourceCulture);

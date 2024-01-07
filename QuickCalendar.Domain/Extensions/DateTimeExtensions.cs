@@ -20,4 +20,15 @@ public static class DateTimeExtensions
             ? values.Max()
             : DateTime.MaxValue;
     }
+
+    public static int GetMonthsSpan(this DateTime dateTime, DateTime other)
+    {
+        var startDate = MinOf(dateTime, other);
+        var endDate = MaxOf(dateTime, other);
+
+        var startNumber = (startDate.Year * 100) + startDate.Month;
+        var endNumber = (endDate.Year * 100) + endDate.Month;
+
+        return (endNumber - startNumber) + 1;
+    }
 }

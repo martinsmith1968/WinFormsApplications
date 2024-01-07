@@ -202,6 +202,12 @@
   <data name="export_icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Buttons\export-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="go_first_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Buttons\go-first.24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="go_first_view_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Buttons\go-first-view.24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="import_icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Buttons\import-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
