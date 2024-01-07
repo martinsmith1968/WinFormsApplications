@@ -3,7 +3,8 @@ using QuickCalendar.Domain.Interfaces;
 
 namespace QuickCalendar.Domain.Models;
 
-public class CalendarSetDates : ICopyable<CalendarSetDates>
+public class CalendarSetDates : ICopyable<CalendarSetDates>,
+    ICloneable<CalendarSetDates>
 {
     public IList<INotableDatesGenerator> DatesGenerators { get; } = new List<INotableDatesGenerator>();
 
@@ -39,17 +40,6 @@ public class CalendarSetDates : ICopyable<CalendarSetDates>
         .OrderBy(nd => nd.Date)
         .ToList();
 
-    public void CopyFrom_Original(CalendarSetDates other)
-    {
-        var factory = new NotableDateGeneratorFactory();
-
-        DatesGenerators.Clear();
-        foreach (var g in other.DatesGenerators)
-        {
-            //
-        }
-    }
-
     public void CopyFrom(CalendarSetDates other)
     {
         foreach(var candidate in other.AnnualDatesGenerators)
@@ -60,5 +50,12 @@ public class CalendarSetDates : ICopyable<CalendarSetDates>
 
         foreach (var candidate in other.DatesGenerators)
             DatesGenerators.Add(candidate);
+    }
+
+    public CalendarSetDates Clone()
+    {
+        var other = new CalendarSetDates();
+        other.CopyFrom(this);
+        return other;
     }
 }

@@ -12,7 +12,7 @@ public class NotableDateGeneratorFactory
         .Where(t => t.GetInterfaces().Contains(typeof(INotableDatesGenerator)))
         .ToList();
 
-    public INotableDatesGenerator? Create(string name, IDictionary<string, object> properties)
+    public INotableDatesGenerator? Create(string name, IDictionary<string, object>? properties)
     {
         var targetType = FactoryCandidateTypes.FirstOrDefault(t => string.Equals(t.Name, name, StringComparison.OrdinalIgnoreCase))
                          ?? FactoryCandidateTypes.FirstOrDefault(t => string.Equals(t.Name, $"NotableDates{name}", StringComparison.OrdinalIgnoreCase))

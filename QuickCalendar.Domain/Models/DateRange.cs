@@ -1,23 +1,16 @@
 namespace QuickCalendar.Domain.Models;
 
-public class DateRange
+public class DateRange : DateTimeRange
 {
     public static DateRange Default => new(DateTime.UtcNow.Date);
 
     public DateRange(DateTime date)
-        : this(date, date)
+        : this(date.Date, date.Date)
     {
     }
 
     public DateRange(DateTime startDate, DateTime endDate)
+        : base(startDate.Date, endDate.Date)
     {
-        StartDate = startDate <= endDate ? startDate : endDate;
-        EndDate = endDate >= startDate ? endDate : startDate;
     }
-
-    public DateTime StartDate { get; }
-
-    public DateTime EndDate { get; }
-
-    public bool IsRange => EndDate > StartDate;
 }

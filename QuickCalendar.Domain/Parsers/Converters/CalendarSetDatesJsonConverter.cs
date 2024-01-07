@@ -48,8 +48,10 @@ public class CalendarSetDatesJsonConverter : JsonConverter<CalendarSetDates>
         }
     }
 
-    // <summary>Creates a new reader for the specified jObject by copying the settings
-    /// from an existing reader.</summary>
+    /// <summary>
+    /// Creates a new reader for the specified jObject by copying the settings
+    /// from an existing reader.
+    /// </summary>
     /// <param name="reader">The reader whose settings should be copied.</param>
     /// <param name="jToken">The jToken to create a new reader for.</param>
     /// <returns>The new disposable reader.</returns>

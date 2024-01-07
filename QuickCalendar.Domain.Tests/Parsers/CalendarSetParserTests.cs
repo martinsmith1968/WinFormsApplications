@@ -104,7 +104,7 @@ public class CalendarSetParserTests
     }
 
     [Fact]
-    public void Parse_generates_identical_CalendarSets_identically()
+    public void GenerateJson_generates_identical_CalendarSets_identically()
     {
         var instance1 = CalendarSetTests.CreateRandomInstance();
         var instance2 = CalendarSet.Default;
@@ -120,6 +120,20 @@ public class CalendarSetParserTests
         result1.Should().NotBeNullOrWhiteSpace();
         result2.Should().NotBeNullOrWhiteSpace();
         result2.Should().Be(result1);
+    }
+
+    [Fact]
+    public void GenerateJson_fails_to_generate_JSON_from_an_invalid_CalendarSet()
+    {
+        var instance1 = CalendarSetTests.CreateRandomInstance();
+        instance1.VisualDetails.FirstDayOfWeek = (DayOfWeek)int.MaxValue;
+
+        // Act
+        var result1 = CalendarSetParser.GenerateJson(instance1);
+        _outputHelper.WriteLine($"{nameof(result1)}: {result1}");
+
+        // Assert
+        result1.Should().BeNull();
     }
 
     [Fact]
@@ -146,5 +160,17 @@ public class CalendarSetParserTests
 
         result.Dates.Should().NotBeNull();
         CalendarSetDatesTests.AssertAreEqual(instance.Dates, result.Dates);
+    }
+
+    [Fact]
+    public void Parser_fails_to_read_a_CalendarSet_from_invalid_json()
+    {
+        var definitionText = Guid.NewGuid().ToString();
+
+        // Act
+        var result = CalendarSetParser.ParseFromJson(definitionText);
+
+        // Assert
+        result.Should().BeNull();
     }
 }

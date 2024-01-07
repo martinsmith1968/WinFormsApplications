@@ -50,8 +50,26 @@ public class NotableDatesFixedDateGeneratorTests
         var instance = new NotableDatesFixedDateGenerator();
         instance.CopyFrom(generator);
 
+        // Act
         var result = instance.GetDefinitionValue();
 
+        // Assert
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [MemberData(nameof(CopyFrom_Data))]
+    public void Clone_can_populate_properties_as_expected(NotableDatesFixedDateGenerator generator, string expected)
+    {
+        var instance = new NotableDatesFixedDateGenerator();
+        instance.CopyFrom(generator);
+
+        var other = instance.Clone();
+
+        // Act
+        var result = other.GetDefinitionValue();
+
+        // Assert
         result.Should().Be(expected);
     }
 

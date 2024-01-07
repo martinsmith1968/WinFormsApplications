@@ -4,6 +4,7 @@ using Bogus;
 using FluentAssertions;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
+using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Models
 {
@@ -36,7 +37,7 @@ namespace QuickCalendar.Domain.Tests.Models
                 .Create();
         }
 
-        public static void AssertAreEqual(CalendarSetVisuals instance1, CalendarSetVisuals instance2)
+        internal static void AssertAreEqual(CalendarSetVisuals instance1, CalendarSetVisuals instance2)
         {
             instance1.Should().NotBeNull();
             instance2.Should().NotBeNull();
@@ -49,6 +50,33 @@ namespace QuickCalendar.Domain.Tests.Models
             instance2.ShowWeekNumbers.Should().Be(instance1.ShowWeekNumbers);
             instance2.VisibleDimensions.Should().Be(instance1.VisibleDimensions);
             instance2.WindowStartLocation.Should().Be(instance1.WindowStartLocation);
+        }
+
+        [Theory]
+        [MemberData(nameof(IsValid_Data))]
+        public void IsPoint_can_detect_values_correctly(Point? point, bool expectedResult)
+        {
+            // Act
+            var result = CalendarSetVisuals.IsValid(point);
+
+            // Assert
+            result.Should().Be(expectedResult);
+        }
+
+        public static TheoryData<Point?, bool> IsValid_Data()
+        {
+            var list = new TheoryData<Point?, bool>
+            {
+                { new Point(0, 0), true },
+                { new Point(10, 0), true },
+                { new Point(0, 10), true },
+                { new Point(10, 10), true },
+                { new Point(-10, 10), false },
+                { new Point(10, -10), false },
+                { null, false },
+            };
+
+            return list;
         }
     }
 }

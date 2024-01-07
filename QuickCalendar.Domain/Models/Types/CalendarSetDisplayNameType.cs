@@ -14,11 +14,3 @@ public enum CalendarSetDisplayNameType
 
     Description
 }
-
-public class FileNameDisplayTypeComboItem : ComboItem<CalendarSetDisplayNameType>
-{
-    public FileNameDisplayTypeComboItem(CalendarSetDisplayNameType value, string? displayName = null)
-        : base(value, displayName)
-    {
-    }
-}

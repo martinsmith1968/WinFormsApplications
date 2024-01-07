@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 using QuickCalendar.Domain.Formatters;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Parsers.Converters;
@@ -15,7 +16,11 @@ public class CalendarSetParser
         TypeNameHandling = TypeNameHandling.None,
         Converters =
         {
-            new StringEnumConverter(),
+            new StringEnumConverter()
+            {
+                AllowIntegerValues = false,
+                NamingStrategy = new DefaultNamingStrategy()
+            },
             new CalendarSetDatesJsonConverter(),
         }
     };

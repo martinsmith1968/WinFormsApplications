@@ -24,11 +24,11 @@ public static class NumericExtensions
 
     public static uint ToUInt32(this double value)
     {
-        return Convert.ToUInt32(value);
+        return Convert.ToUInt32(Math.Abs(value));
     }
 
     public static uint ToUInt32(this decimal value)
     {
-        return Convert.ToUInt32(value);
+        return Convert.ToUInt32(Math.Abs(value));
     }
 }

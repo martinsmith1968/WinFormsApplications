@@ -1,6 +1,7 @@
 using AutoFixture;
 using Bogus;
 using FluentAssertions;
+using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using Xunit;
 
@@ -78,5 +79,113 @@ public class CalendarSetTests
         AssertAreEqual(source, target);
         CalendarSetVisualsTests.AssertAreEqual(source.VisualDetails, target.VisualDetails);
         CalendarSetDatesTests.AssertAreEqual(source.Dates, target.Dates);
+    }
+
+    [Fact]
+    public void Clone_can_copy_all_properties_correctly()
+    {
+        var source = CreateRandomInstance();
+
+        // Act
+        var target = source.Clone();
+
+        // Assert
+        AssertAreEqual(source, target);
+        CalendarSetVisualsTests.AssertAreEqual(source.VisualDetails, target.VisualDetails);
+        CalendarSetDatesTests.AssertAreEqual(source.Dates, target.Dates);
+    }
+
+    [Theory]
+    [MemberData(nameof(FindNextMarkedDate_Data))]
+    public void FindNextMarkedDate_finds_valid_next_DateTime_correctly(IList<DateTime> dates, DateTime searchDate, DateTime? expectedResult)
+    {
+        var instance = new CalendarSet(CalendarSet.DefaultName);
+        foreach (var date in dates)
+        {
+            instance.Dates.DatesGenerators.Add(
+                new NotableDatesFixedDateGenerator()
+                {
+                    Date = date,
+                    DescriptionTemplate = BaseNotableDatesGenerator.Default_DescriptionTemplate,
+                }
+                );
+        }
+
+        // Act
+        var result = instance.FindNextMarkedDate(searchDate);
+
+        // Assert
+        result.HasValue.Should().Be(expectedResult.HasValue);
+        result.Should().Be(expectedResult);
+    }
+
+    [Theory]
+    [MemberData(nameof(FindPreviousMarkedDate_Data))]
+    public void FindPreviousMarkedDate_finds_valid_next_DateTime_correctly(IList<DateTime> dates, DateTime searchDate, DateTime? expectedResult)
+    {
+        var instance = new CalendarSet(CalendarSet.DefaultName);
+        foreach (var date in dates)
+        {
+            instance.Dates.DatesGenerators.Add(
+                new NotableDatesFixedDateGenerator()
+                {
+                    Date = date,
+                    DescriptionTemplate = BaseNotableDatesGenerator.Default_DescriptionTemplate,
+                }
+            );
+        }
+
+        // Act
+        var result = instance.FindPreviousMarkedDate(searchDate);
+
+        // Assert
+        result.HasValue.Should().Be(expectedResult.HasValue);
+        result.Should().Be(expectedResult);
+    }
+
+    public static TheoryData<IList<DateTime>, DateTime, DateTime?> FindNextMarkedDate_Data()
+    {
+        var list = new TheoryData<IList<DateTime>, DateTime, DateTime?>();
+
+        var dateTime1 = new DateTime(2000, 06, 01);
+        var dateTime2 = new DateTime(2000, 07, 01);
+        var dateTime3 = new DateTime(2000, 08, 01);
+
+        var datesList = new List<DateTime>()
+        {
+            dateTime1,
+            dateTime2,
+            dateTime3,
+        };
+
+        list.Add(datesList, new DateTime(2000, 01, 01), dateTime1);
+        list.Add(datesList, new DateTime(2000, 06, 15), dateTime2);
+        list.Add(datesList, new DateTime(2000, 07, 15), dateTime3);
+        list.Add(datesList, new DateTime(2000, 08, 15), null);
+
+        return list;
+    }
+
+    public static TheoryData<IList<DateTime>, DateTime, DateTime?> FindPreviousMarkedDate_Data()
+    {
+        var list = new TheoryData<IList<DateTime>, DateTime, DateTime?>();
+
+        var dateTime1 = new DateTime(2000, 06, 01);
+        var dateTime2 = new DateTime(2000, 07, 01);
+        var dateTime3 = new DateTime(2000, 08, 01);
+
+        var datesList = new List<DateTime>()
+        {
+            dateTime1,
+            dateTime2,
+            dateTime3,
+        };
+
+        list.Add(datesList, new DateTime(2000, 01, 01), null);
+        list.Add(datesList, new DateTime(2000, 06, 15), dateTime1);
+        list.Add(datesList, new DateTime(2000, 07, 15), dateTime2);
+        list.Add(datesList, new DateTime(2000, 08, 15), dateTime3);
+
+        return list;
     }
 }

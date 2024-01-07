@@ -3,7 +3,9 @@ using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Generators;
 
-public class NotableDatesFixedDateGenerator : BaseNotableDatesGenerator, ICopyable<NotableDatesFixedDateGenerator>
+public class NotableDatesFixedDateGenerator : BaseNotableDatesGenerator,
+    ICopyable<NotableDatesFixedDateGenerator>,
+    ICloneable<NotableDatesFixedDateGenerator>
 {
     public DateTime Date { get; set; }
 
@@ -19,5 +21,12 @@ public class NotableDatesFixedDateGenerator : BaseNotableDatesGenerator, ICopyab
     {
         base.CopyFrom(other);
         Date = other.Date;
+    }
+
+    public NotableDatesFixedDateGenerator Clone()
+    {
+        var other = new NotableDatesFixedDateGenerator();
+        other.CopyFrom(this);
+        return other;
     }
 }

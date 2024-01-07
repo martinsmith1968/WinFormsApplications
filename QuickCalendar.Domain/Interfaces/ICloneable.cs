@@ -1,6 +1,6 @@
 namespace QuickCalendar.Domain.Interfaces;
 
-public interface ICloneable<T> : ICopyable<T>
+public interface ICloneable<T>
 {
     T Clone();
 }

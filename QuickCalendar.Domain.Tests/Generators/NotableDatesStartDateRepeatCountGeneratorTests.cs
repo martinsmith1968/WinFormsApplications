@@ -67,6 +67,17 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
         result.Should().Be(expected);
     }
 
+    [Theory]
+    [MemberData(nameof(CopyFrom_Data))]
+    public void Clone_can_populate_properties_as_expected(NotableDatesStartDateRepeatCountGenerator generator, string expected)
+    {
+        var instance = generator.Clone();
+
+        var result = instance.GetDefinitionValue();
+
+        result.Should().Be(expected);
+    }
+
     public static TheoryData<NotableDatesStartDateRepeatCountGenerator, string> CopyFrom_Data()
     {
         var data = new TheoryData<NotableDatesStartDateRepeatCountGenerator, string>();

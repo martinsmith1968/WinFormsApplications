@@ -3,10 +3,11 @@ using Bogus;
 using FluentAssertions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
+using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Models;
 
-internal class CalendarSetDatesTests
+public class CalendarSetDatesTests
 {
     private static readonly Fixture AutoFixture = new();
     private static readonly Faker Faker = new();
@@ -108,7 +109,7 @@ internal class CalendarSetDatesTests
         return result;
     }
 
-    public static void AssertAreEqual(CalendarSetDates instance1, CalendarSetDates instance2)
+    internal static void AssertAreEqual(CalendarSetDates instance1, CalendarSetDates instance2)
     {
         instance1.Should().NotBeNull();
         instance2.Should().NotBeNull();
@@ -121,5 +122,30 @@ internal class CalendarSetDatesTests
 
         instance1.MonthlyDatesGenerators.Count.Should().Be(instance2.MonthlyDatesGenerators.Count);
         instance1.MonthlyDatesGenerators.Should().BeEquivalentTo(instance2.MonthlyDatesGenerators);
+    }
+
+    [Fact]
+    public void CopyFrom_can_copy_all_properties_correctly()
+    {
+        var source = CreateRandomInstance();
+
+        // Act
+        var target = new CalendarSetDates();
+        target.CopyFrom(source);
+
+        // Assert
+        AssertAreEqual(source, target);
+    }
+
+    [Fact]
+    public void Clone_can_copy_all_properties_correctly()
+    {
+        var source = CreateRandomInstance();
+
+        // Act
+        var target = source.Clone();
+
+        // Assert
+        AssertAreEqual(source, target);
     }
 }

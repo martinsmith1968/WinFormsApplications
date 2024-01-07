@@ -46,4 +46,45 @@ public class NumericExtensionsTests
 
         result.Should().Be(expected);
     }
+
+    [Theory]
+    [InlineData(123.45, 123)]
+    [InlineData(123.88, 124)]
+    [InlineData(123, 123)]
+    [InlineData(0, 0)]
+    [InlineData(-1, 1)]
+    [InlineData(-1.45, 1)]
+    [InlineData(-1.88, 2)]
+    public void Decimal_ToUInt32_converts_as_expected(decimal value, uint expected)
+    {
+        var result = value.ToUInt32();
+
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(123.45, 123)]
+    [InlineData(123.88, 124)]
+    [InlineData(123, 123)]
+    [InlineData(0, 0)]
+    [InlineData(-1, 1)]
+    [InlineData(-1.45, 1)]
+    [InlineData(-1.88, 2)]
+    public void Double_ToUInt32_converts_as_expected(double value, uint expected)
+    {
+        var result = value.ToUInt32();
+
+        result.Should().Be(expected);
+    }
+
+    [Theory]
+    [InlineData(123, 123)]
+    [InlineData(12, 12)]
+    [InlineData(0, 0)]
+    public void Uint_ToUInt32_converts_as_expected(uint value, uint expected)
+    {
+        var result = value.ToUInt32();
+
+        result.Should().Be(expected);
+    }
 }

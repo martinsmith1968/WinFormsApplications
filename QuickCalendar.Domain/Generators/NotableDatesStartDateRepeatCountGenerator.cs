@@ -3,7 +3,9 @@ using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Generators;
 
-public class NotableDatesStartDateRepeatCountGenerator : BaseNotableDatesGenerator, ICopyable<NotableDatesStartDateRepeatCountGenerator>
+public class NotableDatesStartDateRepeatCountGenerator : BaseNotableDatesGenerator,
+    ICopyable<NotableDatesStartDateRepeatCountGenerator>,
+    ICloneable<NotableDatesStartDateRepeatCountGenerator>
 {
     public DateTime StartDate { get; set; }
 
@@ -35,5 +37,12 @@ public class NotableDatesStartDateRepeatCountGenerator : BaseNotableDatesGenerat
         StartDate = other.StartDate;
         RepeatCount = other.RepeatCount;
         IntervalPeriod.CopyFrom(other.IntervalPeriod);
+    }
+
+    public NotableDatesStartDateRepeatCountGenerator Clone()
+    {
+        var other = new NotableDatesStartDateRepeatCountGenerator();
+        other.CopyFrom(this);
+        return other;
     }
 }

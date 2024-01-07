@@ -2,7 +2,9 @@ using QuickCalendar.Domain.Interfaces;
 
 namespace QuickCalendar.Domain.Models;
 
-public class CalendarSet : ICopyable<CalendarSet>
+public class CalendarSet :
+    ICopyable<CalendarSet>,
+    ICloneable<CalendarSet>
 {
     private const int CurrentModelVersion = 1;
 
@@ -65,6 +67,13 @@ public class CalendarSet : ICopyable<CalendarSet>
 
         VisualDetails.CopyFrom(other.VisualDetails);
         Dates.CopyFrom(other.Dates);
+    }
+
+    public CalendarSet Clone()
+    {
+        var other = new CalendarSet();
+        other.CopyFrom(this);
+        return other;
     }
 
     public DateTime? FindPreviousMarkedDate(DateTime startDate)

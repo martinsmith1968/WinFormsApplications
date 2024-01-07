@@ -33,12 +33,9 @@ public class CalendarSetVisuals : ICopyable<CalendarSetVisuals>
         set => _manualWindowLocation = IsValid(value) ? value : null;
     }
 
-    private static bool IsValid(Point? point)
+    internal static bool IsValid(Point? point)
     {
         if (point == null)
-            return false;
-
-        if (point.Value.IsEmpty)
             return false;
 
         if (point.Value.X < 0)

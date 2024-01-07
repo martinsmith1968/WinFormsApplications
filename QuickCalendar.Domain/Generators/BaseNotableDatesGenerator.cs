@@ -5,10 +5,14 @@ using Newtonsoft.Json;
 using QuickCalendar.Domain.Interfaces;
 using QuickCalendar.Domain.Models;
 
+// ReSharper disable InconsistentNaming
+
 namespace QuickCalendar.Domain.Generators;
 
 public abstract class BaseNotableDatesGenerator : INotableDatesGenerator, ICopyable<BaseNotableDatesGenerator>
 {
+    public const string Default_DescriptionTemplate = "{o}";
+
     public string GeneratorTypeName => GetType().Name.RemoveStartsAndEndsWith("NotableDates", "Generator");
 
     public string? DescriptionTemplate { get; set; }
