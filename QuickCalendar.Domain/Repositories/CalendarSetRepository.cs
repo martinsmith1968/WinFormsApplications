@@ -1,3 +1,4 @@
+using DNX.Helpers.Internal;
 using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Repositories
@@ -31,9 +32,12 @@ namespace QuickCalendar.Domain.Repositories
 
         public static CalendarSet? LoadFromFile(string fileName)
         {
-            var text = File.ReadAllText(fileName);
+            var text = RunSafely.Execute(() => File.ReadAllText(fileName));
 
-            var calendarSet = Parsers.CalendarSetParser.ParseFromJson(text);
+            var calendarSet = string.IsNullOrWhiteSpace(text)
+                ? null
+                : Parsers.CalendarSetParser.ParseFromJson(text);
+            calendarSet?.SetFileName(fileName);
 
             return calendarSet;
         }
@@ -43,6 +47,8 @@ namespace QuickCalendar.Domain.Repositories
             var text = Parsers.CalendarSetParser.GenerateJson(calendarSet);
 
             File.WriteAllText(fileName, text);
+
+            calendarSet.SetFileName(fileName);
         }
     }
 }

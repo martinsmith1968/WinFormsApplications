@@ -21,9 +21,8 @@ internal static class Program
         {
             LoadUserSettings();
 
-            var arguments = Arguments.Parse(args, Arguments.Options);
-            if (arguments == null)
-                throw new CommandLineArgumentException("Unable to parse Program Arguments");
+            var arguments = Arguments.Parse(args, Arguments.Options)
+                            ?? throw new CommandLineArgumentException("Unable to parse Program Arguments");
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -58,6 +57,16 @@ internal static class Program
         }
     }
 
+    private static void LoadUserSettings()
+    {
+        if (UserSettings.Default.App_IsUpgraded)
+        {
+            UserSettings.Default.Upgrade();
+            UserSettings.Default.App_IsUpgraded = false;
+            UserSettings.Default.Save();
+        }
+    }
+
     private static CalendarSet LoadOrCreateCalendarSet(string? fileName)
     {
         CalendarSet? calendarSet = null;
@@ -67,19 +76,8 @@ internal static class Program
             calendarSet = CalendarSetRepository.LoadFromFile(fileName);
         }
 
-        //calendarSet ??= new CalendarSet(CalendarSet.DefaultName);
         calendarSet ??= CalendarSetBuilder.BuildMyCustomCalendarSet();
 
         return calendarSet;
-    }
-
-    private static void LoadUserSettings()
-    {
-        if (UserSettings.Default.App_IsUpgraded)
-        {
-            UserSettings.Default.Upgrade();
-            UserSettings.Default.App_IsUpgraded = false;
-            UserSettings.Default.Save();
-        }
     }
 }

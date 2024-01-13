@@ -69,30 +69,28 @@ public partial class MainForm : Form
 
     public void LoadCalendarSet(CalendarSet calendarSet)
     {
-        ShowInfoText($"Loading {nameof(CalendarSet)}: {calendarSet.Name}");
+        var calendarDetails = $"{nameof(CalendarSet)}: {calendarSet.FileName}";
+        ShowInfoText($"Loading: {calendarDetails}");
 
         CalendarSet = calendarSet;
 
         mcalCalendar.Font = calendarSet.GetFont();
 
-        tslblCalendarSetName.Text = CalendarSet.Name;
-        tslblCalendarSetName.ToolTipText = calendarSet.Description;
-
         switch (UserSettings.Default.GetShowCalendarNameInStatusBarType())
         {
             case CalendarSetDisplayNameType.FileNameOnly:
-                tslblFileName.Text = CalendarSet.Name;                  // TODO:
-                tslblFileName.ToolTipText = CalendarSet.Description;    // TODO:
+                tslblFileName.Text = CalendarSet.FileName;
+                tslblFileName.ToolTipText = CalendarSet.Description;
                 tslblFileName.Visible = true;
                 break;
             case CalendarSetDisplayNameType.FullFileName:
-                tslblFileName.Text = CalendarSet.Description;   // TODO:
-                tslblFileName.ToolTipText = CalendarSet.Name;   // TODO:
+                tslblFileName.Text = CalendarSet.Description;
+                tslblFileName.ToolTipText = CalendarSet.FullFileName;
                 tslblFileName.Visible = true;
                 break;
             case CalendarSetDisplayNameType.Description:
-                tslblFileName.Text = CalendarSet.Description;   // TODO:
-                tslblFileName.ToolTipText = CalendarSet.Name;   // TODO:
+                tslblFileName.Text = CalendarSet.Description;
+                tslblFileName.ToolTipText = CalendarSet.FullFileName;
                 tslblFileName.Visible = true;
                 break;
             default:
@@ -104,8 +102,8 @@ public partial class MainForm : Form
 
         Text = UserSettings.Default.GetShowCalendarNameInWindowTitleType() switch
         {
-            CalendarSetDisplayNameType.FileNameOnly => $"{Tag} - {CalendarSet.Name}",           // TODO:
-            CalendarSetDisplayNameType.FullFileName => $"{Tag} - {CalendarSet.Description}",    // TODO:
+            CalendarSetDisplayNameType.FileNameOnly => $"{Tag} - {CalendarSet.FileName}",
+            CalendarSetDisplayNameType.FullFileName => $"{Tag} - {CalendarSet.Description}",
             CalendarSetDisplayNameType.Description => $"{Tag} - {CalendarSet.Description}",
             _ => Text = Tag?.ToString()
         };
@@ -113,7 +111,7 @@ public partial class MainForm : Form
         LoadCalendarSetVisuals(CalendarSet.VisualDetails);
         LoadCalendarSetDates(CalendarSet.Dates);
 
-        ShowInfoText();
+        ShowInfoText($"Loaded: {calendarDetails}", TimeSpan.FromSeconds(2));
     }
 
     private void LoadCalendarSetVisuals(CalendarSetVisuals calendarSetVisuals)
@@ -204,7 +202,6 @@ public partial class MainForm : Form
             1 => notableDates.FirstOrDefault()?.Description,
             _ => $"{notableDates.Count} Dates Selected"
         };
-
         tslblSelectedDatesDescriptions.ToolTipText = string.Join(
             Environment.NewLine,
             notableDates.Select(nd => $"{nd.Date.ToString(CalendarSet.DateDisplayFormat)} - {nd.Description}")
@@ -294,7 +291,9 @@ public partial class MainForm : Form
         dlgOpenFile.FilterIndex = 0;
 
         if (dlgOpenFile.ShowDialog() != DialogResult.OK)
+        {
             return;
+        }
 
         var fileName = dlgOpenFile.FileName;
 
@@ -302,7 +301,9 @@ public partial class MainForm : Form
         {
             var calendarSet = CalendarSetRepository.LoadFromFile(fileName);
             if (calendarSet == null)
+            {
                 throw new Exception($"Unable to load file : {fileName}");
+            }
 
             LoadCalendarSet(calendarSet);
 
@@ -316,7 +317,8 @@ public partial class MainForm : Form
 
     private void tsmnuFileSave_Click(object sender, EventArgs e)
     {
-        var fileName = CalendarSet.Name;    // TODO:
+        var fileName = CalendarSet.FullFileName;
+
         try
         {
             CalendarSetRepository.SaveToFile(CalendarSet, fileName);
@@ -344,7 +346,9 @@ public partial class MainForm : Form
         dlgSaveFile.FilterIndex = 0;
 
         if (dlgSaveFile.ShowDialog() != DialogResult.OK)
+        {
             return;
+        }
 
         var fileName = dlgSaveFile.FileName;
 

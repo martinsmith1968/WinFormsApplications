@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
@@ -9,7 +9,7 @@ namespace QuickCalendar.Domain.Repositories
     {
         public static CalendarSet BuildMyCustomCalendarSet()
         {
-            var calendarSet = new CalendarSet(CalendarSet.DefaultName, CalendarSet.DefaultDescription)
+            var calendarSet = new CalendarSet("A Calendar of Sprint Dates")
             {
                 VisualDetails =
                 {

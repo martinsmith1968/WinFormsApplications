@@ -65,7 +65,7 @@ public class CalendarSetParserTests
     private static CalendarSet BuildCalendarSetInstance(CalendarSetVisuals? visuals = null, CalendarSetDates? dates = null)
     {
         var now = DateTime.UtcNow;
-        var calendarSet = new CalendarSet($"Test_{now.Ticks}", $"A test instance from {now:s}");
+        var calendarSet = new CalendarSet($"A test instance from {now:s}");
 
         calendarSet.VisualDetails.CopyFrom(visuals ?? BuildCalendarSetVisuals());
         calendarSet.Dates.CopyFrom(dates ?? BuildDatesInstance());
@@ -149,12 +149,7 @@ public class CalendarSetParserTests
 
         // Assert
         result.Should().NotBeNull();
-        result.Name.Should().Be(instance.Name);
-        result.Version.Should().Be(instance.Version);
-        result.Description.Should().Be(instance.Description);
-        result.DateDisplayFormat.Should().Be(instance.DateDisplayFormat);
-        result.MinimumDate.Should().Be(instance.MinimumDate);
-        result.MaximumDate.Should().Be(instance.MaximumDate);
+        CalendarSetTests.AssertAreEqual(result!, instance);
 
         result.VisualDetails.Should().NotBeNull();
         CalendarSetVisualsTests.AssertAreEqual(instance.VisualDetails, result.VisualDetails);

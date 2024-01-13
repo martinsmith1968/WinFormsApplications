@@ -20,7 +20,6 @@ public class CalendarSetTests
         var datesInstance = CalendarSetDatesTests.CreateRandomInstance();
 
         return AutoFixture.Build<CalendarSet>()
-            .With(x => x.Name, Faker.Commerce.ProductName)
             .With(x => x.Description, Faker.Commerce.ProductDescription)
             .With(x => x.Version, Randomizer.Next(1, 10))
             .With(x => x.DateDisplayFormat, "o")
@@ -39,7 +38,8 @@ public class CalendarSetTests
         instance2.Should().NotBeNull();
 
         instance2.Version.Should().Be(instance1.Version);
-        instance2.Name.Should().Be(instance1.Name);
+        instance2.FileName.Should().Be(instance1.FileName);
+        instance2.FullFileName.Should().Be(instance1.FullFileName);
         instance2.Description.Should().Be(instance1.Description);
         instance2.DisplayFontName.Should().Be(instance1.DisplayFontName);
         instance2.DisplayFontSize.Should().Be(instance1.DisplayFontSize);
@@ -51,14 +51,14 @@ public class CalendarSetTests
     [Fact]
     public void Constructor_populates_properties_correctly()
     {
-        var name = AutoFixture.Create<string>();
+        var description = Faker.Commerce.ProductDescription();
 
         // Act
-        var instance = new CalendarSet(name);
+        var instance = new CalendarSet(description);
 
         // Assert
         instance.Should().NotBeNull();
-        instance.Name.Should().Be(name);
+        instance.Description.Should().Be(description);
         instance.Description.Should().BeNull();
         instance.MaximumDate.Should().Be(DateTime.MaxValue);
         instance.MinimumDate.Should().Be(DateTime.MinValue);
@@ -72,7 +72,7 @@ public class CalendarSetTests
         var source = CreateRandomInstance();
 
         // Act
-        var target = new CalendarSet(CalendarSet.DefaultName);
+        var target = new CalendarSet(CalendarSet.DefaultDescription);
         target.CopyFrom(source);
 
         // Assert
@@ -99,7 +99,7 @@ public class CalendarSetTests
     [MemberData(nameof(FindNextMarkedDate_Data))]
     public void FindNextMarkedDate_finds_valid_next_DateTime_correctly(IList<DateTime> dates, DateTime searchDate, DateTime? expectedResult)
     {
-        var instance = new CalendarSet(CalendarSet.DefaultName);
+        var instance = new CalendarSet(CalendarSet.DefaultDescription);
         foreach (var date in dates)
         {
             instance.Dates.DatesGenerators.Add(
@@ -123,7 +123,7 @@ public class CalendarSetTests
     [MemberData(nameof(FindPreviousMarkedDate_Data))]
     public void FindPreviousMarkedDate_finds_valid_next_DateTime_correctly(IList<DateTime> dates, DateTime searchDate, DateTime? expectedResult)
     {
-        var instance = new CalendarSet(CalendarSet.DefaultName);
+        var instance = new CalendarSet(CalendarSet.DefaultDescription);
         foreach (var date in dates)
         {
             instance.Dates.DatesGenerators.Add(
