@@ -48,8 +48,8 @@ public abstract class BaseNotableDatesGenerator : INotableDatesGenerator, ICopya
             .ToArray();
 
         var instanceProperties = ReflectionExtensions.GetPropertiesDictionary(this)
-            .Where(kvp => !interfaceProperties.Contains(kvp.Key));
-
+            .Where(kvp => !interfaceProperties.Contains(kvp.Key))
+            .ToList();
 
         var propertyValues = instanceProperties
             .Select(ip =>
