@@ -35,6 +35,8 @@
             btnCancel = new Button();
             btnOK = new Button();
             tabGeneral = new TabPage();
+            lblLastOpenedFileName = new Label();
+            chkLoadLastFileOnStartup = new CheckBox();
             cboShowCalendarNameInStatusBar = new ComboBox();
             lblShowCalendarNameInStatusBar = new Label();
             cboShowCalendarNameInWindowTitle = new ComboBox();
@@ -100,6 +102,8 @@
             // 
             // tabGeneral
             // 
+            tabGeneral.Controls.Add(lblLastOpenedFileName);
+            tabGeneral.Controls.Add(chkLoadLastFileOnStartup);
             tabGeneral.Controls.Add(cboShowCalendarNameInStatusBar);
             tabGeneral.Controls.Add(lblShowCalendarNameInStatusBar);
             tabGeneral.Controls.Add(cboShowCalendarNameInWindowTitle);
@@ -113,6 +117,29 @@
             tabGeneral.Text = "General";
             tabGeneral.UseVisualStyleBackColor = true;
             // 
+            // lblLastOpenedFileName
+            // 
+            lblLastOpenedFileName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblLastOpenedFileName.AutoEllipsis = true;
+            lblLastOpenedFileName.BorderStyle = BorderStyle.FixedSingle;
+            lblLastOpenedFileName.ForeColor = SystemColors.Highlight;
+            lblLastOpenedFileName.Location = new Point(266, 103);
+            lblLastOpenedFileName.Name = "lblLastOpenedFileName";
+            lblLastOpenedFileName.Size = new Size(222, 23);
+            lblLastOpenedFileName.TabIndex = 6;
+            lblLastOpenedFileName.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // chkLoadLastFileOnStartup
+            // 
+            chkLoadLastFileOnStartup.CheckAlign = ContentAlignment.MiddleRight;
+            chkLoadLastFileOnStartup.Location = new Point(8, 103);
+            chkLoadLastFileOnStartup.Name = "chkLoadLastFileOnStartup";
+            chkLoadLastFileOnStartup.Size = new Size(252, 24);
+            chkLoadLastFileOnStartup.TabIndex = 5;
+            chkLoadLastFileOnStartup.Text = "&Load last File on Startup :";
+            chkLoadLastFileOnStartup.UseVisualStyleBackColor = true;
+            chkLoadLastFileOnStartup.CheckedChanged += chkLoadLastFileOnStartup_CheckedChanged;
+            // 
             // cboShowCalendarNameInStatusBar
             // 
             cboShowCalendarNameInStatusBar.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -120,15 +147,15 @@
             cboShowCalendarNameInStatusBar.Location = new Point(245, 74);
             cboShowCalendarNameInStatusBar.Name = "cboShowCalendarNameInStatusBar";
             cboShowCalendarNameInStatusBar.Size = new Size(188, 23);
-            cboShowCalendarNameInStatusBar.TabIndex = 6;
+            cboShowCalendarNameInStatusBar.TabIndex = 4;
             // 
             // lblShowCalendarNameInStatusBar
             // 
             lblShowCalendarNameInStatusBar.Location = new Point(8, 72);
             lblShowCalendarNameInStatusBar.Name = "lblShowCalendarNameInStatusBar";
             lblShowCalendarNameInStatusBar.Size = new Size(231, 24);
-            lblShowCalendarNameInStatusBar.TabIndex = 5;
-            lblShowCalendarNameInStatusBar.Text = "Show Calendar Name in Status Bar :";
+            lblShowCalendarNameInStatusBar.TabIndex = 3;
+            lblShowCalendarNameInStatusBar.Text = "Show Calendar Name in &Status Bar :";
             lblShowCalendarNameInStatusBar.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // cboShowCalendarNameInWindowTitle
@@ -138,15 +165,15 @@
             cboShowCalendarNameInWindowTitle.Location = new Point(245, 45);
             cboShowCalendarNameInWindowTitle.Name = "cboShowCalendarNameInWindowTitle";
             cboShowCalendarNameInWindowTitle.Size = new Size(188, 23);
-            cboShowCalendarNameInWindowTitle.TabIndex = 4;
+            cboShowCalendarNameInWindowTitle.TabIndex = 2;
             // 
             // lblShowCalendarNameInWindowTitle
             // 
             lblShowCalendarNameInWindowTitle.Location = new Point(8, 43);
             lblShowCalendarNameInWindowTitle.Name = "lblShowCalendarNameInWindowTitle";
             lblShowCalendarNameInWindowTitle.Size = new Size(231, 24);
-            lblShowCalendarNameInWindowTitle.TabIndex = 3;
-            lblShowCalendarNameInWindowTitle.Text = "Show Calendar Name in Window Title :";
+            lblShowCalendarNameInWindowTitle.TabIndex = 1;
+            lblShowCalendarNameInWindowTitle.Text = "Show Calendar Name in &Window Title :";
             lblShowCalendarNameInWindowTitle.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // chkCloseOnEscape
@@ -238,6 +265,8 @@
             Controls.Add(tbcOptions);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ProgramOptionsForm";
             ShowInTaskbar = false;
             SizeGripStyle = SizeGripStyle.Hide;
@@ -272,5 +301,7 @@
         private ColumnHeader colRawPropertiesName;
         private ColumnHeader colRawPropertiesValue;
         private System.Windows.Forms.Timer timerErrorMessageReset;
+        private CheckBox chkLoadLastFileOnStartup;
+        private Label lblLastOpenedFileName;
     }
 }

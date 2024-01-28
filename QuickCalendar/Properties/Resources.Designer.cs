@@ -203,6 +203,26 @@ namespace QuickCalendar.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap axis {
+            get {
+                object obj = ResourceManager.GetObject("axis", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap axis2 {
+            get {
+                object obj = ResourceManager.GetObject("axis2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap back_in_time_32 {
             get {
                 object obj = ResourceManager.GetObject("back_in_time_32", resourceCulture);
@@ -436,6 +456,16 @@ namespace QuickCalendar.Properties {
         internal static System.Drawing.Bitmap open1 {
             get {
                 object obj = ResourceManager.GetObject("open1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap point {
+            get {
+                object obj = ResourceManager.GetObject("point", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

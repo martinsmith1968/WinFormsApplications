@@ -45,6 +45,10 @@ namespace QuickCalendar
                                                           .FirstOrDefault(x => x.Value == userSettings.GetShowCalendarNameInWindowTitleType())
                                                       ?? cboShowCalendarNameInWindowTitle.GetItems<FileNameDisplayTypeComboItem>().FirstOrDefault();
 
+            chkLoadLastFileOnStartup.Checked = userSettings.LoadLastOpenedFileOnStartup;
+
+            lblLastOpenedFileName.Text = userSettings.LastOpenedFileName;
+
             lvwRawProperties.Items.Clear();
             foreach (var propertyItem in UserSettings.PropertyValues)
             {
@@ -105,6 +109,7 @@ namespace QuickCalendar
             lblErrorText.Text = "";
             lblErrorText.BorderStyle = BorderStyle.None;
             lvwRawProperties.Dock = DockStyle.Fill;
+            lblLastOpenedFileName.BorderStyle = BorderStyle.None;
 #if !DEBUG
             tabDebugging.Visible = false;
 #endif
@@ -147,6 +152,11 @@ namespace QuickCalendar
         {
             ShowErrorMessage();
             timerErrorMessageReset.Enabled = false;
+        }
+
+        private void chkLoadLastFileOnStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            lblLastOpenedFileName.Visible = chkLoadLastFileOnStartup.Checked;
         }
     }
 }

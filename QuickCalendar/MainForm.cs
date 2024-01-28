@@ -52,6 +52,7 @@ public partial class MainForm : Form
         SetupToolbarButtonFromMenuItem(tsbtnViewJumpToNextMarkedDate, tsmnuViewJumpToNextMarkedDate);
         SetupToolbarButtonFromMenuItem(tsbtnViewResetFirstVisibleMonth, tsmnuViewResetFirstVisibleMonth);
         SetupToolbarButtonFromMenuItem(tsbtnViewResize, tsmnuViewResize);
+        SetupToolbarButtonFromMenuItem(tsbtnViewSaveWindowPosition, tsmnuViewSaveWindowPosition);
         SetupToolbarButtonFromMenuItem(tsbtnHelpAbout, tsmnuHelpAbout);
     }
 
@@ -273,6 +274,8 @@ public partial class MainForm : Form
 
     private void ShowInfoText(string? text = null, TimeSpan? clearAfter = null)
     {
+        Logger.Info(text ?? string.Empty);
+
         tslblInfo.Text = text;
         tslblInfo.Owner.Update();
 

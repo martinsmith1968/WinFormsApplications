@@ -82,6 +82,7 @@ namespace QuickCalendar
             toolStripSeparator6 = new ToolStripSeparator();
             tsbtnViewResetFirstVisibleMonth = new ToolStripButton();
             tsbtnViewResize = new ToolStripButton();
+            tsbtnViewSaveWindowPosition = new ToolStripButton();
             toolStripSeparator1 = new ToolStripSeparator();
             tsbtnFileProgramOptions = new ToolStripButton();
             toolStripSeparator2 = new ToolStripSeparator();
@@ -294,9 +295,11 @@ namespace QuickCalendar
             // 
             // tsmnuViewSaveWindowPosition
             // 
+            tsmnuViewSaveWindowPosition.Image = Properties.Resources.axis2;
             tsmnuViewSaveWindowPosition.Name = "tsmnuViewSaveWindowPosition";
             tsmnuViewSaveWindowPosition.Size = new Size(268, 22);
             tsmnuViewSaveWindowPosition.Text = "Save &Window Position";
+            tsmnuViewSaveWindowPosition.ToolTipText = "Save current Window Position";
             tsmnuViewSaveWindowPosition.Click += tsmnuViewSaveWindowPosition_Click;
             // 
             // tsmnuHelp
@@ -376,7 +379,7 @@ namespace QuickCalendar
             // 
             // tsMain
             // 
-            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, toolStripSeparator10, tsbtnFileOpen, tsbtnFileSave, tssep1, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, toolStripSeparator13, tsbtnViewJumpToPreviousMarkedDate, tsbtnViewJumpToNextMarkedDate, toolStripSeparator6, tsbtnViewResetFirstVisibleMonth, tsbtnViewResize, toolStripSeparator1, tsbtnFileProgramOptions, toolStripSeparator2, tsbtnHelpAbout });
+            tsMain.Items.AddRange(new ToolStripItem[] { tsbtnFileExit, toolStripSeparator10, tsbtnFileOpen, tsbtnFileSave, tssep1, tsbtnEditCalendar, toolStripSeparator4, tsbtnViewToday, tsbtnViewJumpToDate, toolStripSeparator13, tsbtnViewJumpToPreviousMarkedDate, tsbtnViewJumpToNextMarkedDate, toolStripSeparator6, tsbtnViewResetFirstVisibleMonth, tsbtnViewResize, tsbtnViewSaveWindowPosition, toolStripSeparator1, tsbtnFileProgramOptions, toolStripSeparator2, tsbtnHelpAbout });
             tsMain.Location = new Point(0, 24);
             tsMain.Name = "tsMain";
             tsMain.Size = new Size(753, 25);
@@ -513,6 +516,15 @@ namespace QuickCalendar
             tsbtnViewResize.ToolTipText = "Resize Form to specific Layout";
             tsbtnViewResize.Click += tsmnuViewResize_Click;
             // 
+            // tsbtnViewSaveWindowPosition
+            // 
+            tsbtnViewSaveWindowPosition.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            tsbtnViewSaveWindowPosition.Image = Properties.Resources.axis2;
+            tsbtnViewSaveWindowPosition.ImageTransparentColor = Color.Magenta;
+            tsbtnViewSaveWindowPosition.Name = "tsbtnViewSaveWindowPosition";
+            tsbtnViewSaveWindowPosition.Size = new Size(23, 22);
+            tsbtnViewSaveWindowPosition.Text = "toolStripButton1";
+            // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
@@ -646,5 +658,6 @@ namespace QuickCalendar
         private ToolStripSeparator toolStripSeparator15;
         private ToolStripButton tsbtnViewResetFirstVisibleMonth;
         private ToolStripMenuItem tsmnuViewSaveWindowPosition;
+        private ToolStripButton tsbtnViewSaveWindowPosition;
     }
 }

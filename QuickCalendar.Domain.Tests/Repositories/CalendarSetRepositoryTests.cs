@@ -5,6 +5,8 @@ using QuickCalendar.Domain.Tests.Models;
 using Xunit;
 using Xunit.Abstractions;
 
+#pragma warning disable CS8604 // Possible null reference argument.
+
 namespace QuickCalendar.Domain.Tests.Repositories;
 
 public class CalendarSetRepositoryTests
