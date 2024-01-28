@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using QuickCalendar.Domain.Debugging;
 using QuickCalendar.Domain.Formatters;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Parsers.Converters;
@@ -33,8 +34,9 @@ public class CalendarSetParser
 
             return calendarSet;
         }
-        catch
+        catch(Exception ex)
         {
+            Logger.Exception(ex);
             return null;
         }
     }
@@ -47,8 +49,9 @@ public class CalendarSetParser
 
             return json;
         }
-        catch
+        catch(Exception ex)
         {
+            Logger.Exception(ex);
             return null;
         }
     }

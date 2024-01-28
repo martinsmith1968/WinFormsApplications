@@ -1,5 +1,7 @@
  using System.Diagnostics;
 using DNX.Helpers.Assemblies;
+using QuickCalendar.Domain.Debugging;
+using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Domain.Repositories;
@@ -29,15 +31,15 @@ public partial class MainForm : Form
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
         // Can't set these via the UI :-(
-        tsmnuViewToday.ShortcutKeys = Keys.Home | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+[";
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control;
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+]";
-        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewToday.ShortcutKeys                                  = Keys.Home | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys               = Keys.OemOpenBrackets | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString   = "Ctrl+[";
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeys                   = Keys.OemCloseBrackets | Keys.Control;
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString       = "Ctrl+]";
+        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys             = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
         tsmnuViewSelectToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+[";
-        tsmnuViewSelectToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
-        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+]";
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+Shift+]";
 
         SetupToolbarButtonFromMenuItem(tsbtnFileOpen, tsmnuFileOpen);
         SetupToolbarButtonFromMenuItem(tsbtnFileSave, tsmnuFileSave);
@@ -121,6 +123,7 @@ public partial class MainForm : Form
         mcalCalendar.ShowWeekNumbers = calendarSetVisuals.ShowWeekNumbers;
 
         SetCalendarDimensions(calendarSetVisuals.VisibleDimensions);
+        SetCalendarPosition(calendarSetVisuals.WindowStartLocation, calendarSetVisuals.ManualWindowLocation);
 
         if (calendarSetVisuals.FirstVisibleMonth.HasValue)
         {
@@ -140,12 +143,33 @@ public partial class MainForm : Form
 
     private void SetCalendarDimensions(Size dimensions)
     {
+        Logger.Debug($"{nameof(dimensions)}: {nameof(Size.Width)}={dimensions.Width}, {nameof(Size.Height)}={dimensions.Height}");
+
         ClientSize = new Size(
             (mcalCalendar.SingleMonthSize.Width * dimensions.Width) + mcalCalendar.Margin.Horizontal,
             (mcalCalendar.SingleMonthSize.Height * dimensions.Height) + tsMain.Height + ssMain.Height + mcalCalendar.Margin.Vertical
         );
+        Logger.Debug($"{nameof(ClientSize)}: {nameof(Size.Width)}={ClientSize.Width}, {nameof(Size.Height)}={ClientSize.Height}");
 
         mcalCalendar.SetCalendarDimensions(dimensions.Width, dimensions.Height);
+    }
+
+    private void SetCalendarPosition(WindowStartLocationType windowStartLocation, Point? manualWindowLocation)
+    {
+        Logger.Debug($"{nameof(windowStartLocation)}={windowStartLocation}");
+        if (manualWindowLocation.HasValue)
+        {
+            Logger.Debug($"{nameof(SetCalendarPosition)}: {nameof(manualWindowLocation)}: {nameof(Point.X)}={manualWindowLocation.Value.X}, {nameof(Point.Y)}={manualWindowLocation.Value.Y}");
+        }
+
+        Location = windowStartLocation switch
+        {
+            WindowStartLocationType.DesktopCentre => ClientSize.CentreWithin(WinForms.GetDesktopBounds()),
+            WindowStartLocationType.PrimaryScreenCentre => ClientSize.CentreWithin(WinForms.GetPrimaryWindowBounds()),
+            _ => manualWindowLocation ?? new Point(100, 100)
+        };
+        Logger.Debug($"{nameof(ClientSize)}: {nameof(Size.Width)}={ClientSize.Width}, {nameof(Size.Height)}={ClientSize.Height}");
+        Logger.Debug($"{nameof(Location)}: {nameof(Point.X)}={Location.X}, {nameof(Point.Y)}={Location.Y}");
     }
 
     private void LoadCalendarSetDates(CalendarSetDates calendarSetDates)
@@ -210,17 +234,24 @@ public partial class MainForm : Form
 
     private void EnableNavigation()
     {
+        var firstSelectedDate = mcalCalendar.SelectionRange.Start;
+        var selectionCount = (mcalCalendar.SelectionRange.End - mcalCalendar.SelectionRange.Start).Days + 1;
+        var firstVisibleMonth = mcalCalendar.GetActiveDisplayRange().Start.Month;
+
         var hasNextMarkedDate = CalendarSet.FindNextMarkedDate(mcalCalendar.SelectionRange.End).HasValue;
         var hasPreviousMarkedDate = CalendarSet.FindPreviousMarkedDate(mcalCalendar.SelectionRange.Start).HasValue;
 
+        // Menus
+        tsmnuViewToday.Enabled = !(selectionCount == 1 && firstSelectedDate == DateTime.UtcNow.Date);
         tsmnuViewJumpToNextMarkedDate.Enabled = hasNextMarkedDate;
         tsmnuViewJumpToPreviousMarkedDate.Enabled = hasPreviousMarkedDate;
         tsmnuViewSelectToNextMarkedDate.Enabled = hasNextMarkedDate;
         tsmnuViewSelectToPreviousMarkedDate.Enabled = hasPreviousMarkedDate;
 
-        tsmnuViewResetFirstVisibleMonth.Enabled = CalendarSet.VisualDetails.FirstVisibleMonth.HasValue;
+        tsmnuViewResetFirstVisibleMonth.Enabled = CalendarSet.VisualDetails.FirstVisibleMonth.HasValue && (firstVisibleMonth != CalendarSet.VisualDetails.FirstVisibleMonth.Value);
 
-
+        // Buttons
+        tsbtnViewToday.Enabled = tsmnuViewToday.Enabled;
         tsbtnViewJumpToNextMarkedDate.Enabled = tsmnuViewJumpToNextMarkedDate.Enabled;
         tsbtnViewJumpToPreviousMarkedDate.Enabled = tsmnuViewJumpToPreviousMarkedDate.Enabled;
 
@@ -276,6 +307,18 @@ public partial class MainForm : Form
         }
     }
 
+    private void tmrResetStatusBar_Tick(object sender, EventArgs e)
+    {
+        if (sender is not Timer timer)
+        {
+            timer = tmrResetStatusBar;
+        }
+
+        timer.Enabled = false;
+
+        ShowInfoText();
+    }
+
     private void tsmnuFileOpen_Click(object sender, EventArgs e)
     {
         dlgOpenFile.DefaultExt = CalendarSetRepository.DefaultFileExtension;
@@ -311,12 +354,19 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
+            Logger.Exception(ex);
             MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
     private void tsmnuFileSave_Click(object sender, EventArgs e)
     {
+        if (CalendarSet.FileInfo == null)
+        {
+            tsmnuFileSaveAs.PerformClick();
+            return;
+        }
+
         var fileName = CalendarSet.FullFileName;
 
         try
@@ -324,9 +374,12 @@ public partial class MainForm : Form
             CalendarSetRepository.SaveToFile(CalendarSet, fileName);
 
             UserSettings.Default.Update(x => x.LastOpenedFileName = fileName);
+
+            ShowInfoText($"File: {CalendarSet.FileName} saved", TimeSpan.FromSeconds(5));
         }
         catch (Exception ex)
         {
+            Logger.Exception(ex);
             MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
@@ -357,9 +410,12 @@ public partial class MainForm : Form
             CalendarSetRepository.SaveToFile(CalendarSet, fileName);
 
             UserSettings.Default.Update(x => x.LastOpenedFileName = fileName);
+
+            ShowInfoText($"File: {CalendarSet.FileName} saved", TimeSpan.FromSeconds(5));
         }
         catch (Exception ex)
         {
+            Logger.Exception(ex);
             MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
@@ -477,15 +533,14 @@ public partial class MainForm : Form
         form.ShowDialog();
     }
 
-    private void tmrResetStatusBar_Tick(object sender, EventArgs e)
+    private void tsmnuViewSaveWindowPosition_Click(object sender, EventArgs e)
     {
-        if (sender is not Timer timer)
+        CalendarSet.VisualDetails.WindowStartLocation = WindowStartLocationType.Manual;
+        CalendarSet.VisualDetails.ManualWindowLocation = Location;
+
+        if (CalendarSet.FileInfo != null)
         {
-            timer = tmrResetStatusBar;
+            CalendarSetRepository.SaveToFile(CalendarSet, CalendarSet.FullFileName);
         }
-
-        timer.Enabled = false;
-
-        ShowInfoText();
     }
 }

@@ -67,9 +67,35 @@ namespace QuickCalendar
                 .ToString();
         }
 
+        private void ShowErrorMessage(string? text = null, TimeSpan? clearAfter = null)
+        {
+            text = string.IsNullOrWhiteSpace(text)
+                ? text
+                : $"Error: {text}";
+
+            lblErrorText.Text = text;
+
+            if (clearAfter.HasValue)
+            {
+                timerErrorMessageReset.Interval = Convert.ToInt32(clearAfter.Value.TotalMilliseconds);
+                timerErrorMessageReset.Enabled = true;
+            }
+        }
+
         private bool ValidateForm()
         {
-            // TODO: Add as necessary
+            if (cboShowCalendarNameInStatusBar.SelectedItem == null)
+            {
+                ShowErrorMessage($"Setting not provided for {nameof(cboShowCalendarNameInStatusBar).RemoveStartsWith("cbo").Wordify()}");
+                return false;
+            }
+
+            if (cboShowCalendarNameInWindowTitle.SelectedItem == null)
+            {
+                ShowErrorMessage($"Setting not provided for {nameof(cboShowCalendarNameInWindowTitle).RemoveStartsWith("cbo").Wordify()}");
+                return false;
+            }
+
             return true;
         }
 
@@ -115,6 +141,12 @@ namespace QuickCalendar
             SaveFormToUserSettings(UserSettings);
 
             DialogResult = DialogResult.OK;
+        }
+
+        private void timerErrorMessageReset_Tick(object sender, EventArgs e)
+        {
+            ShowErrorMessage();
+            timerErrorMessageReset.Enabled = false;
         }
     }
 }

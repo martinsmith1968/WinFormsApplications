@@ -86,7 +86,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
             generator = _notableDatesStartDateRepeatCountGenerator;
 
         if (generator == null)
-            return; // TODO
+            return; // TODO: Display error somewhere
 
         var notableDates = generator.Generate();
         lblGeneratedDatesDisplay.Text = $"{notableDates.Count} Dates generated";

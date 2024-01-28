@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgramOptionsForm));
             panButtonBar = new Panel();
             lblErrorText = new Label();
@@ -46,6 +47,7 @@
             lvwRawProperties = new ListView();
             colRawPropertiesName = new ColumnHeader();
             colRawPropertiesValue = new ColumnHeader();
+            timerErrorMessageReset = new System.Windows.Forms.Timer(components);
             panButtonBar.SuspendLayout();
             tabGeneral.SuspendLayout();
             tbcOptions.SuspendLayout();
@@ -72,7 +74,7 @@
             lblErrorText.Name = "lblErrorText";
             lblErrorText.Size = new Size(322, 21);
             lblErrorText.TabIndex = 2;
-            lblErrorText.Text = "label1";
+            lblErrorText.Text = "Error Message";
             lblErrorText.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // btnCancel
@@ -222,6 +224,10 @@
             colRawPropertiesValue.Text = "Value";
             colRawPropertiesValue.Width = 240;
             // 
+            // timerErrorMessageReset
+            // 
+            timerErrorMessageReset.Tick += timerErrorMessageReset_Tick;
+            // 
             // ProgramOptionsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -265,5 +271,6 @@
         private ListView lvwRawProperties;
         private ColumnHeader colRawPropertiesName;
         private ColumnHeader colRawPropertiesValue;
+        private System.Windows.Forms.Timer timerErrorMessageReset;
     }
 }

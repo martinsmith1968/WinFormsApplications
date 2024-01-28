@@ -20,7 +20,7 @@ public class CalendarSetParserTests
 
     private readonly ITestOutputHelper _outputHelper;
 
-    private static CalendarSetDates BuildDatesInstance()
+    internal static CalendarSetDates BuildDatesInstance()
     {
         var calendarSetDates = AutoFixture.Create<CalendarSetDates>();
 
@@ -54,7 +54,7 @@ public class CalendarSetParserTests
         return calendarSetDates;
     }
 
-    private static CalendarSetVisuals BuildCalendarSetVisuals()
+    internal static CalendarSetVisuals BuildCalendarSetVisuals()
         => AutoFixture.Build<CalendarSetVisuals>()
             .With(x => x.VisibleDimensions, new Size(4, 3))
             .With(x => x.FirstDayOfWeek, DayOfWeek.Monday)
@@ -62,7 +62,7 @@ public class CalendarSetParserTests
             .With(x => x.ManualWindowLocation, new Point(100, 100))
             .Create();
 
-    private static CalendarSet BuildCalendarSetInstance(CalendarSetVisuals? visuals = null, CalendarSetDates? dates = null)
+    internal static CalendarSet BuildCalendarSetInstance(CalendarSetVisuals? visuals = null, CalendarSetDates? dates = null)
     {
         var now = DateTime.UtcNow;
         var calendarSet = new CalendarSet($"A test instance from {now:s}");

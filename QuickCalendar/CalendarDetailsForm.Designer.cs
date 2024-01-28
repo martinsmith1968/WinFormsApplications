@@ -48,9 +48,12 @@ namespace QuickCalendar
             lblDetailsMinimumDate = new Label();
             txtDetailsDescription = new TextBox();
             lblDetailsDescription = new Label();
-            txtDetailsName = new TextBox();
-            lblDetailsName = new Label();
+            txtDetailsFileName = new TextBox();
+            lblDetailsFileName = new Label();
             tabVisualDetails = new TabPage();
+            cboWindowStartPosition = new ComboBox();
+            lblWindowStartPosition = new Label();
+            lblSavedWindowPositionDescription = new Label();
             cboVisualsFirstVisibleMonth = new ComboBox();
             lblVisualsFirstVisibleMonth = new Label();
             cboVisualsFirstDayOfWeek = new ComboBox();
@@ -149,8 +152,8 @@ namespace QuickCalendar
             tabDetails.Controls.Add(lblDetailsMinimumDate);
             tabDetails.Controls.Add(txtDetailsDescription);
             tabDetails.Controls.Add(lblDetailsDescription);
-            tabDetails.Controls.Add(txtDetailsName);
-            tabDetails.Controls.Add(lblDetailsName);
+            tabDetails.Controls.Add(txtDetailsFileName);
+            tabDetails.Controls.Add(lblDetailsFileName);
             tabDetails.Location = new Point(4, 24);
             tabDetails.Name = "tabDetails";
             tabDetails.Padding = new Padding(3);
@@ -272,27 +275,30 @@ namespace QuickCalendar
             lblDetailsDescription.TabIndex = 2;
             lblDetailsDescription.Text = "Description :";
             // 
-            // txtDetailsName
+            // txtDetailsFileName
             // 
-            txtDetailsName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtDetailsName.Location = new Point(91, 18);
-            txtDetailsName.Name = "txtDetailsName";
-            txtDetailsName.ReadOnly = true;
-            txtDetailsName.Size = new Size(480, 23);
-            txtDetailsName.TabIndex = 1;
-            txtDetailsName.Enter += txtDetailsName_Enter;
+            txtDetailsFileName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtDetailsFileName.Location = new Point(91, 18);
+            txtDetailsFileName.Name = "txtDetailsFileName";
+            txtDetailsFileName.ReadOnly = true;
+            txtDetailsFileName.Size = new Size(480, 23);
+            txtDetailsFileName.TabIndex = 1;
+            txtDetailsFileName.Enter += txtDetailsName_Enter;
             // 
-            // lblDetailsName
+            // lblDetailsFileName
             // 
-            lblDetailsName.AutoSize = true;
-            lblDetailsName.Location = new Point(12, 21);
-            lblDetailsName.Name = "lblDetailsName";
-            lblDetailsName.Size = new Size(45, 15);
-            lblDetailsName.TabIndex = 0;
-            lblDetailsName.Text = "Name :";
+            lblDetailsFileName.AutoSize = true;
+            lblDetailsFileName.Location = new Point(12, 21);
+            lblDetailsFileName.Name = "lblDetailsFileName";
+            lblDetailsFileName.Size = new Size(66, 15);
+            lblDetailsFileName.TabIndex = 0;
+            lblDetailsFileName.Text = "File Name :";
             // 
             // tabVisualDetails
             // 
+            tabVisualDetails.Controls.Add(cboWindowStartPosition);
+            tabVisualDetails.Controls.Add(lblWindowStartPosition);
+            tabVisualDetails.Controls.Add(lblSavedWindowPositionDescription);
             tabVisualDetails.Controls.Add(cboVisualsFirstVisibleMonth);
             tabVisualDetails.Controls.Add(lblVisualsFirstVisibleMonth);
             tabVisualDetails.Controls.Add(cboVisualsFirstDayOfWeek);
@@ -308,40 +314,69 @@ namespace QuickCalendar
             tabVisualDetails.Text = "Visual Details";
             tabVisualDetails.UseVisualStyleBackColor = true;
             // 
+            // cboWindowStartPosition
+            // 
+            cboWindowStartPosition.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboWindowStartPosition.FormattingEnabled = true;
+            cboWindowStartPosition.Location = new Point(161, 97);
+            cboWindowStartPosition.Name = "cboWindowStartPosition";
+            cboWindowStartPosition.Size = new Size(161, 23);
+            cboWindowStartPosition.TabIndex = 4;
+            // 
+            // lblWindowStartPosition
+            // 
+            lblWindowStartPosition.AutoSize = true;
+            lblWindowStartPosition.Location = new Point(12, 100);
+            lblWindowStartPosition.Name = "lblWindowStartPosition";
+            lblWindowStartPosition.Size = new Size(130, 15);
+            lblWindowStartPosition.TabIndex = 3;
+            lblWindowStartPosition.Text = "Window Start &Position :";
+            // 
+            // lblSavedWindowPositionDescription
+            // 
+            lblSavedWindowPositionDescription.AutoSize = true;
+            lblSavedWindowPositionDescription.BorderStyle = BorderStyle.FixedSingle;
+            lblSavedWindowPositionDescription.ForeColor = SystemColors.HotTrack;
+            lblSavedWindowPositionDescription.Location = new Point(328, 100);
+            lblSavedWindowPositionDescription.Name = "lblSavedWindowPositionDescription";
+            lblSavedWindowPositionDescription.Size = new Size(162, 17);
+            lblSavedWindowPositionDescription.TabIndex = 5;
+            lblSavedWindowPositionDescription.Text = "Window Position Description";
+            // 
             // cboVisualsFirstVisibleMonth
             // 
             cboVisualsFirstVisibleMonth.DropDownStyle = ComboBoxStyle.DropDownList;
             cboVisualsFirstVisibleMonth.FormattingEnabled = true;
-            cboVisualsFirstVisibleMonth.Location = new Point(162, 128);
+            cboVisualsFirstVisibleMonth.Location = new Point(161, 155);
             cboVisualsFirstVisibleMonth.Name = "cboVisualsFirstVisibleMonth";
-            cboVisualsFirstVisibleMonth.Size = new Size(138, 23);
-            cboVisualsFirstVisibleMonth.TabIndex = 7;
+            cboVisualsFirstVisibleMonth.Size = new Size(161, 23);
+            cboVisualsFirstVisibleMonth.TabIndex = 9;
             // 
             // lblVisualsFirstVisibleMonth
             // 
             lblVisualsFirstVisibleMonth.AutoSize = true;
-            lblVisualsFirstVisibleMonth.Location = new Point(12, 131);
+            lblVisualsFirstVisibleMonth.Location = new Point(12, 158);
             lblVisualsFirstVisibleMonth.Name = "lblVisualsFirstVisibleMonth";
             lblVisualsFirstVisibleMonth.Size = new Size(111, 15);
-            lblVisualsFirstVisibleMonth.TabIndex = 6;
+            lblVisualsFirstVisibleMonth.TabIndex = 8;
             lblVisualsFirstVisibleMonth.Text = "First Visible &Month :";
             // 
             // cboVisualsFirstDayOfWeek
             // 
             cboVisualsFirstDayOfWeek.DropDownStyle = ComboBoxStyle.DropDownList;
             cboVisualsFirstDayOfWeek.FormattingEnabled = true;
-            cboVisualsFirstDayOfWeek.Location = new Point(162, 96);
+            cboVisualsFirstDayOfWeek.Location = new Point(161, 126);
             cboVisualsFirstDayOfWeek.Name = "cboVisualsFirstDayOfWeek";
-            cboVisualsFirstDayOfWeek.Size = new Size(138, 23);
-            cboVisualsFirstDayOfWeek.TabIndex = 4;
+            cboVisualsFirstDayOfWeek.Size = new Size(161, 23);
+            cboVisualsFirstDayOfWeek.TabIndex = 7;
             // 
             // lblVisualsFirstDayOfWeek
             // 
             lblVisualsFirstDayOfWeek.AutoSize = true;
-            lblVisualsFirstDayOfWeek.Location = new Point(12, 99);
+            lblVisualsFirstDayOfWeek.Location = new Point(12, 129);
             lblVisualsFirstDayOfWeek.Name = "lblVisualsFirstDayOfWeek";
             lblVisualsFirstDayOfWeek.Size = new Size(104, 15);
-            lblVisualsFirstDayOfWeek.TabIndex = 3;
+            lblVisualsFirstDayOfWeek.TabIndex = 6;
             lblVisualsFirstDayOfWeek.Text = "&First Day of Week :";
             // 
             // chkVisualsShowTodayCircle
@@ -536,8 +571,8 @@ namespace QuickCalendar
         private TabPage tabDetails;
         private TextBox txtDetailsDescription;
         private Label lblDetailsDescription;
-        private TextBox txtDetailsName;
-        private Label lblDetailsName;
+        private TextBox txtDetailsFileName;
+        private Label lblDetailsFileName;
         private DateTimePicker dtpDetailsMaximumDate;
         private DateTimePicker dtpDetailsMinimumDate;
         private Label lblDetailsMaximumDate;
@@ -572,5 +607,8 @@ namespace QuickCalendar
         private TextBox txtDisplayFont;
         private Label lblDisplayFont;
         private FontDialog dlgFontBrowser;
+        private Label lblSavedWindowPositionDescription;
+        private ComboBox cboWindowStartPosition;
+        private Label lblWindowStartPosition;
     }
 }

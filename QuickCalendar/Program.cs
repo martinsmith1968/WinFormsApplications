@@ -1,9 +1,12 @@
 using System.Reflection;
 using DNX.Helpers.Assemblies;
 using Ookii.CommandLine;
+using QuickCalendar.Domain.Debugging;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Repositories;
 using QuickCalendar.Properties;
+
+#pragma warning disable IL3000 // Assembly.Location unreliable for self-contained apps
 
 namespace QuickCalendar;
 
@@ -19,6 +22,11 @@ internal static class Program
     {
         try
         {
+            Logger.Reset();
+            Logger.Info(Logger.SeparatorLine, null);
+            Logger.Info($"Location: {Assembly.GetEntryAssembly()?.Location}");
+            Logger.Info($"BaseDirectory: {AppContext.BaseDirectory}");
+
             LoadUserSettings();
 
             var arguments = Arguments.Parse(args, Arguments.Options)
@@ -36,6 +44,7 @@ internal static class Program
                     : string.Empty;
 
             // Load Calendar
+            Logger.Trace($"{nameof(Main)}: Loading {nameof(fileName)}: {fileName}");
             var initialCalendarSet = LoadOrCreateCalendarSet(fileName);
 
             // Setup Main Form
@@ -46,6 +55,7 @@ internal static class Program
         }
         catch (Exception ex)
         {
+            Logger.Exception(ex);
             if (Win32.ApplicationHasConsole)
             {
                 Console.Error.WriteLine($"Error: {ex.Message}");

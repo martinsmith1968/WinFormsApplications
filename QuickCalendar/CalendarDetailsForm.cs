@@ -1,6 +1,9 @@
+using DNX.Helpers.Enumerations;
+using QuickCalendar.Domain.Attributes;
 using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Extensions;
 using QuickCalendar.Models;
 
@@ -12,6 +15,8 @@ public partial class CalendarDetailsForm : Form
 {
     private List<ComboboxItem<DayOfWeek?>> _dayOfWeekItems = new();
     private List<ComboboxItem<int?>> _firstVisibleMonthItems = new();
+    private List<ComboboxItem<WindowStartLocationType>> _windowStartLocationTypeItems = new();
+
 
     public CalendarSet CalendarSet { get; private init; } = CalendarSet.Default;
 
@@ -54,10 +59,10 @@ public partial class CalendarDetailsForm : Form
 
     private bool ValidateForm()
     {
-        if (string.IsNullOrWhiteSpace(txtDetailsName.Text))
+        if (string.IsNullOrWhiteSpace(txtDetailsFileName.Text))
         {
-            ShowErrorMessage($"{lblDetailsName.Text} must be specified", TimeSpan.FromSeconds(5));
-            txtDetailsName.SetFocusTo();
+            ShowErrorMessage($"{lblDetailsFileName.Text} must be specified", TimeSpan.FromSeconds(5));
+            txtDetailsFileName.SetFocusTo();
             return false;
         }
 
@@ -80,17 +85,25 @@ public partial class CalendarDetailsForm : Form
             .ToList();
         _firstVisibleMonthItems.Insert(0, new ComboboxItem<int?>("(Not Set)", null));
 
+        _windowStartLocationTypeItems = Enum.GetValues<WindowStartLocationType>()
+            .Select(e => new ComboboxItem<WindowStartLocationType>(e.ToString(), e))
+            .ToList();
+
+        // Load to Form
         cboVisualsFirstDayOfWeek.Items.Clear();
         _dayOfWeekItems.ForEach(i => cboVisualsFirstDayOfWeek.Items.Add(i));
 
         cboVisualsFirstVisibleMonth.Items.Clear();
         _firstVisibleMonthItems.ForEach(i => cboVisualsFirstVisibleMonth.Items.Add(i));
+
+        cboWindowStartPosition.Items.Clear();
+        _windowStartLocationTypeItems.ForEach(i => cboWindowStartPosition.Items.Add(i));
     }
 
     private void LoadCalendarSetToForm(CalendarSet calendarSet)
     {
         // Details
-        txtDetailsName.Text = calendarSet.Name;
+        txtDetailsFileName.Text = calendarSet.FullFileName;
         txtDetailsDescription.Text = calendarSet.Description;
         txtDisplayFont.Font = calendarSet.GetFont();
         txtDisplayFont.Text = $"{txtDisplayFont.Font.Name}, {txtDisplayFont.Font.Size} pt";
@@ -102,6 +115,14 @@ public partial class CalendarDetailsForm : Form
         chkVisualsShowWeekNumbers.Checked = calendarSet.VisualDetails.ShowWeekNumbers;
         chkVisualsShowToday.Checked = calendarSet.VisualDetails.ShowToday;
         chkVisualsShowTodayCircle.Checked = calendarSet.VisualDetails.ShowTodayCircle;
+
+        cboWindowStartPosition.SelectedItem = _windowStartLocationTypeItems
+                                                    .FirstOrDefault(x => x.Value == calendarSet.VisualDetails.WindowStartLocation)
+                                                ?? cboWindowStartPosition.Items[0];
+
+        lblSavedWindowPositionDescription.Text = calendarSet.VisualDetails.ManualWindowLocation.HasValue
+            ? $"{nameof(calendarSet.VisualDetails.ManualWindowLocation.Value.X)}: {calendarSet.VisualDetails.ManualWindowLocation.Value.X}, {nameof(calendarSet.VisualDetails.ManualWindowLocation.Value.Y)}: {calendarSet.VisualDetails.ManualWindowLocation.Value.Y}"
+            : null;
 
         cboVisualsFirstDayOfWeek.SelectedItem = _dayOfWeekItems
                                                     .FirstOrDefault(x => x.Value == calendarSet.VisualDetails.FirstDayOfWeek)
@@ -145,6 +166,10 @@ public partial class CalendarDetailsForm : Form
         var isItemSelected = lvwDatesNotableDates.SelectedIndices.Count > 0;
         var isTop = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == 0;
         var isBottom = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == lvwDatesNotableDates.Items.Count - 1;
+        var isCalculatedWindowPosition = cboWindowStartPosition.SelectedItem != null
+                                         && (((cboWindowStartPosition.SelectedItem as ComboboxItem<WindowStartLocationType>)?.Value.GetAttribute<CalculatedPositionAttribute>()?.Value) ?? false);
+
+        lblSavedWindowPositionDescription.Visible = !isCalculatedWindowPosition;
 
         tsctxDatesRemove.Enabled = isItemSelected;
         tsctxDatesEdit.Enabled = isItemSelected;
@@ -158,6 +183,7 @@ public partial class CalendarDetailsForm : Form
 
         lblErrorText.BorderStyle = BorderStyle.None;
         ShowErrorMessage();
+        lblSavedWindowPositionDescription.BorderStyle = BorderStyle.None;
 
         tbcEditor.Dock = DockStyle.Fill;
         lvwDatesNotableDates.Dock = DockStyle.Fill;
@@ -184,7 +210,7 @@ public partial class CalendarDetailsForm : Form
 
     private void txtDetailsName_Enter(object sender, EventArgs e)
     {
-        txtDetailsName.SelectAll();
+        txtDetailsFileName.SelectAll();
     }
 
     private void txtDateDisplayFormat_TextChanged(object sender, EventArgs e)
@@ -240,7 +266,8 @@ public partial class CalendarDetailsForm : Form
             return;
 
         var result = NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat);
-        // TODO:
+
+        // TODO: Reload
     }
 
     private void tsctxDatesMoveUp_Click(object sender, EventArgs e)

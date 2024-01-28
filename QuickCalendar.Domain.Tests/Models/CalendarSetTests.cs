@@ -49,7 +49,49 @@ public class CalendarSetTests
     }
 
     [Fact]
-    public void Constructor_populates_properties_correctly()
+    public void Constructor_for_FileInfo_and_description_only_populates_properties_correctly()
+    {
+        var fileName = Path.GetTempFileName();
+        File.WriteAllText(fileName, null);
+        var fileInfo = new FileInfo(fileName);
+
+        var description = Faker.Commerce.ProductDescription();
+
+        // Act
+        var instance = new CalendarSet(fileInfo, description);
+
+        // Assert
+        instance.Should().NotBeNull();
+        instance.FileInfo.Should().Be(fileInfo);
+        instance.Description.Should().Be(description);
+        instance.MaximumDate.Should().Be(DateTime.MaxValue);
+        instance.MinimumDate.Should().Be(DateTime.MinValue);
+        instance.VisualDetails.Should().NotBeNull();
+        instance.Dates.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void Constructor_for_FileInfo_only_populates_properties_correctly()
+    {
+        var fileName = Path.GetTempFileName();
+        File.WriteAllText(fileName, null);
+        var fileInfo = new FileInfo(fileName);
+
+        // Act
+        var instance = new CalendarSet(fileInfo);
+
+        // Assert
+        instance.Should().NotBeNull();
+        instance.FileInfo.Should().Be(fileInfo);
+        instance.Description.Should().BeNull();
+        instance.MaximumDate.Should().Be(DateTime.MaxValue);
+        instance.MinimumDate.Should().Be(DateTime.MinValue);
+        instance.VisualDetails.Should().NotBeNull();
+        instance.Dates.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void Constructor_for_description_only_populates_properties_correctly()
     {
         var description = Faker.Commerce.ProductDescription();
 
@@ -58,8 +100,8 @@ public class CalendarSetTests
 
         // Assert
         instance.Should().NotBeNull();
+        instance.FileInfo.Should().BeNull();
         instance.Description.Should().Be(description);
-        instance.Description.Should().BeNull();
         instance.MaximumDate.Should().Be(DateTime.MaxValue);
         instance.MinimumDate.Should().Be(DateTime.MinValue);
         instance.VisualDetails.Should().NotBeNull();
