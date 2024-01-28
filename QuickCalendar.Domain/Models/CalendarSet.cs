@@ -1,3 +1,4 @@
+using System.Drawing;
 using QuickCalendar.Domain.Interfaces;
 
 namespace QuickCalendar.Domain.Models;
@@ -8,25 +9,27 @@ public class CalendarSet :
 {
     private const int CurrentModelVersion = 1;
 
-    public const string DefaultName = "Default";
+    public const string MissingFileName = "Untitled";
+
     public const string DefaultDescription = "A default Calendar";
 
     public const string DefaultFontName = "Segoe UI";
     public const float DefaultFontSize = 9;
 
     public CalendarSet()
-        : this(DefaultName)
+        : this(null, null)
     {
     }
 
-    public CalendarSet(string name)
-        : this(name, null)
+    public CalendarSet(string description)
+        : this(null, description)
     {
     }
 
-    public CalendarSet(string name, string? description = null)
+
+    public CalendarSet(FileInfo? fileInfo, string? description = null)
     {
-        Name            = name;
+        FileInfo        = fileInfo;
         Description     = description;
         DisplayFontName = DefaultFontName;
         DisplayFontSize = DefaultFontSize;
@@ -34,7 +37,11 @@ public class CalendarSet :
 
     public int Version { get; set; } = CurrentModelVersion;
 
-    public string Name { get; set; }
+    public FileInfo? FileInfo { get; private set; }
+
+    public string FileName => Path.GetFileName(FullFileName);
+
+    public string FullFileName => FileInfo?.FullName ?? MissingFileName;
 
     public string? Description { get; set; }
 
@@ -52,12 +59,16 @@ public class CalendarSet :
 
     public CalendarSetDates Dates { get; set; } = new();
 
-    public static CalendarSet Default => new(DefaultName, DefaultDescription);
+    public static CalendarSet Default => new(null, DefaultDescription);
+
+    public void SetFileInfo(FileInfo fileInfo) => FileInfo = fileInfo;
+
+    public void SetFileName(string fileName) => FileInfo = new FileInfo(fileName);
 
     public void CopyFrom(CalendarSet other)
     {
         Version           = other.Version;
-        Name              = other.Name;
+        FileInfo          = other.FileInfo;
         DisplayFontName   = other.DisplayFontName;
         DisplayFontSize   = other.DisplayFontSize;
         Description       = other.Description;

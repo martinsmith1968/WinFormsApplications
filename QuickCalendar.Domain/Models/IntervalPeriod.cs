@@ -12,23 +12,14 @@ public class IntervalPeriod : ICopyable<IntervalPeriod>
         Value = 1
     };
 
-    public static IntervalPeriod Create(IntervalPeriodType intervalPeriodType, uint value)
-    {
-        if (!Enum.GetNames(typeof(IntervalPeriodType)).Contains(intervalPeriodType.ToString()))
-            throw new ArgumentOutOfRangeException(nameof(intervalPeriodType), $"{nameof(IntervalPeriodType)} is unknown");
-        if (value <= 0)
-            throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(Value)} is unknown");
-
-        return new IntervalPeriod
-        {
-            IntervalPeriodType = intervalPeriodType,
-            Value = value
-        };
-    }
-
     public uint Value { get; set; }
 
     public IntervalPeriodType IntervalPeriodType { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Value} {IntervalPeriodType}";
+    }
 
     public DateTime AddTo(DateTime dateTime)
     {
@@ -46,5 +37,19 @@ public class IntervalPeriod : ICopyable<IntervalPeriod>
     {
         Value = other.Value;
         IntervalPeriodType = other.IntervalPeriodType;
+    }
+
+    public static IntervalPeriod Create(IntervalPeriodType intervalPeriodType, uint value)
+    {
+        if (!Enum.GetNames(typeof(IntervalPeriodType)).Contains(intervalPeriodType.ToString()))
+            throw new ArgumentOutOfRangeException(nameof(intervalPeriodType), $"{nameof(IntervalPeriodType)} is unknown");
+        if (value <= 0)
+            throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(Value)} is unknown");
+
+        return new IntervalPeriod
+        {
+            IntervalPeriodType = intervalPeriodType,
+            Value = value
+        };
     }
 }

@@ -24,7 +24,7 @@ public class CalendarSetVisuals : ICopyable<CalendarSetVisuals>
         set => _firstVisibleMonth = value is >= 1 and <= 12 ? value : null;
     }
 
-    public WindowStartLocationType WindowStartLocation { get; set; } = WindowStartLocationType.ScreenCentre;
+    public WindowStartLocationType WindowStartLocation { get; set; } = WindowStartLocationType.PrimaryScreenCentre;
 
     private Point? _manualWindowLocation;
     public Point? ManualWindowLocation
@@ -36,13 +36,19 @@ public class CalendarSetVisuals : ICopyable<CalendarSetVisuals>
     internal static bool IsValid(Point? point)
     {
         if (point == null)
+        {
             return false;
+        }
 
         if (point.Value.X < 0)
+        {
             return false;
+        }
 
         if (point.Value.Y < 0)
+        {
             return false;
+        }
 
         return true;
     }

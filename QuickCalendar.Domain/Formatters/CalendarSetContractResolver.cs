@@ -10,6 +10,7 @@ public class CalendarSetContractResolver : DefaultContractResolver
 {
     private readonly Dictionary<string, Type> _ignoreProps = new()
     {
+        { nameof(CalendarSet.FileInfo), typeof(FileInfo) },
         { nameof(CalendarSet.Dates.Dates), typeof(IList<NotableDate>) },
         { nameof(CalendarSet.Dates.MonthlyDates), typeof(IList<NotableDate>) },
         { nameof(CalendarSet.Dates.AnnualDates), typeof(IList<NotableDate>) },
