@@ -5,6 +5,7 @@ using QuickCalendar.Domain.Debugging;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Repositories;
 using QuickCalendar.Properties;
+using Serilog;
 
 #pragma warning disable IL3000 // Assembly.Location unreliable for self-contained apps
 
@@ -14,6 +15,8 @@ internal static class Program
 {
     public static IAssemblyDetails AssemblyDetails = new AssemblyDetails(Assembly.GetEntryAssembly());
 
+    private static ILogger GetLogger() => Log.ForContext(typeof(Program));
+
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
@@ -22,10 +25,11 @@ internal static class Program
     {
         try
         {
-            Logger.Reset();
-            Logger.Info(Logger.SeparatorLine, null);
-            Logger.Info($"Location: {Assembly.GetEntryAssembly()?.Location}");
-            Logger.Info($"BaseDirectory: {AppContext.BaseDirectory}");
+            Logging.Configure();
+
+            var logger = GetLogger();
+            logger.Information($"Location: {Assembly.GetEntryAssembly()?.Location}");
+            logger.Information($"BaseDirectory: {AppContext.BaseDirectory}");
 
             LoadUserSettings();
 
@@ -44,7 +48,7 @@ internal static class Program
                     : string.Empty;
 
             // Load Calendar
-            Logger.Trace($"{nameof(Main)}: Loading {nameof(fileName)}: {fileName}");
+            logger.Debug($"{nameof(Main)}: Loading {nameof(fileName)}: {fileName}");
             var initialCalendarSet = LoadOrCreateCalendarSet(fileName);
 
             // Setup Main Form
@@ -55,7 +59,7 @@ internal static class Program
         }
         catch (Exception ex)
         {
-            Logger.Exception(ex);
+            GetLogger().Fatal(ex, ex.Message);
             if (Win32.ApplicationHasConsole)
             {
                 Console.Error.WriteLine($"Error: {ex.Message}");

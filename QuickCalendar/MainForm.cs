@@ -1,12 +1,12 @@
- using System.Diagnostics;
+using System.Diagnostics;
 using DNX.Helpers.Assemblies;
-using QuickCalendar.Domain.Debugging;
 using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Domain.Repositories;
 using QuickCalendar.Extensions;
 using QuickCalendar.Properties;
+using Serilog;
 using Timer = System.Windows.Forms.Timer;
 
 // ReSharper disable LocalizableElement
@@ -18,6 +18,8 @@ namespace QuickCalendar;
 
 public partial class MainForm : Form
 {
+    private static readonly ILogger Logger = Log.ForContext(typeof(MainForm));
+
     public CalendarSet CalendarSet { get; private set; } = CalendarSet.Default;
 
     public MainForm()
@@ -271,7 +273,7 @@ public partial class MainForm : Form
 
     private void ShowInfoText(string? text = null, TimeSpan? clearAfter = null)
     {
-        Logger.Info(text ?? string.Empty);
+        Logger.Information(text ?? string.Empty);
 
         tslblInfo.Text = text;
         tslblInfo.Owner.Update();
@@ -354,7 +356,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            Logger.Exception(ex);
+            Logger.Fatal(ex, ex.Message);
             MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
@@ -379,7 +381,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            Logger.Exception(ex);
+            Logger.Fatal(ex, ex.Message);
             MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
@@ -415,7 +417,7 @@ public partial class MainForm : Form
         }
         catch (Exception ex)
         {
-            Logger.Exception(ex);
+            Logger.Fatal(ex, ex.Message);
             MessageBox.Show(ex.Message, Program.AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
