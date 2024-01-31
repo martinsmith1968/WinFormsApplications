@@ -15,7 +15,7 @@ internal static class Program
 {
     public static IAssemblyDetails AssemblyDetails = new AssemblyDetails(Assembly.GetEntryAssembly());
 
-    private static ILogger GetLogger() => Log.ForContext(typeof(Program));
+    private static ILogger Logger = Log.Logger;
 
     /// <summary>
     ///  The main entry point for the application.
@@ -26,15 +26,16 @@ internal static class Program
         try
         {
             Logging.Configure();
+            Logger = Log.ForContext(typeof(Program));
 
-            var logger = GetLogger();
-            logger.Information($"Location: {Assembly.GetEntryAssembly()?.Location}");
-            logger.Information($"BaseDirectory: {AppContext.BaseDirectory}");
+            Logger.Debug($"{nameof(AssemblyDetails.FileName)}: {AssemblyDetails.FileName}");
+            Logger.Debug($"{nameof(AppContext.BaseDirectory)}: {AppContext.BaseDirectory}");
 
             LoadUserSettings();
 
             var arguments = Arguments.Parse(args, Arguments.Options)
                             ?? throw new CommandLineArgumentException("Unable to parse Program Arguments");
+            arguments.Validate();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -48,7 +49,7 @@ internal static class Program
                     : string.Empty;
 
             // Load Calendar
-            logger.Debug($"{nameof(Main)}: Loading {nameof(fileName)}: {fileName}");
+            Logger.Debug($"{nameof(Main)}: Loading {nameof(fileName)}: {fileName}");
             var initialCalendarSet = LoadOrCreateCalendarSet(fileName);
 
             // Setup Main Form
@@ -59,10 +60,10 @@ internal static class Program
         }
         catch (Exception ex)
         {
-            GetLogger().Fatal(ex, ex.Message);
+            Logger.Fatal(ex, ex.Message);
             if (Win32.ApplicationHasConsole)
             {
-                Console.Error.WriteLine($"Error: {ex.Message}");
+                Console.Error.WriteLine($"{AssemblyDetails.Title} Error: {ex.Message}");
             }
             else
             {
@@ -75,6 +76,8 @@ internal static class Program
     {
         if (UserSettings.Default.App_IsUpgraded)
         {
+            Logger.Information($"Upgrading {nameof(UserSettings)}");
+
             UserSettings.Default.Upgrade();
             UserSettings.Default.App_IsUpgraded = false;
             UserSettings.Default.Save();
@@ -87,10 +90,21 @@ internal static class Program
 
         if (!string.IsNullOrWhiteSpace(fileName))
         {
+            Logger.Information($"Loading File: {fileName}");
+
             calendarSet = CalendarSetRepository.LoadFromFile(fileName);
+            if (calendarSet != null)
+            {
+                UserSettings.Default.LastOpenedFileName = fileName;
+                UserSettings.Default.Save();
+            }
         }
 
-        calendarSet ??= CalendarSetBuilder.BuildMyCustomCalendarSet();
+        if (calendarSet == null)
+        {
+            Logger.Debug($"Defaulting {nameof(CalendarSet)} via {nameof(CalendarSetBuilder)}.{nameof(CalendarSetBuilder.BuildMyCustomCalendarSet)}");
+            CalendarSetBuilder.BuildMyCustomCalendarSet();
+        }
 
         return calendarSet;
     }

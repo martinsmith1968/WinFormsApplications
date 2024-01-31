@@ -1,0 +1,10 @@
+{
+  "FileVersion": 2,
+  "Id": "1920bb21-a916-465b-bb91-65a6b10da210",
+  "Items": [
+    {
+      "Id": "41bc7f89-6cc8-4833-a9ef-ca3bc9c0eb02",
+      "Command": "-f C:\\unknown.dat"
+    }
+  ]
+}
