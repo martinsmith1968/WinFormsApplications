@@ -35,7 +35,7 @@ public class CalendarSetRepositoryTests
         // Assert
         result.Should().NotBeNullOrWhiteSpace();
 
-        var items = result.Split("|");
+        var items = result.Split(CalendarSetRepository.FileDialogFilterJoinChar);
         items.Should().NotBeEmpty();
         items.Length.Should().BeGreaterThan(0);
         (items.Length % 2).Should().Be(0);

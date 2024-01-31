@@ -136,10 +136,7 @@ public partial class MainForm : Form
             mcalCalendar.FirstDayOfWeek = Enum.Parse<Day>(calendarSetVisuals.FirstDayOfWeek.Value.ToString());
         }
 
-        if (calendarSetVisuals.ManualWindowLocation.HasValue)
-        {
-            Location = calendarSetVisuals.ManualWindowLocation.Value;
-        }
+        SetCalendarPosition(calendarSetVisuals.WindowStartLocation, calendarSetVisuals.ManualWindowLocation);
     }
 
     private void SetCalendarDimensions(Size dimensions)

@@ -1,54 +1,53 @@
 using DNX.Helpers.Internal;
 using QuickCalendar.Domain.Models;
 
-namespace QuickCalendar.Domain.Repositories
+namespace QuickCalendar.Domain.Repositories;
+
+public class CalendarSetRepository
 {
-    public class CalendarSetRepository
+    public static readonly string DefaultFileExtension = nameof(CalendarSet).ToLower();
+
+    public const string FileDialogFilterJoinChar = "|";
+
+    public static string BuildFileDialogFileFilters()
     {
-        public static readonly string DefaultFileExtension = nameof(CalendarSet).ToLower();
-
-        public static string BuildFileDialogFileFilters()
+        var fileFilters = new Dictionary<string, string>()
         {
-            const string filterJoinChar = "|";
+            { DefaultFileExtension, $"{nameof(CalendarSet)} file" },
+            { "json", "JSON file" },
+            { "*", "All Files" }
+        };
 
-            var fileFilters = new Dictionary<string, string>()
-            {
-                { DefaultFileExtension, $"{nameof(CalendarSet)} file" },
-                { "json", "JSON file" },
-                { "*", "All Files" }
-            };
+        var filterStrings = fileFilters
+            .Select(ff =>
+                {
+                    var wildCard = $"*.{ff.Key}";
 
-            var filterStrings = fileFilters
-                .Select(ff =>
-                    {
-                        var wildCard = $"*.{ff.Key}";
+                    return $"{ff.Value} ({wildCard}){FileDialogFilterJoinChar}{wildCard}";
+                }
+            );
 
-                        return $"{ff.Value} ({wildCard}){filterJoinChar}{wildCard}";
-                    }
-                );
+        return string.Join(FileDialogFilterJoinChar, filterStrings);
+    }
 
-            return string.Join(filterJoinChar, filterStrings);
-        }
+    public static CalendarSet? LoadFromFile(string fileName)
+    {
+        var text = RunSafely.Execute(() => File.ReadAllText(fileName));
 
-        public static CalendarSet? LoadFromFile(string fileName)
-        {
-            var text = RunSafely.Execute(() => File.ReadAllText(fileName));
+        var calendarSet = string.IsNullOrWhiteSpace(text)
+            ? null
+            : Parsers.CalendarSetParser.ParseFromJson(text);
+        calendarSet?.SetFileName(fileName);
 
-            var calendarSet = string.IsNullOrWhiteSpace(text)
-                ? null
-                : Parsers.CalendarSetParser.ParseFromJson(text);
-            calendarSet?.SetFileName(fileName);
+        return calendarSet;
+    }
 
-            return calendarSet;
-        }
+    public static void SaveToFile(CalendarSet calendarSet, string fileName)
+    {
+        var text = Parsers.CalendarSetParser.GenerateJson(calendarSet);
 
-        public static void SaveToFile(CalendarSet calendarSet, string fileName)
-        {
-            var text = Parsers.CalendarSetParser.GenerateJson(calendarSet);
+        File.WriteAllText(fileName, text);
 
-            File.WriteAllText(fileName, text);
-
-            calendarSet.SetFileName(fileName);
-        }
+        calendarSet.SetFileName(fileName);
     }
 }

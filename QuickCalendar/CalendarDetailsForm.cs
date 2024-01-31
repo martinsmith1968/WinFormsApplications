@@ -96,8 +96,8 @@ public partial class CalendarDetailsForm : Form
         cboVisualsFirstVisibleMonth.Items.Clear();
         _firstVisibleMonthItems.ForEach(i => cboVisualsFirstVisibleMonth.Items.Add(i));
 
-        cboWindowStartPosition.Items.Clear();
-        _windowStartLocationTypeItems.ForEach(i => cboWindowStartPosition.Items.Add(i));
+        cboVisualsWindowStartPosition.Items.Clear();
+        _windowStartLocationTypeItems.ForEach(i => cboVisualsWindowStartPosition.Items.Add(i));
     }
 
     private void LoadCalendarSetToForm(CalendarSet calendarSet)
@@ -116,11 +116,11 @@ public partial class CalendarDetailsForm : Form
         chkVisualsShowToday.Checked = calendarSet.VisualDetails.ShowToday;
         chkVisualsShowTodayCircle.Checked = calendarSet.VisualDetails.ShowTodayCircle;
 
-        cboWindowStartPosition.SelectedItem = _windowStartLocationTypeItems
+        cboVisualsWindowStartPosition.SelectedItem = _windowStartLocationTypeItems
                                                     .FirstOrDefault(x => x.Value == calendarSet.VisualDetails.WindowStartLocation)
-                                                ?? cboWindowStartPosition.Items[0];
+                                                ?? cboVisualsWindowStartPosition.Items[0];
 
-        lblSavedWindowPositionDescription.Text = calendarSet.VisualDetails.ManualWindowLocation.HasValue
+        lblVisualsSavedWindowPositionDescription.Text = calendarSet.VisualDetails.ManualWindowLocation.HasValue
             ? $"{nameof(calendarSet.VisualDetails.ManualWindowLocation.Value.X)}: {calendarSet.VisualDetails.ManualWindowLocation.Value.X}, {nameof(calendarSet.VisualDetails.ManualWindowLocation.Value.Y)}: {calendarSet.VisualDetails.ManualWindowLocation.Value.Y}"
             : null;
 
@@ -146,34 +146,35 @@ public partial class CalendarDetailsForm : Form
     private void SaveFormToCalendarSet(CalendarSet calendarSet)
     {
         // Details
-        calendarSet.Description = txtDetailsDescription.Text;
-        calendarSet.DisplayFontName = txtDisplayFont.Font.Name;
-        calendarSet.DisplayFontSize = txtDisplayFont.Font.Size;
-        calendarSet.MinimumDate = dtpDetailsMinimumDate.Value;
-        calendarSet.MaximumDate = dtpDetailsMaximumDate.Value;
+        calendarSet.Description       = txtDetailsDescription.Text;
+        calendarSet.DisplayFontName   = txtDisplayFont.Font.Name;
+        calendarSet.DisplayFontSize   = txtDisplayFont.Font.Size;
+        calendarSet.MinimumDate       = dtpDetailsMinimumDate.Value;
+        calendarSet.MaximumDate       = dtpDetailsMaximumDate.Value;
         calendarSet.DateDisplayFormat = txtDetailsDateDisplayFormat.Text;
 
         // Visual Details
-        calendarSet.VisualDetails.ShowWeekNumbers = chkVisualsShowWeekNumbers.Checked;
-        calendarSet.VisualDetails.ShowToday = chkVisualsShowToday.Checked;
-        calendarSet.VisualDetails.ShowTodayCircle = chkVisualsShowTodayCircle.Checked;
-        calendarSet.VisualDetails.FirstDayOfWeek = (cboVisualsFirstDayOfWeek.SelectedItem as ComboboxItem<DayOfWeek?>)?.Value;
-        calendarSet.VisualDetails.FirstVisibleMonth = (cboVisualsFirstVisibleMonth.SelectedItem as ComboboxItem<int?>)?.Value;
+        calendarSet.VisualDetails.ShowWeekNumbers     = chkVisualsShowWeekNumbers.Checked;
+        calendarSet.VisualDetails.ShowToday           = chkVisualsShowToday.Checked;
+        calendarSet.VisualDetails.ShowTodayCircle     = chkVisualsShowTodayCircle.Checked;
+        calendarSet.VisualDetails.WindowStartLocation = (cboVisualsWindowStartPosition.SelectedItem as ComboboxItem<WindowStartLocationType?>)?.Value ?? WindowStartLocationType.Manual;
+        calendarSet.VisualDetails.FirstDayOfWeek      = (cboVisualsFirstDayOfWeek.SelectedItem as ComboboxItem<DayOfWeek?>)?.Value;
+        calendarSet.VisualDetails.FirstVisibleMonth   = (cboVisualsFirstVisibleMonth.SelectedItem as ComboboxItem<int?>)?.Value;
     }
 
     private void ApplicationOnIdle(object? sender, EventArgs e)
     {
-        var isItemSelected = lvwDatesNotableDates.SelectedIndices.Count > 0;
-        var isTop = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == 0;
-        var isBottom = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == lvwDatesNotableDates.Items.Count - 1;
-        var isCalculatedWindowPosition = cboWindowStartPosition.SelectedItem != null
-                                         && (((cboWindowStartPosition.SelectedItem as ComboboxItem<WindowStartLocationType>)?.Value.GetAttribute<CalculatedPositionAttribute>()?.Value) ?? false);
+        var isItemSelected             = lvwDatesNotableDates.SelectedIndices.Count > 0;
+        var isTop                      = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == 0;
+        var isBottom                   = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == lvwDatesNotableDates.Items.Count - 1;
+        var isCalculatedWindowPosition = cboVisualsWindowStartPosition.SelectedItem != null
+                                         && (((cboVisualsWindowStartPosition.SelectedItem as ComboboxItem<WindowStartLocationType>)?.Value.GetAttribute<CalculatedPositionAttribute>()?.Value) ?? false);
 
-        lblSavedWindowPositionDescription.Visible = !isCalculatedWindowPosition;
+        lblVisualsSavedWindowPositionDescription.Visible = !isCalculatedWindowPosition;
 
-        tsctxDatesRemove.Enabled = isItemSelected;
-        tsctxDatesEdit.Enabled = isItemSelected;
-        tsctxDatesMoveUp.Enabled = isItemSelected && !isTop;
+        tsctxDatesRemove.Enabled   = isItemSelected;
+        tsctxDatesEdit.Enabled     = isItemSelected;
+        tsctxDatesMoveUp.Enabled   = isItemSelected && !isTop;
         tsctxDatesMoveDown.Enabled = isItemSelected && !isBottom;
     }
 
@@ -183,7 +184,7 @@ public partial class CalendarDetailsForm : Form
 
         lblErrorText.BorderStyle = BorderStyle.None;
         ShowErrorMessage();
-        lblSavedWindowPositionDescription.BorderStyle = BorderStyle.None;
+        lblVisualsSavedWindowPositionDescription.BorderStyle = BorderStyle.None;
 
         tbcEditor.Dock = DockStyle.Fill;
         lvwDatesNotableDates.Dock = DockStyle.Fill;
