@@ -19,13 +19,15 @@ public class Logging
 
     private const int MaxLogFileSize = 1024 * 1024 * 10;  // 10MB
 
-    private static IList<string> GetLoggedAssemblies()
+    private static IEnumerable<string> GetLoggableAssemblies()
     {
         return new List<string>()
         {
             Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly()?.Location),
-            Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly()?.Location),
-        };
+            Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location),
+        }
+        .Where(x => !string.IsNullOrWhiteSpace(x))
+        .Distinct();
     }
 
     public static void Configure()
@@ -35,7 +37,7 @@ public class Logging
             .Enrich.WithAssemblyVersion()
             .Enrich.WithCallerInfo(
                 true,
-                allowedAssemblies: GetLoggedAssemblies()
+                allowedAssemblies: GetLoggableAssemblies()
             )
             .WriteTo.File(
                 FileName,
