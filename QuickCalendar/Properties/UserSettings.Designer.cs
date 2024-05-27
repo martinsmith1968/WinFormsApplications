@@ -94,5 +94,65 @@ namespace QuickCalendar.Properties {
                 this["ShowCalendarNameInWindowTitle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CalendarDetailsForm_Size {
+            get {
+                return ((string)(this["CalendarDetailsForm_Size"]));
+            }
+            set {
+                this["CalendarDetailsForm_Size"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CalendarDetailsForm_lvwDatesNotableDates_ColumnSizes {
+            get {
+                return ((string)(this["CalendarDetailsForm_lvwDatesNotableDates_ColumnSizes"]));
+            }
+            set {
+                this["CalendarDetailsForm_lvwDatesNotableDates_ColumnSizes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NotableDatesGeneratorEditorForm_Size {
+            get {
+                return ((string)(this["NotableDatesGeneratorEditorForm_Size"]));
+            }
+            set {
+                this["NotableDatesGeneratorEditorForm_Size"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NotableDatesGeneratorEditorForm_lvwGeneratedDates_ColumnSizes {
+            get {
+                return ((string)(this["NotableDatesGeneratorEditorForm_lvwGeneratedDates_ColumnSizes"]));
+            }
+            set {
+                this["NotableDatesGeneratorEditorForm_lvwGeneratedDates_ColumnSizes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ProgramOptionsForm_lvwRawProperties_ColumnSizes {
+            get {
+                return ((string)(this["ProgramOptionsForm_lvwRawProperties_ColumnSizes"]));
+            }
+            set {
+                this["ProgramOptionsForm_lvwRawProperties_ColumnSizes"] = value;
+            }
+        }
     }
 }

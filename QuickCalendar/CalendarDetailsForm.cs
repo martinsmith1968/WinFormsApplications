@@ -1,4 +1,5 @@
 using DNX.Helpers.Enumerations;
+using QuickCalendar.ControlExtensions;
 using QuickCalendar.Domain.Attributes;
 using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Generators;
@@ -6,6 +7,7 @@ using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Extensions;
 using QuickCalendar.Models;
+using QuickCalendar.Properties;
 
 #pragma warning disable IDE1006
 
@@ -201,6 +203,9 @@ public partial class CalendarDetailsForm : Form
 
         LoadCalendarSetToForm(CalendarSet);
 
+        this.ApplySizeValueText(UserSettings.Default.CalendarDetailsForm_Size);
+        lvwDatesNotableDates.ApplyColumnSizesValueText(UserSettings.Default.CalendarDetailsForm_lvwDatesNotableDates_ColumnSizes);
+
         ActiveControl = txtDetailsDescription;
     }
 
@@ -240,6 +245,13 @@ public partial class CalendarDetailsForm : Form
 
         SaveFormToCalendarSet(CalendarSet);
 
+        UserSettings.Default.Update(x =>
+            {
+                x.CalendarDetailsForm_Size = this.GenerateSizeValueText();
+                x.CalendarDetailsForm_lvwDatesNotableDates_ColumnSizes = lvwDatesNotableDates.GenerateColumnSizesValueText();
+            }
+        );
+
         DialogResult = DialogResult.OK;
     }
 
@@ -251,7 +263,9 @@ public partial class CalendarDetailsForm : Form
     private void tsctxDatesRemove_Click(object sender, EventArgs e)
     {
         if (lvwDatesNotableDates.SelectedItems.Count != 1)
+        {
             return;
+        }
 
         var item = lvwDatesNotableDates.SelectedItems[0];
         lvwDatesNotableDates.Items.Remove(item);
@@ -260,11 +274,15 @@ public partial class CalendarDetailsForm : Form
     private void tsctxDatesEdit_Click(object sender, EventArgs e)
     {
         if (lvwDatesNotableDates.SelectedItems.Count != 1)
+        {
             return;
+        }
 
         var item = (lvwDatesNotableDates.SelectedItems[0].Tag as INotableDatesGenerator);
         if (item == null)
+        {
             return;
+        }
 
         var result = NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat);
 
@@ -274,7 +292,9 @@ public partial class CalendarDetailsForm : Form
     private void tsctxDatesMoveUp_Click(object sender, EventArgs e)
     {
         if (lvwDatesNotableDates.SelectedItems.Count != 1)
+        {
             return;
+        }
 
         var item = lvwDatesNotableDates.SelectedItems[0];
         var index = item.Index - 1;
@@ -285,7 +305,9 @@ public partial class CalendarDetailsForm : Form
     private void tsctxDatesMoveDown_Click(object sender, EventArgs e)
     {
         if (lvwDatesNotableDates.SelectedItems.Count != 1)
+        {
             return;
+        }
 
         var item = lvwDatesNotableDates.SelectedItems[0];
         var index = item.Index + 1;

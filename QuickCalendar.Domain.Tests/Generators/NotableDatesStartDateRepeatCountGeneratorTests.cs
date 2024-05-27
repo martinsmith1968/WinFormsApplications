@@ -1,4 +1,5 @@
 using AutoFixture;
+using Bogus;
 using FluentAssertions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
@@ -10,6 +11,7 @@ namespace QuickCalendar.Domain.Tests.Generators;
 public class NotableDatesStartDateRepeatCountGeneratorTests
 {
     private static readonly Fixture AutoFixture = new();
+    private static readonly Random Randomizer = new();
 
     [Fact]
     public void GeneratorTypeName_is_determined_correctly()
@@ -35,7 +37,9 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
             StartDate = now,
             RepeatCount = 10,
             IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
-            DescriptionTemplate = "Day {sequence}, {yyyy-MMM-dd}"
+            DescriptionTemplate = "Day {sequence}, {yyyy-MMM-dd}",
+            SequenceStart = Randomizer.Next(1, 10),
+            SequenceIncrement = Randomizer.Next(1, 5)
         };
 
         // Act
@@ -45,13 +49,16 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
         result.Should().NotBeNull();
         result.Count.Should().Be(instance.RepeatCount);
 
+        var expectedSequence = instance.SequenceStart;
         for (var i = 0; i < instance.RepeatCount; i++)
         {
             var date = now.AddDays(instance.IntervalPeriod.Value * i);
-            var desc = $"Day {i + 1}, {date:yyyy-MMM-dd}";
+            var desc = $"Day {expectedSequence}, {date:yyyy-MMM-dd}";
 
             result.Skip(i).First().Date.Should().Be(date);
             result.Skip(i).First().Description.Should().Be(desc);
+
+            expectedSequence += instance.SequenceIncrement;
         }
     }
 

@@ -7,7 +7,7 @@ using QuickCalendar.Domain.Repositories;
 using QuickCalendar.Properties;
 using Serilog;
 
-#pragma warning disable IL3000 // Assembly.Location unreliable for self-contained apps
+// ReSharper disable InconsistentNaming
 
 namespace QuickCalendar;
 
@@ -103,7 +103,7 @@ internal static class Program
         if (calendarSet == null)
         {
             Logger.Debug($"Defaulting {nameof(CalendarSet)} via {nameof(CalendarSetBuilder)}.{nameof(CalendarSetBuilder.BuildMyCustomCalendarSet)}");
-            CalendarSetBuilder.BuildMyCustomCalendarSet();
+            calendarSet = CalendarSetBuilder.BuildMyCustomCalendarSet();
         }
 
         return calendarSet;

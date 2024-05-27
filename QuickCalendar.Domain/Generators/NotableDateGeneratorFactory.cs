@@ -21,7 +21,9 @@ public class NotableDateGeneratorFactory
             ;
 
         if (targetType == null)
+        {
             return null;
+        }
 
         var instance = Activator.CreateInstance(targetType);
 

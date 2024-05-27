@@ -42,9 +42,14 @@ public class IntervalPeriod : ICopyable<IntervalPeriod>
     public static IntervalPeriod Create(IntervalPeriodType intervalPeriodType, uint value)
     {
         if (!Enum.GetNames(typeof(IntervalPeriodType)).Contains(intervalPeriodType.ToString()))
+        {
             throw new ArgumentOutOfRangeException(nameof(intervalPeriodType), $"{nameof(IntervalPeriodType)} is unknown");
+        }
+
         if (value <= 0)
+        {
             throw new ArgumentOutOfRangeException(nameof(value), $"{nameof(Value)} is unknown");
+        }
 
         return new IntervalPeriod
         {

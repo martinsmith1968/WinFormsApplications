@@ -9,7 +9,9 @@ public class ComboItem<T>
     public ComboItem(T value, string? displayName = null)
     {
         if (value == null)
+        {
             throw new ArgumentNullException(nameof(value));
+        }
 
         Value       = value;
         DisplayName = displayName ?? value.ToString();

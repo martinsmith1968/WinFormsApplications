@@ -13,22 +13,26 @@ public class NotableDatesStartDateEndDateGenerator : BaseNotableDatesGenerator,
 
     public IntervalPeriod IntervalPeriod { get; set; } = IntervalPeriod.Default;
 
+    public int SequenceStart { get; set; } = 1;
+
+    public int SequenceIncrement { get; set; } = 1;
+
     public override IList<NotableDate> Generate()
     {
         var list = new List<NotableDate>();
 
-        var sequence = 0;
+        var sequence = SequenceStart;
         var date = StartDate;
         while (date <= EndDate)
         {
-            ++sequence;
-
             var description = InterpolateTemplate(DescriptionTemplate, date, sequence);
 
             var notableDate = new NotableDate(date, description);
 
             list.Add(notableDate);
             date = IntervalPeriod.AddTo(date);
+
+            sequence += SequenceIncrement;
         }
 
         return list;
@@ -40,6 +44,8 @@ public class NotableDatesStartDateEndDateGenerator : BaseNotableDatesGenerator,
         StartDate = other.StartDate;
         EndDate = other.EndDate;
         IntervalPeriod.CopyFrom(other.IntervalPeriod);
+        SequenceStart = other.SequenceStart;
+        SequenceIncrement = other.SequenceIncrement;
     }
 
     public NotableDatesStartDateEndDateGenerator Clone()

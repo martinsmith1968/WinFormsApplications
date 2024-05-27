@@ -1,4 +1,5 @@
 using QuickCalendar.Domain.Models;
+using QuickCalendar.Models;
 
 #pragma warning disable IDE1006
 
@@ -6,12 +7,14 @@ namespace QuickCalendar;
 
 public partial class CalendarSizeForm : Form
 {
-    private CalendarSize CalendarSize { get; set; } = CalendarSize.Default;
+    private CalendarSize CalendarSize { get; set; } = AllowedCalendarSizes.Default;
 
     public static CalendarSize? EditCalendarSize(CalendarSize defaultValue, Form? form = null)
     {
-        var instance = new CalendarSizeForm();
-        instance.CalendarSize = defaultValue;
+        var instance = new CalendarSizeForm
+        {
+            CalendarSize = defaultValue
+        };
 
         if (form != null)
         {
@@ -34,12 +37,14 @@ public partial class CalendarSizeForm : Form
     {
         pnlSettings.Dock = DockStyle.Fill;
 
-        foreach (var calendarSize in CalendarSize.AllowedCalendarSizes)
+        foreach (var calendarSize in AllowedCalendarSizes.Values)
         {
             var index = cboCalendarSize.Items.Add(calendarSize);
 
             if (calendarSize.Width == CalendarSize.Width && calendarSize.Height == CalendarSize.Height)
+            {
                 cboCalendarSize.SelectedIndex = index;
+            }
         }
 
         ActiveControl = cboCalendarSize;
@@ -94,15 +99,17 @@ public partial class CalendarSizeForm : Form
 
             foreach (var index in Enumerable.Range(0, pictureCount))
             {
-                var picture = new PictureBox();
-                picture.Name = $"picPreview{index}";
-                picture.Visible = false;
-                picture.Size = picSampleCalendarMonth.Size;
-                picture.Image = picSampleCalendarMonth.Image;
-                picture.SizeMode = picSampleCalendarMonth.SizeMode;
-                picture.Padding = picSampleCalendarMonth.Padding;
-                picture.Parent = pnlPreview;
-                picture.Location = positions[index];
+                var picture = new PictureBox
+                {
+                    Name     = $"picPreview{index}",
+                    Visible  = false,
+                    Size     = picSampleCalendarMonth.Size,
+                    Image    = picSampleCalendarMonth.Image,
+                    SizeMode = picSampleCalendarMonth.SizeMode,
+                    Padding  = picSampleCalendarMonth.Padding,
+                    Parent   = pnlPreview,
+                    Location = positions[index]
+                };
                 picture.Visible = true;
 
                 pnlPreview.Controls.Add(picture);

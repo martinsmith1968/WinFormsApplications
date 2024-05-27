@@ -32,7 +32,9 @@ public class CalendarSetDatesJsonConverter : JsonConverter<CalendarSetDates>
     private static void PopulateFrom(JsonSerializer serializer, JsonReader reader, ICollection<INotableDatesGenerator> datesGeneratorsList, JToken? generatorObjects)
     {
         if (generatorObjects == null)
+        {
             return;
+        }
 
         foreach (var generatorObject in generatorObjects)
         {

@@ -12,7 +12,9 @@ public static class ObjectExtensions
         where T : new()
     {
         if (dict == null)
+        {
             return instance;
+        }
 
         instanceType ??= typeof(T);
 
@@ -23,7 +25,9 @@ public static class ObjectExtensions
         foreach (var propertyInfo in properties)
         {
             if (dict.ContainsKey(propertyInfo.Name))
+            {
                 propertyInfo.SetValue(instance, dict[propertyInfo.Name]);
+            }
         }
         return instance;
     }

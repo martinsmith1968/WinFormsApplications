@@ -1,20 +1,17 @@
-using AutoFixture;
-using Bogus;
 using FluentAssertions;
 using QuickCalendar.Domain.Models;
 using Xunit;
+
+#pragma warning disable xUnit1026
+#pragma warning disable IDE0060  // Unused variables
 
 namespace QuickCalendar.Domain.Tests.Models;
 
 public class DateRangeTests
 {
-    private static readonly Fixture AutoFixture = new();
-    private static readonly Faker Faker = new();
-    private static readonly Random Randomizer = new();
-
     [Theory]
     [MemberData(nameof(DateRange_constructor_data))]
-    public void DateRange_constructor__with_2_dates_sets_all_properties_correctly(DateTime first, DateTime second, bool isRange, DateTime start, DateTime end)
+    public void DateRange_constructor_with_2_dates_sets_all_properties_correctly(DateTime first, DateTime second, bool isRange, DateTime start, DateTime end, int monthRange)
     {
         // Act
         var result = new DateRange(first, second);
@@ -24,13 +21,12 @@ public class DateRangeTests
         result.StartDate.Should().Be(start);
         result.EndDate.Should().Be(end);
         result.IsRange.Should().Be(isRange);
+        result.GetMonthRange().Should().Be(monthRange);
     }
 
     [Theory]
     [MemberData(nameof(DateRange_constructor_data))]
-#pragma warning disable xUnit1026   // Unused variables
-    public void DateRange_constructor_with_1_date_sets_all_properties_correctly(DateTime theDate, DateTime second, bool isRange, DateTime start, DateTime end)
-#pragma warning restore xUnit1026
+    public void DateRange_constructor_with_1_date_sets_all_properties_correctly(DateTime theDate, DateTime second, bool isRange, DateTime start, DateTime end, int monthRange)
     {
         // Act
         var result = new DateRange(theDate);
@@ -40,9 +36,10 @@ public class DateRangeTests
         result.StartDate.Should().Be(theDate);
         result.EndDate.Should().Be(theDate);
         result.IsRange.Should().BeFalse();
+        result.GetMonthRange().Should().Be(1);
     }
 
-    public static TheoryData<DateTime, DateTime, bool, DateTime, DateTime> DateRange_constructor_data()
+    public static TheoryData<DateTime, DateTime, bool, DateTime, DateTime, int> DateRange_constructor_data()
     {
         var dateTime1 = new DateTime(2000, 01, 01);
         var dateTime2 = new DateTime(2000, 02, 01);
@@ -51,13 +48,13 @@ public class DateRangeTests
         var dateTime5 = new DateTime(2000, 05, 01);
         var dateTime6 = new DateTime(2000, 06, 01);
 
-        var list = new TheoryData<DateTime, DateTime, bool, DateTime, DateTime>
+        var list = new TheoryData<DateTime, DateTime, bool, DateTime, DateTime, int>
         {
-            { dateTime1, dateTime2, true, dateTime1, dateTime2 },
-            { dateTime2, dateTime1, true, dateTime1, dateTime2 },
-            { dateTime1, dateTime6, true, dateTime1, dateTime6 },
-            { dateTime5, dateTime4, true, dateTime4, dateTime5 },
-            { dateTime3, dateTime3, false, dateTime3, dateTime3 },
+            { dateTime1, dateTime2, true, dateTime1, dateTime2, 2 },
+            { dateTime2, dateTime1, true, dateTime1, dateTime2, 2 },
+            { dateTime1, dateTime6, true, dateTime1, dateTime6, 6 },
+            { dateTime5, dateTime4, true, dateTime4, dateTime5, 2 },
+            { dateTime3, dateTime3, false, dateTime3, dateTime3, 1 },
         };
 
         return list;

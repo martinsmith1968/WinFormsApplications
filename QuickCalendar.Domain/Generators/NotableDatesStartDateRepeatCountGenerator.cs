@@ -13,12 +13,17 @@ public class NotableDatesStartDateRepeatCountGenerator : BaseNotableDatesGenerat
 
     public IntervalPeriod IntervalPeriod { get; set; } = IntervalPeriod.Default;
 
+    public int SequenceStart { get; set; } = 1;
+
+    public int SequenceIncrement { get; set; } = 1;
+
     public override IList<NotableDate> Generate()
     {
         var list = new List<NotableDate>();
 
         var date = StartDate;
-        foreach (var sequence in Enumerable.Range(1, RepeatCount))
+        var sequence = SequenceStart;
+        foreach (var _ in Enumerable.Range(1, RepeatCount))
         {
             var description = InterpolateTemplate(DescriptionTemplate, date, sequence);
 
@@ -26,6 +31,8 @@ public class NotableDatesStartDateRepeatCountGenerator : BaseNotableDatesGenerat
 
             list.Add(notableDate);
             date = IntervalPeriod.AddTo(date);
+
+            sequence += SequenceIncrement;
         }
 
         return list;
@@ -37,6 +44,8 @@ public class NotableDatesStartDateRepeatCountGenerator : BaseNotableDatesGenerat
         StartDate = other.StartDate;
         RepeatCount = other.RepeatCount;
         IntervalPeriod.CopyFrom(other.IntervalPeriod);
+        SequenceStart = other.SequenceStart;
+        SequenceIncrement = other.SequenceIncrement;
     }
 
     public NotableDatesStartDateRepeatCountGenerator Clone()

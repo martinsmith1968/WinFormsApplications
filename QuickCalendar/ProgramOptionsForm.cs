@@ -5,6 +5,8 @@ using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Extensions;
 using QuickCalendar.Properties;
 
+#pragma warning disable IDE1006  // Methods starting with lowercase character
+
 namespace QuickCalendar
 {
     internal partial class ProgramOptionsForm : Form
@@ -53,7 +55,9 @@ namespace QuickCalendar
             foreach (var propertyItem in UserSettings.PropertyValues)
             {
                 if (propertyItem is not SettingsPropertyValue propertyValue)
+                {
                     continue;
+                }
 
                 var item = lvwRawProperties.Items.Add(propertyValue.Name);
                 item.SubItems.Add(propertyValue.PropertyValue.ToString());

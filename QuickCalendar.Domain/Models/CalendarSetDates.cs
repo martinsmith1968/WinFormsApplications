@@ -43,13 +43,19 @@ public class CalendarSetDates : ICopyable<CalendarSetDates>,
     public void CopyFrom(CalendarSetDates other)
     {
         foreach(var candidate in other.AnnualDatesGenerators)
+        {
             AnnualDatesGenerators.Add(candidate);
+        }
 
         foreach (var candidate in other.MonthlyDatesGenerators)
+        {
             MonthlyDatesGenerators.Add(candidate);
+        }
 
         foreach (var candidate in other.DatesGenerators)
+        {
             DatesGenerators.Add(candidate);
+        }
     }
 
     public CalendarSetDates Clone()

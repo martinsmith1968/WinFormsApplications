@@ -47,8 +47,19 @@ public class CalendarSetBuilder
             new NotableDatesStartDateEndDateGenerator()
             {
                 StartDate = new DateTime(2024, 1, 10),
-                EndDate = new DateTime(2024, 12, 31),
+                EndDate = new DateTime(2024, 04, 02),
                 IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
+                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
+            }
+        );
+
+        calendarSet.Dates.DatesGenerators.Add(
+            new NotableDatesStartDateEndDateGenerator()
+            {
+                StartDate = new DateTime(2024, 1, 10),
+                EndDate = new DateTime(2024, 04, 02),
+                IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
+                SequenceStart = 8,
                 DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
             }
         );
@@ -58,26 +69,6 @@ public class CalendarSetBuilder
             {
                 StartDate = new DateTime(2025, 1, 8),
                 EndDate = new DateTime(2025, 12, 31),
-                IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
-                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
-            }
-        );
-
-        calendarSet.Dates.DatesGenerators.Add(
-            new NotableDatesStartDateEndDateGenerator()
-            {
-                StartDate = new DateTime(2026, 1, 7),
-                EndDate = new DateTime(2026, 12, 31),
-                IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
-                DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
-            }
-        );
-
-        calendarSet.Dates.DatesGenerators.Add(
-            new NotableDatesStartDateEndDateGenerator()
-            {
-                StartDate = new DateTime(2027, 1, 6),
-                EndDate = new DateTime(2027, 12, 31),
                 IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
                 DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
             }
