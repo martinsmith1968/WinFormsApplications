@@ -63,6 +63,25 @@ public class CalendarSetBuilder
                 DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
             }
         );
+            calendarSet.Dates.DatesGenerators.Add(
+                new NotableDatesStartDateEndDateGenerator()
+                {
+                    StartDate = new DateTime(2023, 9, 6),
+                    EndDate = new DateTime(2024, 12, 31),
+                    IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
+                    DescriptionTemplate = "Sprint {sequence:00}",
+                }
+            );
+
+            calendarSet.Dates.DatesGenerators.Add(
+                new NotableDatesStartDateEndDateGenerator()
+                {
+                    StartDate = new DateTime(2025, 1, 8),
+                    EndDate = new DateTime(2025, 12, 31),
+                    IntervalPeriod = IntervalPeriod.Create(IntervalPeriodType.Days, 14),
+                    DescriptionTemplate = "Sprint {yyyy}.{sequence:00}"
+                }
+            );
 
         calendarSet.Dates.DatesGenerators.Add(
             new NotableDatesStartDateEndDateGenerator()
