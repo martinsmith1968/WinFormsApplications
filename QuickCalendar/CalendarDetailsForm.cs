@@ -278,15 +278,14 @@ public partial class CalendarDetailsForm : Form
             return;
         }
 
-        var item = (lvwDatesNotableDates.SelectedItems[0].Tag as INotableDatesGenerator);
-        if (item == null)
+        if (lvwDatesNotableDates.SelectedItems[0].Tag is not INotableDatesGenerator item)
         {
             return;
         }
 
-        var result = NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat);
+        NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat);
 
-        // TODO: Reload
+        // TODO: Reload ?
     }
 
     private void tsctxDatesMoveUp_Click(object sender, EventArgs e)
@@ -324,11 +323,13 @@ public partial class CalendarDetailsForm : Form
     private void btnSetDisplayFont_Click(object sender, EventArgs e)
     {
         dlgFontBrowser.Font = txtDisplayFont.Font;
-        if (dlgFontBrowser.ShowDialog() == DialogResult.OK)
+        if (dlgFontBrowser.ShowDialog() != DialogResult.OK)
         {
-            CalendarSet.DisplayFontName = dlgFontBrowser.Font.Name;
-            CalendarSet.DisplayFontSize = dlgFontBrowser.Font.Size;
-            txtDisplayFont.Font = CalendarSet.GetFont();
+            return;
         }
+
+        CalendarSet.DisplayFontName = dlgFontBrowser.Font.Name;
+        CalendarSet.DisplayFontSize = dlgFontBrowser.Font.Size;
+        txtDisplayFont.Font = CalendarSet.GetFont();
     }
 }
