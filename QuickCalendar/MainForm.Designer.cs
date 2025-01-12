@@ -56,6 +56,8 @@ namespace QuickCalendar
             toolStripSeparator15 = new ToolStripSeparator();
             tsmnuViewResize = new ToolStripMenuItem();
             tsmnuViewSaveWindowPosition = new ToolStripMenuItem();
+            toolStripSeparator3 = new ToolStripSeparator();
+            tsmnuViewRefresh = new ToolStripMenuItem();
             tsmnuHelp = new ToolStripMenuItem();
             tsmnuHelpUsageGuide = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
@@ -182,14 +184,14 @@ namespace QuickCalendar
             tsmnuEditCalendar.Image = Properties.Resources.edit_calendar1;
             tsmnuEditCalendar.Name = "tsmnuEditCalendar";
             tsmnuEditCalendar.ShortcutKeys = Keys.Control | Keys.E;
-            tsmnuEditCalendar.Size = new Size(170, 22);
+            tsmnuEditCalendar.Size = new Size(180, 22);
             tsmnuEditCalendar.Text = "Cal&endar...";
             tsmnuEditCalendar.ToolTipText = "View and Change the settings for this Calendar";
             tsmnuEditCalendar.Click += tsmnuEditCalendar_Click;
             // 
             // tsmnuView
             // 
-            tsmnuView.DropDownItems.AddRange(new ToolStripItem[] { tsmnuViewToday, toolStripSeparator12, tsmnuViewJumpToDate, toolStripSeparator11, tsmnuViewJumpToPreviousMarkedDate, tsmnuViewJumpToNextMarkedDate, toolStripSeparator14, tsmnuViewSelectToPreviousMarkedDate, tsmnuViewSelectToNextMarkedDate, toolStripSeparator7, tsmnuViewResetFirstVisibleMonth, toolStripSeparator15, tsmnuViewResize, tsmnuViewSaveWindowPosition });
+            tsmnuView.DropDownItems.AddRange(new ToolStripItem[] { tsmnuViewToday, toolStripSeparator12, tsmnuViewJumpToDate, toolStripSeparator11, tsmnuViewJumpToPreviousMarkedDate, tsmnuViewJumpToNextMarkedDate, toolStripSeparator14, tsmnuViewSelectToPreviousMarkedDate, tsmnuViewSelectToNextMarkedDate, toolStripSeparator7, tsmnuViewResetFirstVisibleMonth, toolStripSeparator15, tsmnuViewResize, tsmnuViewSaveWindowPosition, toolStripSeparator3, tsmnuViewRefresh });
             tsmnuView.Name = "tsmnuView";
             tsmnuView.Size = new Size(44, 20);
             tsmnuView.Text = "&View";
@@ -302,6 +304,19 @@ namespace QuickCalendar
             tsmnuViewSaveWindowPosition.Text = "Save &Window Position";
             tsmnuViewSaveWindowPosition.ToolTipText = "Save current Window Position";
             tsmnuViewSaveWindowPosition.Click += tsmnuViewSaveWindowPosition_Click;
+            // 
+            // toolStripSeparator3
+            // 
+            toolStripSeparator3.Name = "toolStripSeparator3";
+            toolStripSeparator3.Size = new Size(265, 6);
+            // 
+            // tsmnuViewRefresh
+            // 
+            tsmnuViewRefresh.Name = "tsmnuViewRefresh";
+            tsmnuViewRefresh.ShortcutKeys = Keys.F5;
+            tsmnuViewRefresh.Size = new Size(268, 22);
+            tsmnuViewRefresh.Text = "Re&fresh";
+            tsmnuViewRefresh.Click += tsmnuViewRefresh_Click;
             // 
             // tsmnuHelp
             // 
@@ -559,7 +574,7 @@ namespace QuickCalendar
             // 
             mcalCalendar.CalendarDimensions = new Size(3, 1);
             mcalCalendar.Dock = DockStyle.Top;
-            mcalCalendar.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            mcalCalendar.Font = new Font("Segoe UI", 9F);
             mcalCalendar.Location = new Point(0, 49);
             mcalCalendar.Name = "mcalCalendar";
             mcalCalendar.ShowWeekNumbers = true;
@@ -578,7 +593,7 @@ namespace QuickCalendar
             Controls.Add(tsMain);
             Controls.Add(ssMain);
             Controls.Add(msMain);
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            Font = new Font("Segoe UI", 9F);
             Icon = (Icon)resources.GetObject("$this.Icon");
             KeyPreview = true;
             MainMenuStrip = msMain;
@@ -660,5 +675,7 @@ namespace QuickCalendar
         private ToolStripButton tsbtnViewResetFirstVisibleMonth;
         private ToolStripMenuItem tsmnuViewSaveWindowPosition;
         private ToolStripButton tsbtnViewSaveWindowPosition;
+        private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem tsmnuViewRefresh;
     }
 }

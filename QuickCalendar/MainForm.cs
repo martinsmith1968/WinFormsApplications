@@ -33,15 +33,15 @@ public partial class MainForm : Form
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
         // Can't set these via the UI :-(
-        tsmnuViewToday.ShortcutKeys                                  = Keys.Home | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys               = Keys.OemOpenBrackets | Keys.Control;
-        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString   = "Ctrl+[";
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeys                   = Keys.OemCloseBrackets | Keys.Control;
-        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString       = "Ctrl+]";
-        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys             = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewToday.ShortcutKeys = Keys.Home | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control;
+        tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+[";
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control;
+        tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+]";
+        tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
         tsmnuViewSelectToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+[";
-        tsmnuViewSelectToNextMarkedDate.ShortcutKeys                 = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
-        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString     = "Ctrl+Shift+]";
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
+        tsmnuViewSelectToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+]";
 
         SetupToolbarButtonFromMenuItem(tsbtnFileOpen, tsmnuFileOpen);
         SetupToolbarButtonFromMenuItem(tsbtnFileSave, tsmnuFileSave);
@@ -276,7 +276,7 @@ public partial class MainForm : Form
         Logger.Information(text ?? string.Empty);
 
         tslblInfo.Text = text;
-        tslblInfo.Owner.Update();
+        tslblInfo.Owner?.Update();
 
         if (clearAfter != null)
         {
@@ -515,6 +515,12 @@ public partial class MainForm : Form
         {
             SetCalendarDimensions(new Size(calendarSize.Width, calendarSize.Height));
         }
+    }
+
+    private void tsmnuViewRefresh_Click(object sender, EventArgs e)
+    {
+        this.Refresh();
+        mcalCalendar.Refresh();
     }
 
     private void tsmnuHelpUsageGuide_Click(object sender, EventArgs e)
