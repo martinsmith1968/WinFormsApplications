@@ -184,7 +184,7 @@ namespace QuickCalendar
             tsmnuEditCalendar.Image = Properties.Resources.edit_calendar1;
             tsmnuEditCalendar.Name = "tsmnuEditCalendar";
             tsmnuEditCalendar.ShortcutKeys = Keys.Control | Keys.E;
-            tsmnuEditCalendar.Size = new Size(180, 22);
+            tsmnuEditCalendar.Size = new Size(170, 22);
             tsmnuEditCalendar.Text = "Cal&endar...";
             tsmnuEditCalendar.ToolTipText = "View and Change the settings for this Calendar";
             tsmnuEditCalendar.Click += tsmnuEditCalendar_Click;
@@ -200,7 +200,8 @@ namespace QuickCalendar
             // 
             tsmnuViewToday.Image = Properties.Resources.back_in_time_32;
             tsmnuViewToday.Name = "tsmnuViewToday";
-            tsmnuViewToday.Size = new Size(268, 22);
+            tsmnuViewToday.ShortcutKeys = Keys.Control | Keys.Space;
+            tsmnuViewToday.Size = new Size(237, 22);
             tsmnuViewToday.Text = "&Today";
             tsmnuViewToday.ToolTipText = "Jump to Today";
             tsmnuViewToday.Click += tsmnuViewToday_Click;
@@ -208,14 +209,14 @@ namespace QuickCalendar
             // toolStripSeparator12
             // 
             toolStripSeparator12.Name = "toolStripSeparator12";
-            toolStripSeparator12.Size = new Size(265, 6);
+            toolStripSeparator12.Size = new Size(234, 6);
             // 
             // tsmnuViewJumpToDate
             // 
             tsmnuViewJumpToDate.Image = Properties.Resources.jump_date1;
             tsmnuViewJumpToDate.Name = "tsmnuViewJumpToDate";
             tsmnuViewJumpToDate.ShortcutKeys = Keys.Control | Keys.J;
-            tsmnuViewJumpToDate.Size = new Size(268, 22);
+            tsmnuViewJumpToDate.Size = new Size(237, 22);
             tsmnuViewJumpToDate.Text = "&Jump to Date...";
             tsmnuViewJumpToDate.ToolTipText = "Jump to Specified Date";
             tsmnuViewJumpToDate.Click += tsmnuViewJumpToDate_Click;
@@ -223,13 +224,13 @@ namespace QuickCalendar
             // toolStripSeparator11
             // 
             toolStripSeparator11.Name = "toolStripSeparator11";
-            toolStripSeparator11.Size = new Size(265, 6);
+            toolStripSeparator11.Size = new Size(234, 6);
             // 
             // tsmnuViewJumpToPreviousMarkedDate
             // 
             tsmnuViewJumpToPreviousMarkedDate.Image = Properties.Resources.previous_marked_date_1;
             tsmnuViewJumpToPreviousMarkedDate.Name = "tsmnuViewJumpToPreviousMarkedDate";
-            tsmnuViewJumpToPreviousMarkedDate.Size = new Size(268, 22);
+            tsmnuViewJumpToPreviousMarkedDate.Size = new Size(237, 22);
             tsmnuViewJumpToPreviousMarkedDate.Text = "Jump to &Previous Marked Date";
             tsmnuViewJumpToPreviousMarkedDate.ToolTipText = "Jump to Previous Marked Date";
             tsmnuViewJumpToPreviousMarkedDate.Click += tsmnuViewJumpToPreviousMarkedDate_Click;
@@ -238,7 +239,7 @@ namespace QuickCalendar
             // 
             tsmnuViewJumpToNextMarkedDate.Image = Properties.Resources.next_marked_date_1;
             tsmnuViewJumpToNextMarkedDate.Name = "tsmnuViewJumpToNextMarkedDate";
-            tsmnuViewJumpToNextMarkedDate.Size = new Size(268, 22);
+            tsmnuViewJumpToNextMarkedDate.Size = new Size(237, 22);
             tsmnuViewJumpToNextMarkedDate.Text = "Jump to &Next Marked Date";
             tsmnuViewJumpToNextMarkedDate.ToolTipText = "Jump to Next Marked Date";
             tsmnuViewJumpToNextMarkedDate.Click += tsmnuViewJumpToNextMarkedDate_Click;
@@ -246,12 +247,12 @@ namespace QuickCalendar
             // toolStripSeparator14
             // 
             toolStripSeparator14.Name = "toolStripSeparator14";
-            toolStripSeparator14.Size = new Size(265, 6);
+            toolStripSeparator14.Size = new Size(234, 6);
             // 
             // tsmnuViewSelectToPreviousMarkedDate
             // 
             tsmnuViewSelectToPreviousMarkedDate.Name = "tsmnuViewSelectToPreviousMarkedDate";
-            tsmnuViewSelectToPreviousMarkedDate.Size = new Size(268, 22);
+            tsmnuViewSelectToPreviousMarkedDate.Size = new Size(237, 22);
             tsmnuViewSelectToPreviousMarkedDate.Text = "Select to Pre&vious Marked Date";
             tsmnuViewSelectToPreviousMarkedDate.ToolTipText = "Extend selection back to previous marked date";
             tsmnuViewSelectToPreviousMarkedDate.Click += tsmnuViewSelectToPreviousMarkedDate_Click;
@@ -259,7 +260,7 @@ namespace QuickCalendar
             // tsmnuViewSelectToNextMarkedDate
             // 
             tsmnuViewSelectToNextMarkedDate.Name = "tsmnuViewSelectToNextMarkedDate";
-            tsmnuViewSelectToNextMarkedDate.Size = new Size(268, 22);
+            tsmnuViewSelectToNextMarkedDate.Size = new Size(237, 22);
             tsmnuViewSelectToNextMarkedDate.Text = "Select to Ne&xt Marked Date";
             tsmnuViewSelectToNextMarkedDate.ToolTipText = "Extend selection to next marked date";
             tsmnuViewSelectToNextMarkedDate.Click += tsmnuViewSelectToNextMarkedDate_Click;
@@ -267,15 +268,14 @@ namespace QuickCalendar
             // toolStripSeparator7
             // 
             toolStripSeparator7.Name = "toolStripSeparator7";
-            toolStripSeparator7.Size = new Size(265, 6);
+            toolStripSeparator7.Size = new Size(234, 6);
             // 
             // tsmnuViewResetFirstVisibleMonth
             // 
             tsmnuViewResetFirstVisibleMonth.Image = Properties.Resources.go_first_view_24;
             tsmnuViewResetFirstVisibleMonth.Name = "tsmnuViewResetFirstVisibleMonth";
             tsmnuViewResetFirstVisibleMonth.ShortcutKeyDisplayString = "";
-            tsmnuViewResetFirstVisibleMonth.ShortcutKeys = Keys.Control | Keys.Space;
-            tsmnuViewResetFirstVisibleMonth.Size = new Size(268, 22);
+            tsmnuViewResetFirstVisibleMonth.Size = new Size(237, 22);
             tsmnuViewResetFirstVisibleMonth.Text = "Reset &First Visible Month";
             tsmnuViewResetFirstVisibleMonth.ToolTipText = "Reset Calendar to show the specifed First Visible Month";
             tsmnuViewResetFirstVisibleMonth.Click += tsmnuViewResetFirstVisibleMonth_Click;
@@ -283,14 +283,14 @@ namespace QuickCalendar
             // toolStripSeparator15
             // 
             toolStripSeparator15.Name = "toolStripSeparator15";
-            toolStripSeparator15.Size = new Size(265, 6);
+            toolStripSeparator15.Size = new Size(234, 6);
             // 
             // tsmnuViewResize
             // 
             tsmnuViewResize.Image = Properties.Resources.resize_form3;
             tsmnuViewResize.Name = "tsmnuViewResize";
             tsmnuViewResize.ShortcutKeys = Keys.Control | Keys.R;
-            tsmnuViewResize.Size = new Size(268, 22);
+            tsmnuViewResize.Size = new Size(237, 22);
             tsmnuViewResize.Text = "&Resize...";
             tsmnuViewResize.ToolTipText = "Resize Form to specific Layout";
             tsmnuViewResize.Click += tsmnuViewResize_Click;
@@ -300,7 +300,7 @@ namespace QuickCalendar
             tsmnuViewSaveWindowPosition.Image = Properties.Resources.axis2;
             tsmnuViewSaveWindowPosition.Name = "tsmnuViewSaveWindowPosition";
             tsmnuViewSaveWindowPosition.ShortcutKeys = Keys.Control | Keys.W;
-            tsmnuViewSaveWindowPosition.Size = new Size(268, 22);
+            tsmnuViewSaveWindowPosition.Size = new Size(237, 22);
             tsmnuViewSaveWindowPosition.Text = "Save &Window Position";
             tsmnuViewSaveWindowPosition.ToolTipText = "Save current Window Position";
             tsmnuViewSaveWindowPosition.Click += tsmnuViewSaveWindowPosition_Click;
@@ -308,13 +308,13 @@ namespace QuickCalendar
             // toolStripSeparator3
             // 
             toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(265, 6);
+            toolStripSeparator3.Size = new Size(234, 6);
             // 
             // tsmnuViewRefresh
             // 
             tsmnuViewRefresh.Name = "tsmnuViewRefresh";
             tsmnuViewRefresh.ShortcutKeys = Keys.F5;
-            tsmnuViewRefresh.Size = new Size(268, 22);
+            tsmnuViewRefresh.Size = new Size(237, 22);
             tsmnuViewRefresh.Text = "Re&fresh";
             tsmnuViewRefresh.Click += tsmnuViewRefresh_Click;
             // 

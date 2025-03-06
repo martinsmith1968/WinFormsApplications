@@ -33,11 +33,11 @@ public partial class MainForm : Form
         mcalCalendar.MaxSelectionCount = int.MaxValue;
 
         // Can't set these via the UI :-(
-        tsmnuViewToday.ShortcutKeys = Keys.Home | Keys.Control;
         tsmnuViewJumpToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control;
         tsmnuViewJumpToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+[";
         tsmnuViewJumpToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control;
         tsmnuViewJumpToNextMarkedDate.ShortcutKeyDisplayString = "Ctrl+]";
+        tsmnuViewResetFirstVisibleMonth.ShortcutKeys = Keys.Home | Keys.Control;
         tsmnuViewSelectToPreviousMarkedDate.ShortcutKeys = Keys.OemOpenBrackets | Keys.Control | Keys.Shift;
         tsmnuViewSelectToPreviousMarkedDate.ShortcutKeyDisplayString = "Ctrl+Shift+[";
         tsmnuViewSelectToNextMarkedDate.ShortcutKeys = Keys.OemCloseBrackets | Keys.Control | Keys.Shift;
