@@ -141,7 +141,7 @@ jobs:
 
     needs: setup
 
-    runs-on: ${{ matrix.os }}}
+    runs-on: ${{ matrix.os }}
 
     steps:
     - name: Checkout
