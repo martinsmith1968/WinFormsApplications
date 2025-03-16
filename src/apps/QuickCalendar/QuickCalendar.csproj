@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="C:\Dev\GitHub\martinsmith1968\WinFormsApplications\src\libs\QuickCalendar.Domain\QuickCalendar.Domain.csproj" />
+    <ProjectReference Include="..\..\libs\QuickCalendar.Domain\QuickCalendar.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
