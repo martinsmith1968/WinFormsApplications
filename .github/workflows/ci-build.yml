@@ -137,6 +137,7 @@ jobs:
       matrix:
         dotnet-version: [ '8.x' ]
         os: [ 'windows-latest' ]
+        application: [ 'QuickCalendar' ]
 
     name: Build - ${{ matrix.application }} ${{ matrix.dotnet-version }} ${{ matrix.os }}
 
@@ -167,16 +168,13 @@ jobs:
       run: dotnet test ${{ env.PROJECT_NAME }}.sln --no-restore -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}"
 
     #---------------------------------------------------------
-    - name: Publish QuickCalendar
-      run: dotnet publish src\apps\QuickCalendar/QuickCalendar.csproj -o "${{ env.BUILD_OUTPUTFOLDER }}" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
-
-    - name: Publish Toaster
-      run: dotnet publish src\apps\Toaster/Toaster.csproj -o "${{ env.BUILD_OUTPUTFOLDER }}" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+    - name: Publish ${{ matrix.application }}
+      run: dotnet publish "src/apps/${{ matrix.application }}/${{ matrix.application }}.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/${{ matrix.application }}" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
     #---------------------------------------------------------
 
     - name: Add files to output folder
       run: |
-        Copy-Item "README.md" "${{ env.BUILD_OUTPUTFOLDER }}\\${{ env.BUILD_PLATFORM }}\\${{ env.BUILD_CONFIG }}"
+        Copy-Item "README.md" "${{ env.BUILD_OUTPUTFOLDER }}"
 
     - name: Compress Artifact
       uses: OctopusDeploy/create-zip-package-action@v3
