@@ -8,6 +8,7 @@ env:
   PROJECT_NAME: WinFormsApplications
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
+  BUILD_RUNTIME: win-x64
   BUILD_OUTPUTFOLDER: Output
   BRANCH_PREFIX_RELEASE_CANDIDATE: rc/
 
@@ -160,7 +161,7 @@ jobs:
       run: nuget restore ${{ env.PROJECT_NAME }}.sln
 
     - name: Build (${{ env.BUILD_CONFIG }})
-      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore --self-contained -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
     - name: Test
       run: dotnet test ${{ env.PROJECT_NAME }}.sln --no-restore -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}"
