@@ -1,0 +1,283 @@
+name: CI Build
+run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run_number }}.${{ github.run_attempt }}
+
+env:
+  PRIMARY_BRANCH_NAME: master
+  APP_MAJOR_VERSION: 2
+  APP_MINOR_VERSION: 5
+  PROJECT_NAME: WinFormsApplications
+  BUILD_CONFIG: Release
+  BUILD_PLATFORM: x64
+  BUILD_OUTPUTFOLDER: Output
+  BRANCH_PREFIX_RELEASE_CANDIDATE: rc/
+
+on:
+  push:
+    branches:
+      - master
+      - rc/**
+      - feature/**
+      - task/**
+      - spike/**
+
+  pull_request:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+jobs:
+  ##########################################################
+  ## Pipeline Configuration and Setup
+  setup:
+    name: Setup Pipeline
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get Current Build Date
+      run: |
+        echo "build_date=$(date +'%y%j')" >> $GITHUB_ENV
+        echo "build_year=$(date +'%Y')" >> $GITHUB_ENV
+
+    - name: Evaluate pipeline conditions
+      run: |
+        is_primary_branch=false
+        is_pull_request_build=false
+        is_release_candidate_branch=false
+
+        # Primary Branch ?
+        if [ "${{ github.ref }}" == 'refs/heads/${{ env.PRIMARY_BRANCH_NAME }}' ]
+        then
+          is_primary_branch=true
+        fi
+
+        # Pull Request ?
+        if [ "${{ github.event_name }}" == "pull_request" ]
+        then
+          is_pull_request_build=true
+        fi
+
+        # If Release Candidate branch ?
+        if [[ "${{ github.ref }}" == refs/heads/${{ env.BRANCH_PREFIX_RELEASE_CANDIDATE }}* ]]
+        then
+          is_release_candidate_branch=true
+        fi
+
+        # Set for later steps
+        echo "is_primary_branch=${is_primary_branch}" >> $GITHUB_ENV
+        echo "is_pull_request_build=${is_pull_request_build}" >> $GITHUB_ENV
+        echo "is_release_candidate_branch=${is_release_candidate_branch}" >> $GITHUB_ENV
+
+    - name: Determine Tagging
+      run: |
+        should_tag=false
+
+        if $is_primary_branch
+        then
+            should_tag=true
+        fi
+
+        echo "should_tag=${should_tag}" >> $GITHUB_ENV
+
+    - name: Determine GitHub Releasing
+      run: |
+        should_release=true
+        release_is_draft=true
+        release_is_prerelease=false
+        release_modifier='-ci'
+
+        if $is_primary_branch
+        then
+            release_is_draft=false
+            release_is_prerelease=false
+            release_modifier=''
+        fi
+        if $is_release_candidate_branch
+        then
+            release_modifier='-alpha'
+        fi
+        if $is_pull_request_build; then
+            release_is_draft=false
+            release_is_prerelease=true
+            release_modifier='-beta'
+        fi
+
+        echo "should_release=${should_release}" >> $GITHUB_ENV
+        echo "release_is_draft=${release_is_draft}" >> $GITHUB_ENV
+        echo "release_is_prerelease=${release_is_prerelease}" >> $GITHUB_ENV
+        echo "release_modifier=${release_modifier}" >> $GITHUB_ENV
+
+    - name: Set Product Version
+      run: echo "product_version=${{ env.APP_MAJOR_VERSION }}.${{ env.APP_MINOR_VERSION }}" >> $GITHUB_ENV
+
+    - name: Set Executable Version
+      run: echo "executable_version=${{ env.APP_MAJOR_VERSION }}.${{ env.APP_MINOR_VERSION }}.${{ env.build_date }}.${{ github.run_number }}${{ github.run_attempt }}${{ env.release_modifier }}" >> $GITHUB_ENV
+
+    - name: Show Configuration
+      run: env | sort
+
+    outputs:
+      build_date: ${{ env.build_date }}
+      build_year: ${{ env.build_year }}
+      executable_version: ${{ env.executable_version }}
+      product_version: ${{ env.product_version }}
+      should_tag: ${{ env.should_tag }}
+      should_release: ${{ env.should_release }}
+      release_is_draft: ${{ env.release_is_draft }}
+      release_is_prerelease: ${{ env.release_is_prerelease }}
+      release_modifier: ${{ env.release_modifier }}
+
+
+  ##########################################################
+  ## Build for Windows
+  build-windows:
+    name: Build - Windows
+
+    needs: setup
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - uses: actions/checkout@v4
+    - name: Setup dotnet ${{ matrix.dotnet-version }}
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+
+    - name: Setup Nuget
+      uses: Nuget/setup-nuget@v2
+
+    - name: Restore nuget packages
+      run: nuget restore
+
+    - name: Build (${{ env.BUILD_CONFIG }})
+      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore -o "${{ env.BUILD_OUTPUTFOLDER }}" -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+
+    - name: Publish each App
+      run: |
+        Write-Host "Starting in : $((Get-Location).Path)"
+        Write-Host ""
+
+        $filenames = @( "Common/BuildInfo.h" )
+
+        $build_date     = $(Get-Date -Format "yyyy-MM-dd")
+        $build_time     = $(Get-Date -Format "HH:mm")
+        $build_datetime = "${build_date} ${build_time}"
+
+        Write-Host "Build Date: " $build_date
+        Write-Host ""
+
+        foreach ($filename in $filenames) {
+            Write-Host "----------------------------------------------------------------------------------------------------"
+            Write-Host "Handling: ${filename}"
+
+            $content = Get-Content $filename -Raw
+
+            Write-Host ""
+            Write-Host "Before"
+            Write-Host $content
+
+            $content = $content.replace("__DATE__", ${build_date})
+            $content = $content.replace("__TIME__", ${build_time})
+
+            Write-Host ""
+            Write-Host "After"
+            Write-Host $content
+
+            Set-Content $filename $content
+        }
+
+
+
+    - name: Publish
+      run: dotnet publish ${{ env.PROJECT_NAME }}.sln --no-restore -o "${{ env.BUILD_OUTPUTFOLDER }}\\${{ env.BUILD_PLATFORM }}\\${{ env.BUILD_CONFIG }}" -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+
+
+
+
+    - name: Add files to output folder
+      run: |
+        Copy-Item "README.md" "${{ env.BUILD_OUTPUTFOLDER }}\\${{ env.BUILD_PLATFORM }}\\${{ env.BUILD_CONFIG }}"
+
+    - name: Compress Artifact
+      uses: OctopusDeploy/create-zip-package-action@v3
+      with:
+        package_id: ${{ env.PROJECT_NAME }}.${{ env.BUILD_PLATFORM }}
+        version: v${{ needs.setup.outputs.executable_version }}
+        output_folder: Output
+        base_path: Output/${{ env.BUILD_PLATFORM }}/${{ env.BUILD_CONFIG }}
+        files: |
+          *.exe
+          *.md
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build_output
+        path: Output\\*.zip
+        if-no-files-found: error
+
+
+  ##########################################################
+  ## Tag in git
+  tag:
+    name: Tag in GitHub
+    if: needs.setup.outputs.should_tag == 'true'
+
+    needs:
+      - setup
+      - build-windows
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Tag git
+      uses: pkgdeps/git-tag-action@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_repo: ${{ github.repository }}
+        git_commit_sha: ${{ github.sha }}
+        git_tag_prefix: "v"
+        version: ${{ needs.setup.outputs.executable_version }}
+
+
+  ##########################################################
+  ## Generate a GitHub Release
+  release:
+    name: Create GitHub Release
+    if: needs.setup.outputs.should_release == 'true'
+
+    needs:
+      - setup
+      - build-windows
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: build_output
+        path: build
+
+    - name: Build Changelog
+      uses: mikepenz/release-changelog-builder-action@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: v${{ needs.setup.outputs.executable_version }}
+        name: Release ${{ needs.setup.outputs.executable_version }}
+        body: ${{ steps.build_changelog.outputs.changelog }}
+        draft: ${{ needs.setup.outputs.release_is_draft }}
+        prerelease: ${{ needs.setup.outputs.release_is_prerelease }}
+        removeArtifacts: true
+        artifacts: '**/*.zip'
