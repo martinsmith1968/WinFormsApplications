@@ -132,11 +132,16 @@ jobs:
   ##########################################################
   ## Build for Windows
   build-windows:
-    name: Build - Windows
+    strategy:
+      matrix:
+        dotnet-version: [ '8.x' ]
+        os: [ 'windows-latest' ]
+
+    name: Build - ${{ matrix.application }} ${{ matrix.dotnet-version }} ${{ matrix.os }}
 
     needs: setup
 
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}}
 
     steps:
     - name: Checkout
@@ -146,58 +151,22 @@ jobs:
     - name: Setup dotnet ${{ matrix.dotnet-version }}
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.x'
+        dotnet-version: ${{ matrix.dotnet-version }}
 
     - name: Setup Nuget
       uses: Nuget/setup-nuget@v2
 
     - name: Restore nuget packages
-      run: nuget restore
+      run: nuget restore ${{ env.PROJECT_NAME }}.sln
 
     - name: Build (${{ env.BUILD_CONFIG }})
-      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore --self-contained -o "${{ env.BUILD_OUTPUTFOLDER }}" -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore --self-contained -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
-    - name: Publish each App
-      run: |
-        Write-Host "Starting in : $((Get-Location).Path)"
-        Write-Host ""
+    - name: Test
+      run: dotnet test ${{ env.PROJECT_NAME }}.sln --no-restore -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}"
 
-        $wildcard = @( "*.csproj" )
-
-        $build_date     = $(Get-Date -Format "yyyy-MM-dd")
-        $build_time     = $(Get-Date -Format "HH:mm")
-        $build_datetime = "${build_date} ${build_time}"
-
-        Write-Host "Build Date: " $build_date
-        Write-Host ""
-
-        foreach ($filename in $filenames) {
-            Write-Host "----------------------------------------------------------------------------------------------------"
-            Write-Host "Handling: ${filename}"
-
-            $content = Get-Content $filename -Raw
-
-            Write-Host ""
-            Write-Host "Before"
-            Write-Host $content
-
-            $content = $content.replace("__DATE__", ${build_date})
-            $content = $content.replace("__TIME__", ${build_time})
-
-            Write-Host ""
-            Write-Host "After"
-            Write-Host $content
-
-            Set-Content $filename $content
-        }
-
-
-
-    - name: Publish
-      run: dotnet publish ${{ env.PROJECT_NAME }}.sln --no-restore -o "${{ env.BUILD_OUTPUTFOLDER }}\\${{ env.BUILD_PLATFORM }}\\${{ env.BUILD_CONFIG }}" -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
-
-
-
+    - name: Publish QuickCalendar
+      run: dotnet publish QuickCalendar/QuickCalendar.csproj -o "${{ env.BUILD_OUTPUTFOLDER }}" --self-contained -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
     - name: Add files to output folder
       run: |
