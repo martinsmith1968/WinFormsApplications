@@ -176,13 +176,17 @@ jobs:
       run: |
         Copy-Item "README.md" "${{ env.BUILD_OUTPUTFOLDER }}"
 
+    - name: Debut Output Folder
+      run:
+        gci "${{ env.BUILD_OUTPUTFOLDER }}" -recurse -File | select-object { $_.FullName }
+
     - name: Compress Artifact
       uses: OctopusDeploy/create-zip-package-action@v3
       with:
         package_id: ${{ env.PROJECT_NAME }}.${{ env.BUILD_PLATFORM }}
         version: v${{ needs.setup.outputs.executable_version }}
         output_folder: Output
-        base_path: Output/${{ env.BUILD_PLATFORM }}/${{ env.BUILD_CONFIG }}
+        base_path: ${{ env.BUILD_OUTPUTFOLDER }}
         files: |
           *.exe
           *.md
@@ -191,7 +195,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: build_output
-        path: Output\\*.zip
+        path: ${{ env.BUILD_OUTPUTFOLDER }}\\*.zip
         if-no-files-found: error
 
 
