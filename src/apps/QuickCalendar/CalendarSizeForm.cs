@@ -52,14 +52,20 @@ public partial class CalendarSizeForm : Form
 
     private void cboCalendarSize_SelectedIndexChanged(object sender, EventArgs e)
     {
-        var item = (CalendarSize)cboCalendarSize.SelectedItem;
+        if (cboCalendarSize.SelectedItem is not CalendarSize item)
+        {
+            return;
+        }
 
         DrawPreview(new Size(item.Width, item.Height));
     }
 
     private void cboCalendarSize_SelectedValueChanged(object sender, EventArgs e)
     {
-        var item = (CalendarSize)cboCalendarSize.SelectedItem;
+        if (cboCalendarSize.SelectedItem is not CalendarSize item)
+        {
+            return;
+        }
 
         DrawPreview(new Size(item.Width, item.Height));
     }

@@ -4,12 +4,16 @@ internal class WinForms
 {
     public static Rectangle GetPrimaryWindowBounds()
     {
-        return Screen.PrimaryScreen.Bounds;
+        return Screen.PrimaryScreen == null
+            ? Rectangle.Empty
+            : Screen.PrimaryScreen.Bounds;
     }
 
     public static Rectangle GetPrimaryWindowWorkingArea()
     {
-        return Screen.PrimaryScreen.WorkingArea;
+        return Screen.PrimaryScreen == null
+            ? Rectangle.Empty
+            : Screen.PrimaryScreen.WorkingArea;
     }
 
     public static IList<Tuple<int, string, Rectangle>> GetAllScreensBounds()

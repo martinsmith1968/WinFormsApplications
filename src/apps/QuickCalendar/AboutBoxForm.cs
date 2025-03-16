@@ -36,6 +36,9 @@ partial class AboutBoxForm : Form
             Verb = "open"
         };
         Process.Start(ps);
-        e.Link.Visited = true;
+        if (e.Link != null)
+        {
+            e.Link.Visited = true;
+        }
     }
 }

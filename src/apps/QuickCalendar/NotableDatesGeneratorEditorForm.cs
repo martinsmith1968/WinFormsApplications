@@ -69,11 +69,13 @@ public partial class NotableDatesGeneratorEditorForm : Form
         tbcEditors.SelectedIndex = 0;
         foreach (TabPage tab in tbcEditors.TabPages)
         {
-            if ((Type)tab.Tag == NotableDatesGenerator.GetType())
+            if (tab.Tag as Type != NotableDatesGenerator.GetType())
             {
-                tbcEditors.SelectedTab = tab;
-                break;
+                continue;
             }
+
+            tbcEditors.SelectedTab = tab;
+            break;
         }
 
         PopulateGeneratedDates();
