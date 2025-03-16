@@ -26,9 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{B6F6AC6A-8
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8E9D0DC1-6F95-49A6-B00F-8DD5F832DAE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCalendar", "E:\GitHub\martinsmith1968\WinFormsApplications\src\apps\QuickCalendar\QuickCalendar.csproj", "{F730BBC9-B667-36FA-AD0B-5D602F9EA2B1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickCalendar", "src\apps\QuickCalendar\QuickCalendar.csproj", "{F730BBC9-B667-36FA-AD0B-5D602F9EA2B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toaster", "E:\GitHub\martinsmith1968\WinFormsApplications\src\apps\Toaster\Toaster.csproj", "{459FE0A9-2612-5B2F-AD31-B1A5544C9263}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Toaster", "src\apps\Toaster\Toaster.csproj", "{459FE0A9-2612-5B2F-AD31-B1A5544C9263}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickCalendar.Domain", "src\libs\QuickCalendar.Domain\QuickCalendar.Domain.csproj", "{B9515A66-E4CC-4122-8841-9DB2C513C531}"
 EndProject
