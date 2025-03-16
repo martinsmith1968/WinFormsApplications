@@ -87,6 +87,7 @@ jobs:
         release_is_draft=true
         release_is_prerelease=false
         release_modifier='-ci'
+        changelog_mode='hybrid'
 
         if $is_primary_branch
         then
@@ -102,12 +103,14 @@ jobs:
             release_is_draft=false
             release_is_prerelease=true
             release_modifier='-beta'
+            changelog_mode='pr'
         fi
 
         echo "should_release=${should_release}" >> $GITHUB_ENV
         echo "release_is_draft=${release_is_draft}" >> $GITHUB_ENV
         echo "release_is_prerelease=${release_is_prerelease}" >> $GITHUB_ENV
         echo "release_modifier=${release_modifier}" >> $GITHUB_ENV
+        echo "changelog_mode=${changelog_mode}" >> $GITHUB_ENV"
 
     - name: Set Product Version
       run: echo "product_version=${{ env.APP_MAJOR_VERSION }}.${{ env.APP_MINOR_VERSION }}" >> $GITHUB_ENV
@@ -128,6 +131,7 @@ jobs:
       release_is_draft: ${{ env.release_is_draft }}
       release_is_prerelease: ${{ env.release_is_prerelease }}
       release_modifier: ${{ env.release_modifier }}
+      changelog_mode: ${{ env.changelog_mode }}
 
 
   ##########################################################
@@ -245,6 +249,8 @@ jobs:
 
     - name: Build Changelog
       uses: mikepenz/release-changelog-builder-action@v5
+      with:
+        mode: ${{ needs.setup.outputs.changelog_mode }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
