@@ -155,14 +155,14 @@ jobs:
       run: nuget restore
 
     - name: Build (${{ env.BUILD_CONFIG }})
-      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore -o "${{ env.BUILD_OUTPUTFOLDER }}" -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
+      run: dotnet build ${{ env.PROJECT_NAME }}.sln --no-restore --self-contained -o "${{ env.BUILD_OUTPUTFOLDER }}" -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.product_version }}"
 
     - name: Publish each App
       run: |
         Write-Host "Starting in : $((Get-Location).Path)"
         Write-Host ""
 
-        $filenames = @( "Common/BuildInfo.h" )
+        $wildcard = @( "*.csproj" )
 
         $build_date     = $(Get-Date -Format "yyyy-MM-dd")
         $build_time     = $(Get-Date -Format "HH:mm")
