@@ -1,0 +1,71 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>Assets\Icons\appicon2.ico</ApplicationIcon>
+    <Title>A quick and simple to use Calendar for date viewing</Title>
+    <Copyright>Copyright © 2004-2024 DNX Solutions</Copyright>
+    <Authors>MartinSmith1968</Authors>
+    <Company>DNX Solutions</Company>
+    <Description>A quick and simple to Calendar application for date viewing and calculation.</Description>
+    <AssemblyVersion>2.2.1.*</AssemblyVersion>
+    <FileVersion>2.2.1.0</FileVersion>
+    <Deterministic>false</Deterministic>
+    <PackageIcon>appicon2.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/martinsmith1968/WinFormsApplications</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/martinsmith1968/WinFormsApplications</RepositoryUrl>
+    <Platforms>x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Icons\appicon2.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ookii.CommandLine" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\QuickCalendar.Domain\QuickCalendar.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\UserSettings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserSettings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Icons\appicon2.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Properties\UserSettings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

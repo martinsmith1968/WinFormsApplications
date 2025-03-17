@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="QuickCalendar.Properties" GeneratedClassName="UserSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="App_IsUpgraded" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CloseOnEscape" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LoadLastOpenedFileOnStartup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LastOpenedFileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ShowCalendarNameInStatusBar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="ShowCalendarNameInWindowTitle" Type="System.String" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="CalendarDetailsForm_Size" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CalendarDetailsForm_lvwDatesNotableDates_ColumnSizes" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NotableDatesGeneratorEditorForm_Size" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NotableDatesGeneratorEditorForm_lvwGeneratedDates_ColumnSizes" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ProgramOptionsForm_lvwRawProperties_ColumnSizes" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>
