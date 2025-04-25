@@ -11,8 +11,8 @@ public partial class Arguments
     [Alias("f")]
     [Alias("file")]
     [Description("The name of the application to start or the name of a document of a file type that is associated with an application and that has a default open action available to it. The default is an empty string")]
-    [CommandLineArgument(IsRequired = true, DefaultValue = "")]
-    public string FileName { get; set; }
+    [CommandLineArgument(IsRequired = true)]
+    public required string FileName { get; set; }
 
     [Alias("v")]
     [Description("The action to take with the file that the process opens. The default is an empty string which signifies no action.")]
