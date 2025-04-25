@@ -1,5 +1,5 @@
 using System.Drawing;
-using QuickCalendar.Domain.Interfaces;
+using DNX.Common.Interfaces;
 using QuickCalendar.Domain.Models.Types;
 
 namespace QuickCalendar.Domain.Models;

@@ -1,6 +1,6 @@
 using System.Text;
+using DNX.Common.Extensions;
 using QuickCalendar.ControlExtensions;
-using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Extensions;

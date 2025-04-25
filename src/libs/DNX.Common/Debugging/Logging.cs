@@ -2,7 +2,7 @@ using System.Reflection;
 using Serilog;
 using Serilog.Enrichers.CallerInfo;
 
-namespace QuickCalendar.Domain.Debugging;
+namespace DNX.Common.Debugging;
 
 public class Logging
 {

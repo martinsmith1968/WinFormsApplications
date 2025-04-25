@@ -1,7 +1,8 @@
 {
   "profiles": {
     "QuickCalendar": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "-f C:\\unknown.dat"
     }
   }
 }

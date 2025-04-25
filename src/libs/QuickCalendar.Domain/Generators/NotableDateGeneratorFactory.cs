@@ -1,5 +1,5 @@
 using System.Reflection;
-using QuickCalendar.Domain.Extensions;
+using DNX.Common.Extensions;
 
 namespace QuickCalendar.Domain.Generators;
 

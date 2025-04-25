@@ -1,4 +1,4 @@
-namespace QuickCalendar.Domain.Interfaces;
+namespace DNX.Common.Interfaces;
 
 public interface ICloneable<T>
 {

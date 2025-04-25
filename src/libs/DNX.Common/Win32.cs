@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace QuickCalendar;
+namespace DNX.Common;
 
 public class Win32
 {

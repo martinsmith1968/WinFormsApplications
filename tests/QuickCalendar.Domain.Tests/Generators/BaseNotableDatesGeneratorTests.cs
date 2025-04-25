@@ -1,8 +1,8 @@
 using System.Globalization;
 using AutoFixture;
+using DNX.Common.Interfaces;
 using FluentAssertions;
 using QuickCalendar.Domain.Generators;
-using QuickCalendar.Domain.Interfaces;
 using QuickCalendar.Domain.Models;
 using Xunit;
 

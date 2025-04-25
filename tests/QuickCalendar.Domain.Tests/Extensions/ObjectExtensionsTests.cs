@@ -1,8 +1,8 @@
 using AutoFixture;
 using Bogus;
+using DNX.Common.Extensions;
 using FluentAssertions;
 using Newtonsoft.Json;
-using QuickCalendar.Domain.Extensions;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Extensions;

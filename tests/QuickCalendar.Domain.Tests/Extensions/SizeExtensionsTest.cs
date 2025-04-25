@@ -1,6 +1,6 @@
 using System.Drawing;
+using DNX.Common.Extensions;
 using FluentAssertions;
-using QuickCalendar.Domain.Extensions;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Extensions;

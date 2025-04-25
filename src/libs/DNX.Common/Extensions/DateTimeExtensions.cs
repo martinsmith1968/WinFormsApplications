@@ -1,6 +1,6 @@
 using DNX.Helpers.Linq;
 
-namespace QuickCalendar.Domain.Extensions;
+namespace DNX.Common.Extensions;
 
 public static class DateTimeExtensions
 {

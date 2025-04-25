@@ -1,4 +1,4 @@
-namespace QuickCalendar.Domain.Debugging;
+namespace DNX.Common.Debugging;
 
 public static class RuntimeEnvironment
 {

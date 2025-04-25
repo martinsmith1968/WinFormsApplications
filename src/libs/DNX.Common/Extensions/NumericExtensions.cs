@@ -1,4 +1,4 @@
-namespace QuickCalendar.Domain.Extensions;
+namespace DNX.Common.Extensions;
 
 public static class NumericExtensions
 {

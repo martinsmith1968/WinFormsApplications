@@ -1,0 +1,14 @@
+{
+  "FileVersion": 2,
+  "Id": "26b8c0c5-d1f6-456b-9970-1dff85771a68",
+  "Items": [
+    {
+      "Id": "a2dd1655-4f31-458e-90aa-e40afa9d933a",
+      "Command": "-f https://www.packtpub.com/free-learning"
+    },
+    {
+      "Id": "ccf5d301-22b3-4e83-894a-f5cab1d9110c",
+      "Command": "-v open"
+    }
+  ]
+}
