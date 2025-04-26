@@ -173,7 +173,10 @@ jobs:
     #---------------------------------------------------------
     - name: Publish QuickCalendar
       run: dotnet publish "src/apps/QuickCalendar/QuickCalendar.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/QuickCalendar" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:PublishSingleFile=true -p:"Version=${{ needs.setup.outputs.executable_version }}"
+
     #---------------------------------------------------------
+    - name: Publish WinExec
+      run: dotnet publish "src/apps/WinExec/WinExec.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/WinExec" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:PublishSingleFile=true -p:"Version=${{ needs.setup.outputs.executable_version }}"
 
     - name: Add files to output folder
       run: |
@@ -181,7 +184,7 @@ jobs:
 
     - name: Debug Output Folder
       run:
-        gci "${{ env.BUILD_OUTPUTFOLDER }}" -recurse -File | select-object { $_.FullName }
+        Get-ChildItem "${{ env.BUILD_OUTPUTFOLDER }}" -recurse -File | select-object { $_.FullName }
 
     - name: Compress Artifact
       uses: OctopusDeploy/create-zip-package-action@v3

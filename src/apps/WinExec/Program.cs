@@ -1,10 +1,14 @@
 using System.Diagnostics;
 using System.Reflection;
+using System.Text;
 using DNX.Common;
 using DNX.Common.Debugging;
+using DNX.Common.Extensions;
 using DNX.Helpers.Assemblies;
 using Ookii.CommandLine;
 using Serilog;
+
+// ReSharper disable InconsistentNaming
 
 namespace WinExec;
 
@@ -27,30 +31,44 @@ internal static class Program
 
             Logger.Debug($"{nameof(AssemblyDetails.FileName)}: {AssemblyDetails.FileName}");
             Logger.Debug($"{nameof(AppContext.BaseDirectory)}: {AppContext.BaseDirectory}");
+            Logger.Information($"{nameof(args)}: {string.Join(' ', args)}");
 
-            var arguments = Arguments.Parse(args, Arguments.Options)
-                            ?? throw new CommandLineArgumentException("Unable to parse Program Arguments");
+            var parser = ProgramArguments.GetParser();
+            var arguments = parser.Parse(args)
+                            ?? throw new CommandLineArgumentException("Unable to parse Program Arguments"); // TODO: Generate usage and handle as per exception
             arguments.Validate();
 
-            var startInfo = new ProcessStartInfo(arguments.FileName)
-            {
-                Verb = arguments.Verb,
-                UseShellExecute = arguments.UseShellExecute,
-            };
-
-            Process.Start(startInfo);
+            Execute(arguments);
         }
         catch (Exception ex)
         {
-            Logger.Fatal(ex, ex.Message);
+            Logger.Fatal(ex, "{0} {1}", ex.GetType().Name, ex.Message);
             if (Win32.ApplicationHasConsole)
             {
-                Console.Error.WriteLine($"{AssemblyDetails.Title} Error: {ex.Message}");
+                Console.Out.WriteLine("Shit");
+                Console.Error.WriteLine(ProgramArguments.GetUsage(true));
+                Console.Error.WriteLine($"{AssemblyDetails.Title} ERROR: {ex.Message}");
             }
             else
             {
-                MessageBox.Show(ex.Message, AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var text = new StringBuilder(ProgramArguments.GetUsage(false))
+                    .AppendLine()
+                    .AppendFormat($"ERROR: {ex.Message}");
+
+                MessageBox.Show(text.ToString(), AssemblyDetails.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+    }
+
+    private static void Execute(ProgramArguments arguments)
+    {
+        var startInfo = arguments.GetStartInfo();
+        Logger.Debug("StartInfo: {startInfo}", startInfo.GetFullDescription());
+
+        Logger.Information("Launching: {startInfo}", startInfo.GetShortDescription());
+
+        using var timer = new CodeTimer();
+        Process.Start(startInfo);
+        Logger.Information("Launched in: {seconds} seconds", timer.Stopwatch.Elapsed.TotalSeconds);
     }
 }

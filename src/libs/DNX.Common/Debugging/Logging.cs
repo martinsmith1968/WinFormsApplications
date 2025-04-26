@@ -1,6 +1,8 @@
 using System.Reflection;
 using Serilog;
+using Serilog.Core;
 using Serilog.Enrichers.CallerInfo;
+using Serilog.Events;
 
 namespace DNX.Common.Debugging;
 
@@ -11,11 +13,11 @@ public class Logging
     public static readonly string FileName = Path.Combine(
         Path.GetTempPath(),
         Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly()?.Location)
-        + (RuntimeEnvironment.IsRunningInsideVisualStudioIDE ? ".Debug" : "")
-        + ".log"
+           + (RuntimeEnvironment.IsRunningInsideVisualStudioIDE ? ".Debug" : "")
+           + ".log"
     );
 
-    private const string OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Method}: {Message:lj}{NewLine}{Exception}";
+    private const string OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] [{Method}] {Message:lj}{NewLine}{Exception}";
 
     private const int MaxLogFileSize = 1024 * 1024 * 10;  // 10MB
 
@@ -30,9 +32,17 @@ public class Logging
         .Distinct();
     }
 
-    public static void Configure()
+    private static LogEventLevel GetDefaultLoggingLevel()
+    {
+        return RuntimeEnvironment.IsRunningInsideVisualStudioIDE
+                ? LogEventLevel.Debug
+                : LogEventLevel.Information;
+    }
+
+    public static void Configure(Func<LogEventLevel>? defaultLogLevel = null)
     {
         var config = new LoggerConfiguration()
+            .MinimumLevel.ControlledBy(new LoggingLevelSwitch(defaultLogLevel?.Invoke() ?? GetDefaultLoggingLevel()))
             .Enrich.WithAssemblyName()
             .Enrich.WithAssemblyVersion()
             .Enrich.WithCallerInfo(
@@ -52,11 +62,11 @@ public class Logging
 
         Log.Logger = config.CreateLogger();
 
-        Log.Information(SeparatorLine);
+        StartUp();
     }
 
-
-
-
-
+    private static void StartUp()
+    {
+        Log.Information(SeparatorLine);
+    }
 }

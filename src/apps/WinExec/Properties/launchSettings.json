@@ -2,7 +2,7 @@
   "profiles": {
     "WinExec": {
       "commandName": "Project",
-      "commandLineArgs": "-f https://www.packtpub.com/free-learning -v open"
+      "commandLineArgs": "-shit"
     }
   }
 }
