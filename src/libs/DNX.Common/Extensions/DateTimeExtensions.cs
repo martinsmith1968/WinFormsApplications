@@ -1,4 +1,4 @@
-using DNX.Helpers.Linq;
+using DNX.Extensions.Linq;
 
 namespace DNX.Common.Extensions;
 
