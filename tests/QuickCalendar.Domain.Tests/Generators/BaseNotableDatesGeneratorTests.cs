@@ -1,9 +1,9 @@
 using System.Globalization;
 using AutoFixture;
 using DNX.Common.Interfaces;
-using FluentAssertions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
+using Shouldly;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Generators;
@@ -54,12 +54,12 @@ public class BaseNotableDatesGeneratorTests
         var result = instance.Generate();
 
         // Assert
-        result.Should().NotBeNull();
-        result.Count.Should().Be(1);
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(1);
 
-        result.First().Date.Should().Be(now);
-        result.First().Description.Should().NotBeNullOrWhiteSpace();
-        result.First().Description.Should().Be($"Today is {now:yyyyMMdd} - {instance.Sequence}");
+        result.First().Date.ShouldBe(now);
+        result.First().Description.ShouldNotBeNullOrWhiteSpace();
+        result.First().Description.ShouldBe($"Today is {now:yyyyMMdd} - {instance.Sequence}");
     }
 
     [Fact]
@@ -79,12 +79,12 @@ public class BaseNotableDatesGeneratorTests
         var result = instance.Generate();
 
         // Assert
-        result.Should().NotBeNull();
-        result.Count.Should().Be(1);
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(1);
 
-        result.First().Date.Should().Be(now);
-        result.First().Description.Should().NotBeNullOrWhiteSpace();
-        result.First().Description.Should().Be($"Sprint {now:yyyy}.{instance.Sequence:00}");
+        result.First().Date.ShouldBe(now);
+        result.First().Description.ShouldNotBeNullOrWhiteSpace();
+        result.First().Description.ShouldBe($"Sprint {now:yyyy}.{instance.Sequence:00}");
     }
 
     [Fact]
@@ -104,11 +104,11 @@ public class BaseNotableDatesGeneratorTests
         var result = instance.GetDefinitionValue();
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
-        result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.DateToUse)}\":\"{instance.DateToUse:s}\"");
-        result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.Sequence)}\":{instance.Sequence}");
-        result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.Interval)}\":\"{instance.Interval:c}\"");
-        result.Should().Contain($"\"{nameof(TestNotableDatesGenerator.DescriptionTemplate)}\":\"{instance.DescriptionTemplate}\"");
+        result.ShouldNotBeNullOrWhiteSpace();
+        result.ShouldContain($"\"{nameof(TestNotableDatesGenerator.DateToUse)}\":\"{instance.DateToUse:s}\"");
+        result.ShouldContain($"\"{nameof(TestNotableDatesGenerator.Sequence)}\":{instance.Sequence}");
+        result.ShouldContain($"\"{nameof(TestNotableDatesGenerator.Interval)}\":\"{instance.Interval:c}\"");
+        result.ShouldContain($"\"{nameof(TestNotableDatesGenerator.DescriptionTemplate)}\":\"{instance.DescriptionTemplate}\"");
     }
 
     [Fact]
@@ -131,10 +131,10 @@ public class BaseNotableDatesGeneratorTests
         result.PopulateFromDefinitionValue(text);
 
         // Assert
-        result.DateToUse.Should().Be(instance.DateToUse);
-        result.Sequence.Should().Be(instance.Sequence);
-        result.Interval.Should().Be(instance.Interval);
-        result.DescriptionTemplate.Should().Be(instance.DescriptionTemplate);
+        result.DateToUse.ShouldBe(instance.DateToUse);
+        result.Sequence.ShouldBe(instance.Sequence);
+        result.Interval.ShouldBe(instance.Interval);
+        result.DescriptionTemplate.ShouldBe(instance.DescriptionTemplate);
     }
 
     [Theory]
@@ -148,7 +148,7 @@ public class BaseNotableDatesGeneratorTests
         var result = instance.GetDefinitionValue();
 
         // Assert
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Fact]
@@ -160,13 +160,13 @@ public class BaseNotableDatesGeneratorTests
         var result = instance.GetDefinitionText();
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
-        result.Should().Contain(nameof(TestNotableDatesGenerator.DateToUse));
-        result.Should().Contain(instance.DateToUse.ToString(CultureInfo.CurrentCulture));
-        result.Should().Contain(nameof(TestNotableDatesGenerator.Sequence));
-        result.Should().Contain(instance.Sequence.ToString());
-        result.Should().Contain(nameof(TestNotableDatesGenerator.DescriptionTemplate));
-        result.Should().Contain(instance.DescriptionTemplate);
+        result.ShouldNotBeNullOrWhiteSpace();
+        result.ShouldContain(nameof(TestNotableDatesGenerator.DateToUse));
+        result.ShouldContain(instance.DateToUse.ToString(CultureInfo.CurrentCulture));
+        result.ShouldContain(nameof(TestNotableDatesGenerator.Sequence));
+        result.ShouldContain(instance.Sequence.ToString());
+        result.ShouldContain(nameof(TestNotableDatesGenerator.DescriptionTemplate));
+        result.ShouldContain(instance.DescriptionTemplate);
     }
 
     public static TheoryData<TestNotableDatesGenerator, string> CopyFrom_Data()

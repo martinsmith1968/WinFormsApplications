@@ -1,5 +1,5 @@
 using AutoFixture;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Generators;
 using Xunit;
 
@@ -18,8 +18,8 @@ public class NotableDatesFixedDateGeneratorTests
         var result = instance.GeneratorTypeName;
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
-        result.Should().Be("FixedDate");
+        result.ShouldNotBeNullOrWhiteSpace();
+        result.ShouldBe("FixedDate");
     }
 
     [Fact]
@@ -37,10 +37,10 @@ public class NotableDatesFixedDateGeneratorTests
         var result = instance.Generate();
 
         // Assert
-        result.Should().NotBeNull();
-        result.Count.Should().Be(1);
-        result.First().Date.Should().Be(now);
-        result.First().Description.Should().Be($"Day 1, {now:yyyy-MMM-dd}");
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(1);
+        result.First().Date.ShouldBe(now);
+        result.First().Description.ShouldBe($"Day 1, {now:yyyy-MMM-dd}");
     }
 
     [Theory]
@@ -54,7 +54,7 @@ public class NotableDatesFixedDateGeneratorTests
         var result = instance.GetDefinitionValue();
 
         // Assert
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -70,7 +70,7 @@ public class NotableDatesFixedDateGeneratorTests
         var result = other.GetDefinitionValue();
 
         // Assert
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     public static TheoryData<NotableDatesFixedDateGenerator, string> CopyFrom_Data()

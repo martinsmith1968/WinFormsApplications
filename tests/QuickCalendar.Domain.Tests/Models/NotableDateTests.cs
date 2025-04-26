@@ -1,5 +1,5 @@
 using AutoFixture;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Models;
 using Xunit;
 
@@ -19,9 +19,9 @@ public class NotableDateTests
         var instance = new NotableDate(date, description);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.Date.Should().Be(date);
-        instance.Description.Should().Be(description);
+        instance.ShouldNotBeNull();
+        instance.Date.ShouldBe(date);
+        instance.Description.ShouldBe(description);
     }
 
     [Fact]
@@ -33,8 +33,8 @@ public class NotableDateTests
         var instance = new NotableDate(date);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.Date.Should().Be(date);
-        instance.Description.Should().BeNull();
+        instance.ShouldNotBeNull();
+        instance.Date.ShouldBe(date);
+        instance.Description.ShouldBeNull();
     }
 }

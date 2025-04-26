@@ -1,6 +1,6 @@
 using AutoFixture;
 using Bogus;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using Xunit;
@@ -34,18 +34,18 @@ public class CalendarSetTests
 
     internal static void AssertAreEqual(CalendarSet instance1, CalendarSet instance2)
     {
-        instance1.Should().NotBeNull();
-        instance2.Should().NotBeNull();
+        instance1.ShouldNotBeNull();
+        instance2.ShouldNotBeNull();
 
-        instance2.Version.Should().Be(instance1.Version);
-        instance2.FileName.Should().Be(instance1.FileName);
-        instance2.FullFileName.Should().Be(instance1.FullFileName);
-        instance2.Description.Should().Be(instance1.Description);
-        instance2.DisplayFontName.Should().Be(instance1.DisplayFontName);
-        instance2.DisplayFontSize.Should().Be(instance1.DisplayFontSize);
-        instance2.MinimumDate.Should().Be(instance1.MinimumDate);
-        instance2.MaximumDate.Should().Be(instance1.MaximumDate);
-        instance2.DateDisplayFormat.Should().Be(instance1.DateDisplayFormat);
+        instance2.Version.ShouldBe(instance1.Version);
+        instance2.FileName.ShouldBe(instance1.FileName);
+        instance2.FullFileName.ShouldBe(instance1.FullFileName);
+        instance2.Description.ShouldBe(instance1.Description);
+        instance2.DisplayFontName.ShouldBe(instance1.DisplayFontName);
+        instance2.DisplayFontSize.ShouldBe(instance1.DisplayFontSize);
+        instance2.MinimumDate.ShouldBe(instance1.MinimumDate);
+        instance2.MaximumDate.ShouldBe(instance1.MaximumDate);
+        instance2.DateDisplayFormat.ShouldBe(instance1.DateDisplayFormat);
     }
 
     [Fact]
@@ -61,13 +61,13 @@ public class CalendarSetTests
         var instance = new CalendarSet(fileInfo, description);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.FileInfo.Should().Be(fileInfo);
-        instance.Description.Should().Be(description);
-        instance.MaximumDate.Should().Be(DateTime.MaxValue);
-        instance.MinimumDate.Should().Be(DateTime.MinValue);
-        instance.VisualDetails.Should().NotBeNull();
-        instance.Dates.Should().NotBeNull();
+        instance.ShouldNotBeNull();
+        instance.FileInfo.ShouldBe(fileInfo);
+        instance.Description.ShouldBe(description);
+        instance.MaximumDate.ShouldBe(DateTime.MaxValue);
+        instance.MinimumDate.ShouldBe(DateTime.MinValue);
+        instance.VisualDetails.ShouldNotBeNull();
+        instance.Dates.ShouldNotBeNull();
     }
 
     [Fact]
@@ -81,13 +81,13 @@ public class CalendarSetTests
         var instance = new CalendarSet(fileInfo);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.FileInfo.Should().Be(fileInfo);
-        instance.Description.Should().BeNull();
-        instance.MaximumDate.Should().Be(DateTime.MaxValue);
-        instance.MinimumDate.Should().Be(DateTime.MinValue);
-        instance.VisualDetails.Should().NotBeNull();
-        instance.Dates.Should().NotBeNull();
+        instance.ShouldNotBeNull();
+        instance.FileInfo.ShouldBe(fileInfo);
+        instance.Description.ShouldBeNull();
+        instance.MaximumDate.ShouldBe(DateTime.MaxValue);
+        instance.MinimumDate.ShouldBe(DateTime.MinValue);
+        instance.VisualDetails.ShouldNotBeNull();
+        instance.Dates.ShouldNotBeNull();
     }
 
     [Fact]
@@ -99,13 +99,13 @@ public class CalendarSetTests
         var instance = new CalendarSet(description);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.FileInfo.Should().BeNull();
-        instance.Description.Should().Be(description);
-        instance.MaximumDate.Should().Be(DateTime.MaxValue);
-        instance.MinimumDate.Should().Be(DateTime.MinValue);
-        instance.VisualDetails.Should().NotBeNull();
-        instance.Dates.Should().NotBeNull();
+        instance.ShouldNotBeNull();
+        instance.FileInfo.ShouldBeNull();
+        instance.Description.ShouldBe(description);
+        instance.MaximumDate.ShouldBe(DateTime.MaxValue);
+        instance.MinimumDate.ShouldBe(DateTime.MinValue);
+        instance.VisualDetails.ShouldNotBeNull();
+        instance.Dates.ShouldNotBeNull();
     }
 
     [Fact]
@@ -157,8 +157,8 @@ public class CalendarSetTests
         var result = instance.FindNextMarkedDate(searchDate);
 
         // Assert
-        result.HasValue.Should().Be(expectedResult.HasValue);
-        result.Should().Be(expectedResult);
+        result.HasValue.ShouldBe(expectedResult.HasValue);
+        result.ShouldBe(expectedResult);
     }
 
     [Theory]
@@ -181,8 +181,8 @@ public class CalendarSetTests
         var result = instance.FindPreviousMarkedDate(searchDate);
 
         // Assert
-        result.HasValue.Should().Be(expectedResult.HasValue);
-        result.Should().Be(expectedResult);
+        result.HasValue.ShouldBe(expectedResult.HasValue);
+        result.ShouldBe(expectedResult);
     }
 
     public static TheoryData<IList<DateTime>, DateTime, DateTime?> FindNextMarkedDate_Data()

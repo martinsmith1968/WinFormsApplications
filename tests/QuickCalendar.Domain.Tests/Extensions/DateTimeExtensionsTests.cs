@@ -1,5 +1,5 @@
 using DNX.Common.Extensions;
-using FluentAssertions;
+using Shouldly;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Extensions;
@@ -12,7 +12,7 @@ public class DateTimeExtensionsTests
     {
         var result = DateTimeExtensions.MinOf(dt1, dt2);
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -21,7 +21,7 @@ public class DateTimeExtensionsTests
     {
         var result = DateTimeExtensions.MaxOf(dt1, dt2);
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -31,7 +31,7 @@ public class DateTimeExtensionsTests
         var result = dateTime1.GetMonthsSpan(dateTime2);
 
         // Assert
-        result.Should().Be(expectedResult);
+        result.ShouldBe(expectedResult);
     }
 
     public static TheoryData<DateTime, DateTime, DateTime> MinOf_Data()

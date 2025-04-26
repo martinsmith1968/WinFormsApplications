@@ -1,7 +1,7 @@
 using System.Drawing;
 using AutoFixture;
 using Bogus;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using Xunit;
@@ -39,17 +39,17 @@ namespace QuickCalendar.Domain.Tests.Models
 
         internal static void AssertAreEqual(CalendarSetVisuals instance1, CalendarSetVisuals instance2)
         {
-            instance1.Should().NotBeNull();
-            instance2.Should().NotBeNull();
+            instance1.ShouldNotBeNull();
+            instance2.ShouldNotBeNull();
 
-            instance2.FirstDayOfWeek.Should().Be(instance1.FirstDayOfWeek);
-            instance2.FirstVisibleMonth.Should().Be(instance1.FirstVisibleMonth);
-            instance2.ManualWindowLocation.Should().Be(instance1.ManualWindowLocation);
-            instance2.ShowToday.Should().Be(instance1.ShowToday);
-            instance2.ShowTodayCircle.Should().Be(instance1.ShowTodayCircle);
-            instance2.ShowWeekNumbers.Should().Be(instance1.ShowWeekNumbers);
-            instance2.VisibleDimensions.Should().Be(instance1.VisibleDimensions);
-            instance2.WindowStartLocation.Should().Be(instance1.WindowStartLocation);
+            instance2.FirstDayOfWeek.ShouldBe(instance1.FirstDayOfWeek);
+            instance2.FirstVisibleMonth.ShouldBe(instance1.FirstVisibleMonth);
+            instance2.ManualWindowLocation.ShouldBe(instance1.ManualWindowLocation);
+            instance2.ShowToday.ShouldBe(instance1.ShowToday);
+            instance2.ShowTodayCircle.ShouldBe(instance1.ShowTodayCircle);
+            instance2.ShowWeekNumbers.ShouldBe(instance1.ShowWeekNumbers);
+            instance2.VisibleDimensions.ShouldBe(instance1.VisibleDimensions);
+            instance2.WindowStartLocation.ShouldBe(instance1.WindowStartLocation);
         }
 
         [Theory]
@@ -60,7 +60,7 @@ namespace QuickCalendar.Domain.Tests.Models
             var result = CalendarSetVisuals.IsValid(point);
 
             // Assert
-            result.Should().Be(expectedResult);
+            result.ShouldBe(expectedResult);
         }
 
         public static TheoryData<Point?, bool> IsValid_Data()

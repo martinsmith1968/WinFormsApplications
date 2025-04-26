@@ -1,6 +1,6 @@
 using AutoFixture;
 using DNX.Helpers.Strings;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Generators;
 using Xunit;
 
@@ -24,8 +24,8 @@ public class NotableDateGeneratorFactoryTests
         var instance = sut.Create(name, properties);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.GetType().Should().Be(expectedType);
+        instance.ShouldNotBeNull();
+        instance.GetType().ShouldBe(expectedType);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class NotableDateGeneratorFactoryTests
         // Act
         var instance = sut.Create(name, properties);
 
-        instance.Should().BeNull();
+        instance.ShouldBeNull();
     }
 
     public static TheoryData<string, Type> Create_Data()

@@ -1,4 +1,4 @@
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Models;
 using Xunit;
 
@@ -17,11 +17,11 @@ public class DateRangeTests
         var result = new DateRange(first, second);
 
         // Assert
-        result.Should().NotBeNull();
-        result.StartDate.Should().Be(start);
-        result.EndDate.Should().Be(end);
-        result.IsRange.Should().Be(isRange);
-        result.GetMonthRange().Should().Be(monthRange);
+        result.ShouldNotBeNull();
+        result.StartDate.ShouldBe(start);
+        result.EndDate.ShouldBe(end);
+        result.IsRange.ShouldBe(isRange);
+        result.GetMonthRange().ShouldBe(monthRange);
     }
 
     [Theory]
@@ -32,11 +32,11 @@ public class DateRangeTests
         var result = new DateRange(theDate);
 
         // Assert
-        result.Should().NotBeNull();
-        result.StartDate.Should().Be(theDate);
-        result.EndDate.Should().Be(theDate);
-        result.IsRange.Should().BeFalse();
-        result.GetMonthRange().Should().Be(1);
+        result.ShouldNotBeNull();
+        result.StartDate.ShouldBe(theDate);
+        result.EndDate.ShouldBe(theDate);
+        result.IsRange.ShouldBeFalse();
+        result.GetMonthRange().ShouldBe(1);
     }
 
     public static TheoryData<DateTime, DateTime, bool, DateTime, DateTime, int> DateRange_constructor_data()
