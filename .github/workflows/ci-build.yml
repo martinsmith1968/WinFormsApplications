@@ -192,8 +192,8 @@ jobs:
         output_folder: Output
         base_path: ${{ env.BUILD_OUTPUTFOLDER }}
         files: |
-          *.exe
-          *.dll.config
+          **/*.exe
+          **/*.dll.config
           *.md
 
     - name: Upload Build Artifact
