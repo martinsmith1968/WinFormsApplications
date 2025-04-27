@@ -1,7 +1,7 @@
 using System.Reflection;
 using DNX.Common;
 using DNX.Common.Debugging;
-using DNX.Helpers.Assemblies;
+using DNX.Extensions.Assemblies;
 using Ookii.CommandLine;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Repositories;
