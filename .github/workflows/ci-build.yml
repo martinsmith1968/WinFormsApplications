@@ -3,8 +3,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 
 env:
   PRIMARY_BRANCH_NAME: main
-  APP_MAJOR_VERSION: 2
-  APP_MINOR_VERSION: 6
+  PRODUCT_MAJOR_VERSION: 2.6
   PROJECT_NAME: WinFormsApplications
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
@@ -15,7 +14,6 @@ env:
 on:
   push:
     branches:
-      - main
       - main
       - rc/**
       - feature/**
@@ -114,10 +112,10 @@ jobs:
         echo "changelog_mode=${changelog_mode}" >> $GITHUB_ENV
 
     - name: Set Product Version
-      run: echo "product_version=${{ env.APP_MAJOR_VERSION }}.${{ env.APP_MINOR_VERSION }}" >> $GITHUB_ENV
+      run: echo "product_version=${{ env.PRODUCT_MAJOR_VERSION }}" >> $GITHUB_ENV
 
     - name: Set Executable Version
-      run: echo "executable_version=${{ env.APP_MAJOR_VERSION }}.${{ env.APP_MINOR_VERSION }}.${{ env.build_date }}.${{ github.run_number }}${{ github.run_attempt }}${{ env.release_modifier }}" >> $GITHUB_ENV
+      run: echo "executable_version=${{ env.PRODUCT_MAJOR_VERSION }}.${{ env.build_date }}.${{ github.run_number }}${{ github.run_attempt }}${{ env.release_modifier }}" >> $GITHUB_ENV
 
     - name: Show Configuration
       run: env | sort
@@ -153,7 +151,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
-    - uses: actions/checkout@v4
     - name: Setup dotnet ${{ matrix.dotnet-version }}
       uses: actions/setup-dotnet@v4
       with:
@@ -195,8 +192,8 @@ jobs:
         output_folder: Output
         base_path: ${{ env.BUILD_OUTPUTFOLDER }}
         files: |
-          *.exe
-          *.dll.config
+          **/*.exe
+          **/*.dll.config
           *.md
 
     - name: Upload Build Artifact
@@ -245,6 +242,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - uses: actions/download-artifact@v4
       with:
