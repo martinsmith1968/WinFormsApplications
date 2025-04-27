@@ -1,5 +1,5 @@
 using DNX.Common.Extensions;
-using DNX.Helpers.Enumerations;
+using DNX.Extensions.Enumerations;
 using QuickCalendar.ControlExtensions;
 using QuickCalendar.Domain.Attributes;
 using QuickCalendar.Domain.Generators;

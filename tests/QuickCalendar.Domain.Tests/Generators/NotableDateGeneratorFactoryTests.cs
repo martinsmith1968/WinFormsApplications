@@ -1,5 +1,5 @@
 using AutoFixture;
-using DNX.Helpers.Strings;
+using DNX.Extensions.Strings;
 using Shouldly;
 using QuickCalendar.Domain.Generators;
 using Xunit;

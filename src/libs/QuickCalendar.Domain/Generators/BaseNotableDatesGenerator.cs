@@ -1,7 +1,7 @@
 using System.Globalization;
 using DNX.Common.Interfaces;
-using DNX.Helpers.Reflection;
-using DNX.Helpers.Strings;
+using DNX.Extensions.Reflection;
+using DNX.Extensions.Strings;
 using Newtonsoft.Json;
 using QuickCalendar.Domain.Models;
 

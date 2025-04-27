@@ -6,6 +6,8 @@ using QuickCalendar.Domain.Models;
 using Shouldly;
 using Xunit;
 
+#pragma warning disable CS8604 // Possible null reference argument.
+
 namespace QuickCalendar.Domain.Tests.Generators;
 
 public class TestNotableDatesGenerator : BaseNotableDatesGenerator, ICopyable<TestNotableDatesGenerator>

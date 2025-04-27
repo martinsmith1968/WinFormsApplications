@@ -1,7 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
-using DNX.Helpers.Strings;
+using DNX.Extensions.Strings;
 using Ookii.CommandLine;
 using Ookii.CommandLine.Terminal;
 
@@ -12,7 +11,7 @@ namespace WinExec;
 public partial class ProgramArguments
 {
     [Description("The name of the application to start or the name of a document of a file type that is associated with an application and that has a default open action available to it. The default is an empty string")]
-    [CommandLineArgument(Position = 1, IsRequired = true)]
+    [CommandLineArgument(Position = 1)]
     public required string FileName { get; set; }
 
     [Description("The name of the application to start or the name of a document of a file type that is associated with an application and that has a default open action available to it. The default is an empty string")]
