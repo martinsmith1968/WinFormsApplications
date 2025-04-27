@@ -21,7 +21,20 @@
     <Deterministic>false</Deterministic>
     <PackageProjectUrl>https://github.com/martinsmith1968/WinFormsApplications</PackageProjectUrl>
     <RepositoryUrl>https://github.com/martinsmith1968/WinFormsApplications</RepositoryUrl>
+    <ApplicationIcon>execute2.ico</ApplicationIcon>
+    <PackageIcon>execute2.png</PackageIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="execute2.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Assets\Icons\execute2.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Ookii.CommandLine" Version="4.1.0" />
