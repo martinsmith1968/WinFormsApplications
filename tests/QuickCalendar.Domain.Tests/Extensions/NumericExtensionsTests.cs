@@ -1,5 +1,5 @@
-using FluentAssertions;
-using QuickCalendar.Domain.Extensions;
+using DNX.Common.Extensions;
+using Shouldly;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Extensions;
@@ -18,7 +18,7 @@ public class NumericExtensionsTests
     {
         var result = value.ToInt32();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -33,7 +33,7 @@ public class NumericExtensionsTests
     {
         var result = value.ToInt32();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -44,7 +44,7 @@ public class NumericExtensionsTests
     {
         var result = value.ToInt32();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -59,7 +59,7 @@ public class NumericExtensionsTests
     {
         var result = value.ToUInt32();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -74,7 +74,7 @@ public class NumericExtensionsTests
     {
         var result = value.ToUInt32();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -85,6 +85,6 @@ public class NumericExtensionsTests
     {
         var result = value.ToUInt32();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 }

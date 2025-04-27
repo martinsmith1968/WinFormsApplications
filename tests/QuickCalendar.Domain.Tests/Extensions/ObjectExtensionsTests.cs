@@ -1,8 +1,8 @@
 using AutoFixture;
 using Bogus;
-using FluentAssertions;
+using DNX.Common.Extensions;
 using Newtonsoft.Json;
-using QuickCalendar.Domain.Extensions;
+using Shouldly;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Extensions;
@@ -32,8 +32,8 @@ public class ObjectExtensionsTests
         var resultJson = JsonConvert.SerializeObject(result);
 
         // Assert
-        result.Should().NotBeNull();
-        resultJson.Should().Be(instanceJson);
+        result.ShouldNotBeNull();
+        resultJson.ShouldBe(instanceJson);
     }
 
     [Fact]
@@ -48,8 +48,8 @@ public class ObjectExtensionsTests
         var resultJson = JsonConvert.SerializeObject(result);
 
         // Assert
-        result.Should().NotBeNull();
-        resultJson.Should().Be(instanceJson);
+        result.ShouldNotBeNull();
+        resultJson.ShouldBe(instanceJson);
     }
 
     [Fact]
@@ -71,10 +71,10 @@ public class ObjectExtensionsTests
         var resultJson = JsonConvert.SerializeObject(result);
 
         // Assert
-        result.Should().NotBeNull();
-        resultJson.Should().NotBe(instanceJson);
-        result.Name.Should().Be(name);
-        result.DateOfBirth.Should().Be(dateOfBirth);
+        result.ShouldNotBeNull();
+        resultJson.ShouldNotBe(instanceJson);
+        result.Name.ShouldBe(name);
+        result.DateOfBirth.ShouldBe(dateOfBirth);
     }
 
     [Fact]
@@ -94,7 +94,7 @@ public class ObjectExtensionsTests
         var resultJson = JsonConvert.SerializeObject(result);
 
         // Assert
-        result.Should().NotBeNull();
-        resultJson.Should().Be(instanceJson);
+        result.ShouldNotBeNull();
+        resultJson.ShouldBe(instanceJson);
     }
 }

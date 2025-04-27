@@ -1,7 +1,7 @@
-using DNX.Helpers.Enumerations;
+using DNX.Common.Extensions;
+using DNX.Extensions.Enumerations;
 using QuickCalendar.ControlExtensions;
 using QuickCalendar.Domain.Attributes;
-using QuickCalendar.Domain.Extensions;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;

@@ -1,6 +1,6 @@
 using AutoFixture;
 using Bogus;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
@@ -22,8 +22,8 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
         var result = instance.GeneratorTypeName;
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
-        result.Should().Be("StartDateRepeatCount");
+        result.ShouldNotBeNullOrWhiteSpace();
+        result.ShouldBe("StartDateRepeatCount");
     }
 
     [Fact]
@@ -46,8 +46,8 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
         var result = instance.Generate();
 
         // Assert
-        result.Should().NotBeNull();
-        result.Count.Should().Be(instance.RepeatCount);
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(instance.RepeatCount);
 
         var expectedSequence = instance.SequenceStart;
         for (var i = 0; i < instance.RepeatCount; i++)
@@ -55,8 +55,8 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
             var date = now.AddDays(instance.IntervalPeriod.Value * i);
             var desc = $"Day {expectedSequence}, {date:yyyy-MMM-dd}";
 
-            result.Skip(i).First().Date.Should().Be(date);
-            result.Skip(i).First().Description.Should().Be(desc);
+            result.Skip(i).First().Date.ShouldBe(date);
+            result.Skip(i).First().Description.ShouldBe(desc);
 
             expectedSequence += instance.SequenceIncrement;
         }
@@ -71,7 +71,7 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
 
         var result = instance.GetDefinitionValue();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -82,7 +82,7 @@ public class NotableDatesStartDateRepeatCountGeneratorTests
 
         var result = instance.GetDefinitionValue();
 
-        result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     public static TheoryData<NotableDatesStartDateRepeatCountGenerator, string> CopyFrom_Data()

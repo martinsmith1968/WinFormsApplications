@@ -1,8 +1,8 @@
 using System.Globalization;
-using DNX.Helpers.Reflection;
-using DNX.Helpers.Strings;
+using DNX.Common.Interfaces;
+using DNX.Extensions.Reflection;
+using DNX.Extensions.Strings;
 using Newtonsoft.Json;
-using QuickCalendar.Domain.Interfaces;
 using QuickCalendar.Domain.Models;
 
 // ReSharper disable InconsistentNaming

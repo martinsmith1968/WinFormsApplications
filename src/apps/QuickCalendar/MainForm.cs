@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using DNX.Helpers.Assemblies;
-using QuickCalendar.Domain.Extensions;
+using DNX.Common.Extensions;
+using DNX.Extensions.Assemblies;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Domain.Repositories;

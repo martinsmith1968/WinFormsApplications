@@ -1,4 +1,4 @@
-using QuickCalendar.Domain.Interfaces;
+using DNX.Common.Interfaces;
 using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Generators;

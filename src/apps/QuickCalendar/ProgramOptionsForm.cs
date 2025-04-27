@@ -1,6 +1,6 @@
 using System.Configuration;
-using DNX.Helpers.Enumerations;
-using DNX.Helpers.Strings;
+using DNX.Extensions.Enumerations;
+using DNX.Extensions.Strings;
 using QuickCalendar.Domain.Models.Types;
 using QuickCalendar.Extensions;
 using QuickCalendar.Properties;
@@ -130,7 +130,7 @@ namespace QuickCalendar
 
             foreach (var value in Enum.GetValues<CalendarSetDisplayNameType>())
             {
-                var itemText = StringExtensions.CoalesceNullOrEmpty(value.GetDescription(), value.ToString());
+                var itemText = value.GetDescription().CoalesceNullOrEmptyWith(value.ToString());
                 var item = new FileNameDisplayTypeComboItem(value, itemText);
 
                 cboShowCalendarNameInStatusBar.Items.Add(item);

@@ -2,9 +2,9 @@ name: CI Build
 run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run_number }}.${{ github.run_attempt }}
 
 env:
-  PRIMARY_BRANCH_NAME: master
+  PRIMARY_BRANCH_NAME: main
   APP_MAJOR_VERSION: 2
-  APP_MINOR_VERSION: 5
+  APP_MINOR_VERSION: 6
   PROJECT_NAME: WinFormsApplications
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
@@ -15,7 +15,8 @@ env:
 on:
   push:
     branches:
-      - master
+      - main
+      - main
       - rc/**
       - feature/**
       - task/**
@@ -23,7 +24,7 @@ on:
 
   pull_request:
     branches:
-      - master
+      - main
 
   workflow_dispatch:
 
@@ -173,7 +174,10 @@ jobs:
     #---------------------------------------------------------
     - name: Publish QuickCalendar
       run: dotnet publish "src/apps/QuickCalendar/QuickCalendar.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/QuickCalendar" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:PublishSingleFile=true -p:"Version=${{ needs.setup.outputs.executable_version }}"
+
     #---------------------------------------------------------
+    - name: Publish WinExec
+      run: dotnet publish "src/apps/WinExec/WinExec.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/WinExec" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:PublishSingleFile=true -p:"Version=${{ needs.setup.outputs.executable_version }}"
 
     - name: Add files to output folder
       run: |
@@ -181,7 +185,7 @@ jobs:
 
     - name: Debug Output Folder
       run:
-        gci "${{ env.BUILD_OUTPUTFOLDER }}" -recurse -File | select-object { $_.FullName }
+        Get-ChildItem "${{ env.BUILD_OUTPUTFOLDER }}" -recurse -File | select-object { $_.FullName }
 
     - name: Compress Artifact
       uses: OctopusDeploy/create-zip-package-action@v3

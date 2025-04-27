@@ -1,5 +1,5 @@
-using QuickCalendar.Domain.Extensions;
-using QuickCalendar.Domain.Interfaces;
+using DNX.Common.Extensions;
+using DNX.Common.Interfaces;
 using QuickCalendar.Domain.Models.Types;
 
 namespace QuickCalendar.Domain.Models;

@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Reflection;
-using DNX.Helpers.Assemblies;
+using DNX.Extensions.Assemblies;
 
 // ReSharper disable LocalizableElement
 

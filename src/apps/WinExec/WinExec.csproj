@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>x64</Platforms>
+    <Title>An application for launching other applications without the need for a command prompt.</Title>
+    <Description>A wrapper around ProcessStartInfo</Description>
+    <Copyright>Copyright © 2004-2024 DNX Solutions</Copyright>
+    <Authors>MartinSmith1968</Authors>
+    <Company>DNX Solutions</Company>
+    <AssemblyVersion>1.0.0.*</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Deterministic>false</Deterministic>
+    <PackageProjectUrl>https://github.com/martinsmith1968/WinFormsApplications</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/martinsmith1968/WinFormsApplications</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ookii.CommandLine" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\DNX.Common\DNX.Common.csproj" />
+  </ItemGroup>
+
+</Project>

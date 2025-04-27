@@ -1,6 +1,6 @@
 using AutoFixture;
 using Bogus;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using Xunit;
@@ -103,25 +103,25 @@ public class CalendarSetDatesTests
             }
         );
 
-        result.AllDatesGenerators.Should().NotBeEmpty();
-        result.AllDates.Should().NotBeEmpty();
+        result.AllDatesGenerators.ShouldNotBeEmpty();
+        result.AllDates.ShouldNotBeEmpty();
 
         return result;
     }
 
     internal static void AssertAreEqual(CalendarSetDates instance1, CalendarSetDates instance2)
     {
-        instance1.Should().NotBeNull();
-        instance2.Should().NotBeNull();
+        instance1.ShouldNotBeNull();
+        instance2.ShouldNotBeNull();
 
-        instance1.DatesGenerators.Count.Should().Be(instance2.DatesGenerators.Count);
-        instance1.DatesGenerators.Should().BeEquivalentTo(instance2.DatesGenerators);
+        instance1.DatesGenerators.Count.ShouldBe(instance2.DatesGenerators.Count);
+        instance1.DatesGenerators.ShouldBeEquivalentTo(instance2.DatesGenerators);
 
-        instance1.AnnualDatesGenerators.Count.Should().Be(instance2.AnnualDatesGenerators.Count);
-        instance1.AnnualDatesGenerators.Should().BeEquivalentTo(instance2.AnnualDatesGenerators);
+        instance1.AnnualDatesGenerators.Count.ShouldBe(instance2.AnnualDatesGenerators.Count);
+        instance1.AnnualDatesGenerators.ShouldBeEquivalentTo(instance2.AnnualDatesGenerators);
 
-        instance1.MonthlyDatesGenerators.Count.Should().Be(instance2.MonthlyDatesGenerators.Count);
-        instance1.MonthlyDatesGenerators.Should().BeEquivalentTo(instance2.MonthlyDatesGenerators);
+        instance1.MonthlyDatesGenerators.Count.ShouldBe(instance2.MonthlyDatesGenerators.Count);
+        instance1.MonthlyDatesGenerators.ShouldBeEquivalentTo(instance2.MonthlyDatesGenerators);
     }
 
     [Fact]

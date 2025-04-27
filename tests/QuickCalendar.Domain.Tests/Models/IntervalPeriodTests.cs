@@ -1,5 +1,5 @@
 using AutoFixture;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
 using Xunit;
@@ -34,9 +34,9 @@ public class IntervalPeriodTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.ParamName.Should().Be(nameof(intervalPeriodType));
-        ex.Message.Should().Contain(nameof(IntervalPeriodType));
+        ex.ShouldNotBeNull();
+        ex.ParamName.ShouldBe(nameof(intervalPeriodType));
+        ex.Message.ShouldContain(nameof(IntervalPeriodType));
     }
 
     [Fact]
@@ -51,9 +51,9 @@ public class IntervalPeriodTests
         );
 
         // Assert
-        ex.Should().NotBeNull();
-        ex.ParamName.Should().Be(nameof(value));
-        ex.Message.Should().Contain("Value");
+        ex.ShouldNotBeNull();
+        ex.ParamName.ShouldBe(nameof(value));
+        ex.Message.ShouldContain("Value");
     }
 
     [Fact]
@@ -66,9 +66,9 @@ public class IntervalPeriodTests
         var instance = IntervalPeriod.Create(intervalPeriodType, value);
 
         // Assert
-        instance.Should().NotBeNull();
-        instance.IntervalPeriodType.Should().Be(intervalPeriodType);
-        instance.Value.Should().Be(value);
+        instance.ShouldNotBeNull();
+        instance.IntervalPeriodType.ShouldBe(intervalPeriodType);
+        instance.Value.ShouldBe(value);
     }
 
     [Theory]
@@ -77,7 +77,7 @@ public class IntervalPeriodTests
     {
         var result = intervalPeriod.AddTo(dateTime);
 
-        result.Should().Be(expectedResult);
+        result.ShouldBe(expectedResult);
     }
 
     public static TheoryData<DateTime, IntervalPeriod, DateTime> AddTo_Data()

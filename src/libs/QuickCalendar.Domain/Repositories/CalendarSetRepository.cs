@@ -1,4 +1,4 @@
-using DNX.Helpers.Internal;
+using DNX.Extensions.Execution;
 using QuickCalendar.Domain.Models;
 
 namespace QuickCalendar.Domain.Repositories;

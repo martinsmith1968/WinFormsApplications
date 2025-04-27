@@ -1,6 +1,6 @@
 using System.Drawing;
-using FluentAssertions;
-using QuickCalendar.Domain.Extensions;
+using DNX.Common.Extensions;
+using Shouldly;
 using Xunit;
 
 namespace QuickCalendar.Domain.Tests.Extensions;
@@ -13,10 +13,9 @@ public class SizeExtensionsTest
     {
         var result = size.CentreWithin(bounds);
 
-        result.Should().NotBeNull();
-        result.IsEmpty.Should().Be(expectedResult.IsEmpty);
-        result.X.Should().Be(expectedResult.X);
-        result.Y.Should().Be(expectedResult.Y);
+        result.IsEmpty.ShouldBe(expectedResult.IsEmpty);
+        result.X.ShouldBe(expectedResult.X);
+        result.Y.ShouldBe(expectedResult.Y);
     }
 
     public static TheoryData<Size, Rectangle, Point> CentreWithin_Data()

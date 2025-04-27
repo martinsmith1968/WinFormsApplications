@@ -1,6 +1,6 @@
 using System.Drawing;
 using AutoFixture;
-using FluentAssertions;
+using Shouldly;
 using QuickCalendar.Domain.Generators;
 using QuickCalendar.Domain.Models;
 using QuickCalendar.Domain.Models.Types;
@@ -87,7 +87,7 @@ public class CalendarSetParserTests
         var result = CalendarSetParser.GenerateJson(instance);
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public class CalendarSetParserTests
         _outputHelper.WriteLine($"{nameof(result)}: {result}");
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNullOrWhiteSpace();
     }
 
     [Fact]
@@ -117,9 +117,9 @@ public class CalendarSetParserTests
         _outputHelper.WriteLine($"{nameof(result2)}: {result2}");
 
         // Assert
-        result1.Should().NotBeNullOrWhiteSpace();
-        result2.Should().NotBeNullOrWhiteSpace();
-        result2.Should().Be(result1);
+        result1.ShouldNotBeNullOrWhiteSpace();
+        result2.ShouldNotBeNullOrWhiteSpace();
+        result2.ShouldBe(result1);
     }
 
     [Fact]
@@ -133,7 +133,7 @@ public class CalendarSetParserTests
         _outputHelper.WriteLine($"{nameof(result1)}: {result1}");
 
         // Assert
-        result1.Should().BeNull();
+        result1.ShouldBeNull();
     }
 
     [Fact]
@@ -148,13 +148,13 @@ public class CalendarSetParserTests
         var result = CalendarSetParser.ParseFromJson(definitionText);
 
         // Assert
-        result.Should().NotBeNull();
+        result.ShouldNotBeNull();
         CalendarSetTests.AssertAreEqual(result!, instance);
 
-        result.VisualDetails.Should().NotBeNull();
+        result.VisualDetails.ShouldNotBeNull();
         CalendarSetVisualsTests.AssertAreEqual(instance.VisualDetails, result.VisualDetails);
 
-        result.Dates.Should().NotBeNull();
+        result.Dates.ShouldNotBeNull();
         CalendarSetDatesTests.AssertAreEqual(instance.Dates, result.Dates);
     }
 
@@ -167,6 +167,6 @@ public class CalendarSetParserTests
         var result = CalendarSetParser.ParseFromJson(definitionText);
 
         // Assert
-        result.Should().BeNull();
+        result.ShouldBeNull();
     }
 }

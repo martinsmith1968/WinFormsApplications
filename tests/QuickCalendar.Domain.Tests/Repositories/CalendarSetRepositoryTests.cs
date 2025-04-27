@@ -1,7 +1,7 @@
 using AutoFixture;
-using FluentAssertions;
 using QuickCalendar.Domain.Repositories;
 using QuickCalendar.Domain.Tests.Models;
+using Shouldly;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -23,7 +23,7 @@ public class CalendarSetRepositoryTests
     [Fact]
     public void Static_Data_is_valid()
     {
-        CalendarSetRepository.DefaultFileExtension.Should().NotBeNullOrWhiteSpace($"{nameof(CalendarSetRepository.DefaultFileExtension)} must be set");
+        CalendarSetRepository.DefaultFileExtension.ShouldNotBeNullOrWhiteSpace($"{nameof(CalendarSetRepository.DefaultFileExtension)} must be set");
     }
 
     [Fact]
@@ -33,12 +33,12 @@ public class CalendarSetRepositoryTests
         var result = CalendarSetRepository.BuildFileDialogFileFilters();
 
         // Assert
-        result.Should().NotBeNullOrWhiteSpace();
+        result.ShouldNotBeNullOrWhiteSpace();
 
         var items = result.Split(CalendarSetRepository.FileDialogFilterJoinChar);
-        items.Should().NotBeEmpty();
-        items.Length.Should().BeGreaterThan(0);
-        (items.Length % 2).Should().Be(0);
+        items.ShouldNotBeEmpty();
+        items.Length.ShouldBeGreaterThan(0);
+        (items.Length % 2).ShouldBe(0);
     }
 
     [Fact]
@@ -54,8 +54,8 @@ public class CalendarSetRepositoryTests
 
         // Assert
         var fileInfo = new FileInfo(fileName);
-        fileInfo.Exists.Should().BeTrue();
-        fileInfo.Length.Should().BeGreaterThan(0);
+        fileInfo.Exists.ShouldBeTrue();
+        fileInfo.Length.ShouldBeGreaterThan(0);
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public class CalendarSetRepositoryTests
         var instance = CalendarSetRepository.LoadFromFile(fileName);
 
         // Assert
-        instance.Should().NotBeNull();
+        instance.ShouldNotBeNull();
         CalendarSetTests.AssertAreEqual(calendarSet, instance);
     }
 }
