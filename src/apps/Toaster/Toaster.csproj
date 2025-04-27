@@ -9,4 +9,9 @@
     <Platforms>x64</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\libs\DNX.Common\DNX.Common.csproj" />
+    <ProjectReference Include="..\..\libs\Toaster.Domain\Toaster.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

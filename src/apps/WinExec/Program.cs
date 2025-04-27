@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
-using DNX.Common;
 using DNX.Common.Debugging;
 using DNX.Common.Extensions;
+using DNX.Common.OS;
 using DNX.Extensions.Assemblies;
 using Ookii.CommandLine;
 using Serilog;
