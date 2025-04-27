@@ -2,7 +2,7 @@ name: CI Build
 run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run_number }}.${{ github.run_attempt }}
 
 env:
-  PRIMARY_BRANCH_NAME: master
+  PRIMARY_BRANCH_NAME: main
   APP_MAJOR_VERSION: 2
   APP_MINOR_VERSION: 6
   PROJECT_NAME: WinFormsApplications
@@ -24,7 +24,7 @@ on:
 
   pull_request:
     branches:
-      - master
+      - main
 
   workflow_dispatch:
 
