@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using DNX.Common.Services.IO;
+using DNX.Common.IO;
 using DNX.Extensions.Strings;
 using Ookii.CommandLine;
 using Ookii.CommandLine.Terminal;
@@ -32,7 +32,7 @@ public partial class ProgramArguments
     public string? DefinitionText { get; set; }
 
     public string? CustomDefinitionText => !DefinitionFileName.IsNullOrWhiteSpace()
-        ? FileService.ReadAllTextSafely(DefinitionFileName)
+        ? FileService.ReadAllTextSafely(DefinitionFileName ?? string.Empty)
         : DefinitionText;
     public void Validate()
     {

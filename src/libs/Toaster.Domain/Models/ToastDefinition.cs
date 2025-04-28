@@ -4,7 +4,9 @@ namespace Toaster.Domain.Models;
 
 public class ToastDefinition
 {
+    public string? Title { get; set; }
 
+    public string? MessageText { get; set; }
 
 
 

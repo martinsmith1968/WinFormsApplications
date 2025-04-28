@@ -2,7 +2,8 @@ namespace Toaster.Domain.Models.Types;
 
 public enum TargetLocationType
 {
-    BottomRight = 0,
+    Default = 0,
+    BottomRight,
     TopRight,
     BottomLeft,
     TopLeft,
