@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using DNX.Common.IO;
 using DNX.Extensions.Strings;
 using Ookii.CommandLine;
 using Ookii.CommandLine.Terminal;
@@ -52,10 +53,7 @@ public partial class ProgramArguments
 
     public void Validate()
     {
-        if (!UseShellExecute.HasValue)
-        {
-            UseShellExecute = FindAppOnPath(FileName, WorkingDirectory) == null;
-        }
+        UseShellExecute ??= FileService.FindAppOnPath(FileName, WorkingDirectory) == null;
     }
 
     public ProcessStartInfo GetStartInfo()

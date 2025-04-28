@@ -72,7 +72,6 @@ internal static class Program
         Logger.Information("Launching: {startInfo}", startInfo.GetShortDescription());
         if (!arguments.NoNotification)
         {
-            Logger.Debug("Showing Toast Notification: {startInfo} Alert: {alert}", startInfo.GetShortDescription(), !arguments.NoAlert);
             ShowNotification($"Launching: {startInfo.GetShortDescription()}", alert: !arguments.NoAlert);
         }
 
@@ -83,6 +82,8 @@ internal static class Program
 
     private static void ShowNotification(string messageText, string? title = null, bool alert = true)
     {
+        Logger.Information("Showing Toast Notification: {messageText} Title: {title} Alert: {alert}", messageText, title, alert);
+
         var builder = new ToastContentBuilder();
         if (!title.IsNullOrWhiteSpace())
         {
