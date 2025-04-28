@@ -1,10 +1,13 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Text;
+using DNX.Common.Application;
 using DNX.Common.Debugging;
 using DNX.Common.Extensions;
 using DNX.Common.OS;
 using DNX.Extensions.Assemblies;
+using DNX.Extensions.Strings;
+using Microsoft.Toolkit.Uwp.Notifications;
 using Ookii.CommandLine;
 using Serilog;
 
@@ -14,6 +17,8 @@ namespace WinExec;
 
 internal static class Program
 {
+    private static readonly string ApplicationId = ApplicationDetails.GenerateApplicationId();
+
     public static IAssemblyDetails AssemblyDetails = new AssemblyDetails(Assembly.GetEntryAssembly());
 
     private static ILogger Logger = Log.Logger;
@@ -45,7 +50,6 @@ internal static class Program
             Logger.Fatal(ex, "{0} {1}", ex.GetType().Name, ex.Message);
             if (Win32.ApplicationHasConsole)
             {
-                Console.Out.WriteLine("Shit");
                 Console.Error.WriteLine(ProgramArguments.GetUsage(true));
                 Console.Error.WriteLine($"{AssemblyDetails.Title} ERROR: {ex.Message}");
             }
@@ -66,9 +70,27 @@ internal static class Program
         Logger.Debug("StartInfo: {startInfo}", startInfo.GetFullDescription());
 
         Logger.Information("Launching: {startInfo}", startInfo.GetShortDescription());
+        if (!arguments.NoNotification)
+        {
+            Logger.Debug("Showing Toast Notification: {startInfo} Alert: {alert}", startInfo.GetShortDescription(), !arguments.NoAlert);
+            ShowNotification($"Launching: {startInfo.GetShortDescription()}", alert: !arguments.NoAlert);
+        }
 
         using var timer = new CodeTimer();
         Process.Start(startInfo);
         Logger.Information("Launched in: {seconds} seconds", timer.Stopwatch.Elapsed.TotalSeconds);
+    }
+
+    private static void ShowNotification(string messageText, string? title = null, bool alert = true)
+    {
+        var builder = new ToastContentBuilder();
+        if (!title.IsNullOrWhiteSpace())
+        {
+            builder.AddHeader(ApplicationId, title, new ToastArguments());
+        }
+
+        builder.AddText(messageText);
+        builder.AddAudio(new ToastAudio() { Silent = !alert });
+        builder.Show();
     }
 }
