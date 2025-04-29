@@ -81,6 +81,16 @@ public partial class MainForm : Form
 
         mcalCalendar.Font = calendarSet.GetFont();
 
+        UpdateFormVisuals(calendarSet);
+
+        LoadCalendarSetVisuals(CalendarSet.VisualDetails);
+        LoadCalendarSetDates(CalendarSet.Dates);
+
+        ShowInfoText($"Loaded: {calendarDetails}", TimeSpan.FromSeconds(2));
+    }
+
+    private void UpdateFormVisuals(CalendarSet calendarSet)
+    {
         switch (UserSettings.Default.GetShowCalendarNameInStatusBarType())
         {
             case CalendarSetDisplayNameType.FileNameOnly:
@@ -89,8 +99,8 @@ public partial class MainForm : Form
                 tslblFileName.Visible = true;
                 break;
             case CalendarSetDisplayNameType.FullFileName:
-                tslblFileName.Text = CalendarSet.Description;
-                tslblFileName.ToolTipText = CalendarSet.FullFileName;
+                tslblFileName.Text = CalendarSet.FullFileName;
+                tslblFileName.ToolTipText = CalendarSet.Description;
                 tslblFileName.Visible = true;
                 break;
             case CalendarSetDisplayNameType.Description:
@@ -108,15 +118,10 @@ public partial class MainForm : Form
         Text = UserSettings.Default.GetShowCalendarNameInWindowTitleType() switch
         {
             CalendarSetDisplayNameType.FileNameOnly => $"{Tag} - {CalendarSet.FileName}",
-            CalendarSetDisplayNameType.FullFileName => $"{Tag} - {CalendarSet.Description}",
+            CalendarSetDisplayNameType.FullFileName => $"{Tag} - {CalendarSet.FullFileName}",
             CalendarSetDisplayNameType.Description => $"{Tag} - {CalendarSet.Description}",
             _ => Text = Tag?.ToString()
         };
-
-        LoadCalendarSetVisuals(CalendarSet.VisualDetails);
-        LoadCalendarSetDates(CalendarSet.Dates);
-
-        ShowInfoText($"Loaded: {calendarDetails}", TimeSpan.FromSeconds(2));
     }
 
     private void LoadCalendarSetVisuals(CalendarSetVisuals calendarSetVisuals)
@@ -430,6 +435,7 @@ public partial class MainForm : Form
             UserSettings.Default.Save();
             LoadProgramOptions();
         }
+        UpdateFormVisuals(CalendarSet);
     }
 
     private void tsmnuFileExit_Click(object sender, EventArgs e)
