@@ -17,6 +17,10 @@
         {
           "Id": "369d782b-2d5e-42b2-b943-3dbc1196372b",
           "Command": "-use"
+        },
+        {
+          "Id": "15315515-eff7-45df-8df6-d81ae18bdfeb",
+          "Command": "-noalert"
         }
       ]
     },

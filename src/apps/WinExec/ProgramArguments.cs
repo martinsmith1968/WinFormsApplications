@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using DNX.Common.IO;
 using DNX.Extensions.Strings;
 using Ookii.CommandLine;
 using Ookii.CommandLine.Terminal;
@@ -39,46 +40,35 @@ public partial class ProgramArguments
     [CommandLineArgument(IsRequired = false, DefaultValue = ProcessWindowStyle.Normal)]
     public ProcessWindowStyle WindowStyle { get; set; }
 
+    [Alias("hn")]
+    [Alias("nonotify")]
+    [Description("Do not show a Toast Notification when launching")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    public bool NoNotification { get; set; }
+
+    [Alias("na")]
+    [Description("Do not play a sound when the notification shows")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    public bool NoAlert { get; set; }
+
     public void Validate()
     {
-        if (!UseShellExecute.HasValue)
-        {
-            UseShellExecute = FindAppOnPath(FileName) == null;
-        }
-    }
-
-    private static FileInfo? FindAppOnPath(string fileName)
-    {
-        var executableExtensions = new[] { "exe", "com", "bat", "cmd", "vbs", "scr" };
-
-        var path = Environment.GetEnvironmentVariable("PATH");
-        var paths = (path ?? string.Empty).Split(Path.PathSeparator);
-        foreach (var p in paths)
-        {
-            var file = Path.Combine(p, fileName);
-            if (File.Exists(file))
-            {
-                return new FileInfo(file);
-            }
-
-            foreach (var ext in executableExtensions)
-            {
-                file = Path.Combine(p, fileName + "." + ext);
-                if (File.Exists(file))
-                {
-                    return new FileInfo(file);
-                }
-            }
-        }
-
-        return null;
+        UseShellExecute ??= FileService.FindAppOnPath(FileName, WorkingDirectory) == null;
     }
 
     public ProcessStartInfo GetStartInfo()
     {
         return new ProcessStartInfo(FileName)
         {
-            Arguments = string.Join(" ", Arguments.Select(a => a.Contains(' ') ? a.EnsureStartsAndEndsWith("\"") : a) ),
+            Arguments = string.Join(
+                " ",
+                Arguments
+                    .Select(
+                        a => a.Contains(' ')
+                            ? a.EnsureStartsAndEndsWith("\"")
+                            : a
+                    )
+            ),
             Verb = Verb,
             UseShellExecute = UseShellExecute ?? false,
             WorkingDirectory = WorkingDirectory,

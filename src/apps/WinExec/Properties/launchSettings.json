@@ -2,7 +2,7 @@
   "profiles": {
     "WinExec": {
       "commandName": "Project",
-      "commandLineArgs": "-shit"
+      "commandLineArgs": "notepad c:\\Data\\shit.txt -ws Maximized"
     }
   }
 }

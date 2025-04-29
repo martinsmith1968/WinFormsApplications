@@ -42,3 +42,13 @@ internal static class Program
         Application.Run(toastMessageForm);
     }
 }
+
+// Note yet sure how to implement, should :
+// - Each toast message be handled by a separate process instance
+//   - Need to send message between instance to alert them to changes
+// - Each toast request is forwarded to the current running process
+//   - Or handled by the current process if no other is running
+
+// https://stackoverflow.com/questions/15017506/using-filesystemwatcher-to-monitor-a-directory
+// https://stackoverflow.com/questions/6392031/how-to-check-if-another-instance-of-the-application-is-running
+// https://stackoverflow.com/questions/79467351/pass-a-command-line-argument-to-a-running-instance-of-winform-application   <- THIS

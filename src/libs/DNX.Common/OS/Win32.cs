@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace DNX.Common;
+namespace DNX.Common.OS;
 
 public class Win32
 {
