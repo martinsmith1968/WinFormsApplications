@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Reflection;
 using DNX.Extensions.Assemblies;
+using DNX.Extensions.Execution;
+using DNX.Extensions.Strings;
 
 // ReSharper disable LocalizableElement
 
@@ -19,7 +21,12 @@ partial class AboutBoxForm : Form
     {
         var assemblyDetails = new AssemblyDetails(Assembly.GetEntryAssembly());
 
-        Icon                    = Icon.ExtractAssociatedIcon(assemblyDetails.FileName);
+        var fileName = assemblyDetails.FileName.CoalesceNullOrWhitespaceWith(
+            Process.GetCurrentProcess().MainModule?.FileName,
+            Path.Combine(Environment.ProcessPath ?? string.Empty, Process.GetCurrentProcess().ProcessName)
+        );
+
+        Icon                    = RunSafely.Execute(() => Icon.ExtractAssociatedIcon(fileName));
         Text                    = $"About {assemblyDetails.Title}";
         labelProductName.Text   = $"{assemblyDetails.Product} v{assemblyDetails.Version.Simplify(2)}";
         labelCopyright.Text     = assemblyDetails.Copyright;
@@ -30,7 +37,13 @@ partial class AboutBoxForm : Form
 
     private void linkWebsite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-        var ps = new ProcessStartInfo(((LinkLabel)sender).Text)
+        var linkTarget = (sender as LinkLabel)?.Text;
+        if (string.IsNullOrEmpty(linkTarget))
+        {
+            return;
+        }
+
+        var ps = new ProcessStartInfo(linkTarget)
         {
             UseShellExecute = true,
             Verb = "open"
