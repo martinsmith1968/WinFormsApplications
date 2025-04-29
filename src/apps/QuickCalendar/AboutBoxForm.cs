@@ -30,7 +30,7 @@ partial class AboutBoxForm : Form
         Text                    = $"About {assemblyDetails.Title}";
         labelProductName.Text   = $"{assemblyDetails.Product} v{assemblyDetails.Version.Simplify(2)}";
         labelCopyright.Text     = assemblyDetails.Copyright;
-        linkWebsite.Text        = ProjectInfo.WebsiteUrl;
+        linkWebsite.Text        = AppInfo.WebsiteUrl;
         linkWebsite.LinkArea    = new LinkArea(0, linkWebsite.Text.Length);
         textBoxDescription.Text = assemblyDetails.Description;
     }

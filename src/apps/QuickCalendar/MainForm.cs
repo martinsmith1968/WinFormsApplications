@@ -531,7 +531,7 @@ public partial class MainForm : Form
 
     private void tsmnuHelpUsageGuide_Click(object sender, EventArgs e)
     {
-        const string targetUrl = ProjectInfo.Docs.UsageGuideUrl;
+        const string targetUrl = AppInfo.Docs.UsageGuideUrl;
 
         var processStartInfo = new ProcessStartInfo(targetUrl)
         {

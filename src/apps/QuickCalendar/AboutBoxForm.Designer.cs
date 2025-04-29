@@ -1,4 +1,4 @@
-﻿namespace QuickCalendar
+namespace QuickCalendar
 {
     partial class AboutBoxForm
     {
@@ -129,7 +129,7 @@
             linkWebsite.AutoEllipsis = true;
             linkWebsite.AutoSize = true;
             linkWebsite.Dock = DockStyle.Fill;
-            linkWebsite.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
+            linkWebsite.Font = new Font("Segoe UI", 8.25F);
             linkWebsite.LinkBehavior = LinkBehavior.AlwaysUnderline;
             linkWebsite.Location = new Point(187, 60);
             linkWebsite.Margin = new Padding(7, 0, 4, 0);
