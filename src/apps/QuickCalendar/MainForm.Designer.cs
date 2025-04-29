@@ -327,9 +327,9 @@ namespace QuickCalendar
             // 
             // tsmnuHelpUsageGuide
             // 
-            tsmnuHelpUsageGuide.Image = Properties.Resources.usage_guide1;
+            tsmnuHelpUsageGuide.Image = Properties.Resources.usage_guide2;
             tsmnuHelpUsageGuide.Name = "tsmnuHelpUsageGuide";
-            tsmnuHelpUsageGuide.Size = new Size(162, 22);
+            tsmnuHelpUsageGuide.Size = new Size(180, 22);
             tsmnuHelpUsageGuide.Text = "Usage Guide...";
             tsmnuHelpUsageGuide.ToolTipText = "View the online Guide";
             tsmnuHelpUsageGuide.Click += tsmnuHelpUsageGuide_Click;
@@ -337,14 +337,14 @@ namespace QuickCalendar
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(159, 6);
+            toolStripSeparator5.Size = new Size(177, 6);
             // 
             // tsmnuHelpAbout
             // 
             tsmnuHelpAbout.Image = Properties.Resources.about1;
             tsmnuHelpAbout.Name = "tsmnuHelpAbout";
             tsmnuHelpAbout.ShortcutKeys = Keys.Control | Keys.F1;
-            tsmnuHelpAbout.Size = new Size(162, 22);
+            tsmnuHelpAbout.Size = new Size(180, 22);
             tsmnuHelpAbout.Text = "&About...";
             tsmnuHelpAbout.ToolTipText = "Show Application Details";
             tsmnuHelpAbout.Click += tsmnuHelpAbout_Click;
