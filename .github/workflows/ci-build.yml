@@ -3,7 +3,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 
 env:
   PRIMARY_BRANCH_NAME: main
-  PRODUCT_MAJOR_VERSION: 2.7
+  PRODUCT_MAJOR_VERSION: 2.8
   PROJECT_NAME: WinFormsApplications
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64

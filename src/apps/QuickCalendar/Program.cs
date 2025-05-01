@@ -34,7 +34,7 @@ internal static class Program
 
             LoadUserSettings();
 
-            var arguments = Arguments.Parse(args, Arguments.Options)
+            var arguments = ProgramArguments.Parse(args, ProgramArguments.Options)
                             ?? throw new CommandLineArgumentException("Unable to parse Program Arguments");
             arguments.Validate();
 

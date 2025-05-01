@@ -6,7 +6,7 @@ namespace QuickCalendar;
 
 [GeneratedParser]
 [Description("Reads a file and displays the contents on the command line.")]
-public partial class Arguments
+public partial class ProgramArguments
 {
     [Alias("f")]
     [Alias("file")]
