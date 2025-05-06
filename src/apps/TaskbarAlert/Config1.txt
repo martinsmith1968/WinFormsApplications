@@ -1,0 +1,4 @@
+﻿Type: Text
+Title: Test Alert
+Text: This is a test Alert
+zzBackgroundImage: C:\Users\msmith\My Dev\WindowsApplications2008\TaskbarAlert\Graphics\gradient.Grey.Small.jpg

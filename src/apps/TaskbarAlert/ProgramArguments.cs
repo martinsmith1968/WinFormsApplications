@@ -44,7 +44,7 @@ public partial class ProgramArguments
 
     public static CommandLineParser<ProgramArguments> GetParser() => CreateParser(Options);
 
-    public static UsageWriter? GetUsageWriter(bool useColor)
+    public static UsageWriter GetUsageWriter(bool useColor)
     {
         return new UsageWriter();
     }

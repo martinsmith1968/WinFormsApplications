@@ -1,0 +1,3 @@
+﻿#/Type:Text /Title:"Demo message" /Text:"This is some text" /TimeToStay:4000
+#/Type:TIME /TimeToStay:3000
+/ConfigFile:Config1.txt
