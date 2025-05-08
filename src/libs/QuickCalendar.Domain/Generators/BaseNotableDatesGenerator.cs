@@ -1,4 +1,5 @@
 using System.Globalization;
+using DNX.Common.Extensions;
 using DNX.Common.Interfaces;
 using DNX.Extensions.Reflection;
 using DNX.Extensions.Strings;
@@ -23,9 +24,11 @@ public abstract class BaseNotableDatesGenerator : INotableDatesGenerator, ICopya
                 .Replace("{", "{0:")
                 .Replace("{0:sequence:", "{1:")
                 .Replace("{0:sequence", "{1:")
+                .Replace("{0:q", "{2:")
+                .Replace("{0:Q", "{2:")
             ;
 
-        var description = string.Format(template, date, sequence);
+        var description = string.Format(template, date, sequence, date.GetQuarter());
 
         return description;
     }
