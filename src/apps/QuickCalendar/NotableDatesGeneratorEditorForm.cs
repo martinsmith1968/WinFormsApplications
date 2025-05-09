@@ -41,12 +41,14 @@ public partial class NotableDatesGeneratorEditorForm : Form
         {
             _notableDatesFixedDateGenerator.CopyFrom(notableDatesFixedDateGenerator);
 
+            txtFixedDateGeneratorDescription.Text = _notableDatesFixedDateGenerator.DescriptionTemplate;
             dtpFixedDateGeneratorDate.Value = _notableDatesFixedDateGenerator.Date;
         }
         else if (NotableDatesGenerator is NotableDatesStartDateEndDateGenerator notableDatesStartDateEndDateGenerator)
         {
             _notableDatesStartDateEndDateGenerator.CopyFrom(notableDatesStartDateEndDateGenerator);
 
+            txtStartDateEndDateGeneratorDescription.Text = _notableDatesStartDateEndDateGenerator.DescriptionTemplate;
             dtpStartDateEndDateGeneratorStartDate.Value = _notableDatesStartDateEndDateGenerator.StartDate;
             dtpStartDateEndDateGeneratorEndDate.Value = _notableDatesStartDateEndDateGenerator.EndDate;
             nudStartDateEndDateGeneratorIntervalValue.Value = _notableDatesStartDateEndDateGenerator.IntervalPeriod.Value;
@@ -58,6 +60,7 @@ public partial class NotableDatesGeneratorEditorForm : Form
         {
             _notableDatesStartDateRepeatCountGenerator.CopyFrom(notableDatesStartDateRepeatCountGenerator);
 
+            txtStartDateRepeatCountGeneratorDescription.Text = _notableDatesStartDateRepeatCountGenerator.DescriptionTemplate;
             dtpStartDateRepeatCountGeneratorStartDate.Value = _notableDatesStartDateRepeatCountGenerator.StartDate;
             nudStartDateRepeatCountGeneratorRepeatCount.Value = _notableDatesStartDateRepeatCountGenerator.RepeatCount;
             nudStartDateEndDateGeneratorIntervalValue.Value = _notableDatesStartDateRepeatCountGenerator.IntervalPeriod.Value;
@@ -213,9 +216,21 @@ public partial class NotableDatesGeneratorEditorForm : Form
         Clipboard.SetText(text);
     }
 
+    private void txtFixedDateGeneratorDescription_TextChanged(object sender, EventArgs e)
+    {
+        _notableDatesFixedDateGenerator.DescriptionTemplate = txtFixedDateGeneratorDescription.Text;
+        PopulateGeneratedDates();
+    }
+
     private void dtpFixedDateGeneratorDate_ValueChanged(object sender, EventArgs e)
     {
         _notableDatesFixedDateGenerator.Date = dtpFixedDateGeneratorDate.Value;
+        PopulateGeneratedDates();
+    }
+
+    private void txtStartDateEndDateGeneratorDescription_TextChanged(object sender, EventArgs e)
+    {
+        _notableDatesStartDateEndDateGenerator.DescriptionTemplate = txtStartDateEndDateGeneratorDescription.Text;
         PopulateGeneratedDates();
     }
 
@@ -252,6 +267,12 @@ public partial class NotableDatesGeneratorEditorForm : Form
     private void nudStartDateEndDateGeneratorSequenceIncrementValue_ValueChanged(object sender, EventArgs e)
     {
         _notableDatesStartDateEndDateGenerator.SequenceIncrement = nudStartDateEndDateGeneratorSequenceIncrementValue.Value.ToInt32();
+        PopulateGeneratedDates();
+    }
+
+    private void txtStartDateRepeatCountGeneratorDescription_TextChanged(object sender, EventArgs e)
+    {
+        _notableDatesStartDateRepeatCountGenerator.DescriptionTemplate = txtStartDateRepeatCountGeneratorDescription.Text;
         PopulateGeneratedDates();
     }
 

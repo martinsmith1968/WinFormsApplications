@@ -34,9 +34,13 @@ namespace QuickCalendar
             btnOK = new Button();
             tbcEditors = new TabControl();
             tabEditorFixedDateGenerator = new TabPage();
+            txtFixedDateGeneratorDescription = new TextBox();
+            lblFixedDateGeneratorDescription = new Label();
             dtpFixedDateGeneratorDate = new DateTimePicker();
             lblFixedDateGeneratorDate = new Label();
             tabEditorStartDateEndDateGenerator = new TabPage();
+            txtStartDateEndDateGeneratorDescription = new TextBox();
+            lblStartDateEndDateGeneratorDescription = new Label();
             nudStartDateEndDateGeneratorSequenceIncrementValue = new NumericUpDown();
             lblStartDateEndDateGeneratorSequenceIncrement = new Label();
             nudStartDateEndDateGeneratorSequenceStartValue = new NumericUpDown();
@@ -49,6 +53,8 @@ namespace QuickCalendar
             dtpStartDateEndDateGeneratorStartDate = new DateTimePicker();
             lblStartDateEndDateGeneratorStartDate = new Label();
             tabEditorStartDateRepeatCountGenerator = new TabPage();
+            txtStartDateRepeatCountGeneratorDescription = new TextBox();
+            lblStartDateRepeatCountGeneratorDescription = new Label();
             nudStartDateRepeatCountGeneratorSequenceIncrement = new NumericUpDown();
             lblStartDateRepeatCountGeneratorSequenceIncrement = new Label();
             nudStartDateRepeatCountGeneratorSequenceStart = new NumericUpDown();
@@ -90,16 +96,16 @@ namespace QuickCalendar
             panButtonBar.Controls.Add(btnCancel);
             panButtonBar.Controls.Add(btnOK);
             panButtonBar.Dock = DockStyle.Bottom;
-            panButtonBar.Location = new Point(0, 270);
+            panButtonBar.Location = new Point(2, 288);
             panButtonBar.Name = "panButtonBar";
-            panButtonBar.Size = new Size(621, 32);
+            panButtonBar.Size = new Size(617, 32);
             panButtonBar.TabIndex = 0;
             // 
             // btnCancel
             // 
             btnCancel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.Location = new Point(543, 5);
+            btnCancel.Location = new Point(539, 5);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 1;
@@ -109,7 +115,7 @@ namespace QuickCalendar
             // btnOK
             // 
             btnOK.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnOK.Location = new Point(462, 5);
+            btnOK.Location = new Point(458, 5);
             btnOK.Name = "btnOK";
             btnOK.Size = new Size(75, 23);
             btnOK.TabIndex = 0;
@@ -123,27 +129,47 @@ namespace QuickCalendar
             tbcEditors.Controls.Add(tabEditorStartDateEndDateGenerator);
             tbcEditors.Controls.Add(tabEditorStartDateRepeatCountGenerator);
             tbcEditors.Dock = DockStyle.Top;
-            tbcEditors.Location = new Point(0, 0);
+            tbcEditors.Location = new Point(2, 2);
             tbcEditors.Name = "tbcEditors";
             tbcEditors.SelectedIndex = 0;
-            tbcEditors.Size = new Size(381, 251);
+            tbcEditors.Size = new Size(377, 271);
             tbcEditors.TabIndex = 1;
             // 
             // tabEditorFixedDateGenerator
             // 
+            tabEditorFixedDateGenerator.Controls.Add(txtFixedDateGeneratorDescription);
+            tabEditorFixedDateGenerator.Controls.Add(lblFixedDateGeneratorDescription);
             tabEditorFixedDateGenerator.Controls.Add(dtpFixedDateGeneratorDate);
             tabEditorFixedDateGenerator.Controls.Add(lblFixedDateGeneratorDate);
             tabEditorFixedDateGenerator.Location = new Point(4, 24);
             tabEditorFixedDateGenerator.Name = "tabEditorFixedDateGenerator";
             tabEditorFixedDateGenerator.Padding = new Padding(3);
-            tabEditorFixedDateGenerator.Size = new Size(373, 223);
+            tabEditorFixedDateGenerator.Size = new Size(369, 243);
             tabEditorFixedDateGenerator.TabIndex = 0;
             tabEditorFixedDateGenerator.Text = "Fixed Date";
             tabEditorFixedDateGenerator.UseVisualStyleBackColor = true;
             // 
+            // txtFixedDateGeneratorDescription
+            // 
+            txtFixedDateGeneratorDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtFixedDateGeneratorDescription.Location = new Point(98, 13);
+            txtFixedDateGeneratorDescription.Name = "txtFixedDateGeneratorDescription";
+            txtFixedDateGeneratorDescription.Size = new Size(265, 23);
+            txtFixedDateGeneratorDescription.TabIndex = 1;
+            txtFixedDateGeneratorDescription.TextChanged += txtFixedDateGeneratorDescription_TextChanged;
+            // 
+            // lblFixedDateGeneratorDescription
+            // 
+            lblFixedDateGeneratorDescription.Location = new Point(10, 13);
+            lblFixedDateGeneratorDescription.Name = "lblFixedDateGeneratorDescription";
+            lblFixedDateGeneratorDescription.Size = new Size(82, 23);
+            lblFixedDateGeneratorDescription.TabIndex = 0;
+            lblFixedDateGeneratorDescription.Text = "Description :";
+            lblFixedDateGeneratorDescription.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // dtpFixedDateGeneratorDate
             // 
-            dtpFixedDateGeneratorDate.Location = new Point(61, 21);
+            dtpFixedDateGeneratorDate.Location = new Point(98, 54);
             dtpFixedDateGeneratorDate.Name = "dtpFixedDateGeneratorDate";
             dtpFixedDateGeneratorDate.Size = new Size(156, 23);
             dtpFixedDateGeneratorDate.TabIndex = 3;
@@ -151,15 +177,17 @@ namespace QuickCalendar
             // 
             // lblFixedDateGeneratorDate
             // 
-            lblFixedDateGeneratorDate.Location = new Point(10, 21);
+            lblFixedDateGeneratorDate.Location = new Point(10, 54);
             lblFixedDateGeneratorDate.Name = "lblFixedDateGeneratorDate";
-            lblFixedDateGeneratorDate.Size = new Size(45, 23);
+            lblFixedDateGeneratorDate.Size = new Size(82, 23);
             lblFixedDateGeneratorDate.TabIndex = 2;
             lblFixedDateGeneratorDate.Text = "&Date :";
             lblFixedDateGeneratorDate.TextAlign = ContentAlignment.MiddleRight;
             // 
             // tabEditorStartDateEndDateGenerator
             // 
+            tabEditorStartDateEndDateGenerator.Controls.Add(txtStartDateEndDateGeneratorDescription);
+            tabEditorStartDateEndDateGenerator.Controls.Add(lblStartDateEndDateGeneratorDescription);
             tabEditorStartDateEndDateGenerator.Controls.Add(nudStartDateEndDateGeneratorSequenceIncrementValue);
             tabEditorStartDateEndDateGenerator.Controls.Add(lblStartDateEndDateGeneratorSequenceIncrement);
             tabEditorStartDateEndDateGenerator.Controls.Add(nudStartDateEndDateGeneratorSequenceStartValue);
@@ -174,44 +202,62 @@ namespace QuickCalendar
             tabEditorStartDateEndDateGenerator.Location = new Point(4, 24);
             tabEditorStartDateEndDateGenerator.Name = "tabEditorStartDateEndDateGenerator";
             tabEditorStartDateEndDateGenerator.Padding = new Padding(3);
-            tabEditorStartDateEndDateGenerator.Size = new Size(373, 223);
+            tabEditorStartDateEndDateGenerator.Size = new Size(369, 243);
             tabEditorStartDateEndDateGenerator.TabIndex = 1;
             tabEditorStartDateEndDateGenerator.Text = "Start / End Date";
             tabEditorStartDateEndDateGenerator.UseVisualStyleBackColor = true;
             // 
+            // txtStartDateEndDateGeneratorDescription
+            // 
+            txtStartDateEndDateGeneratorDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtStartDateEndDateGeneratorDescription.Location = new Point(137, 13);
+            txtStartDateEndDateGeneratorDescription.Name = "txtStartDateEndDateGeneratorDescription";
+            txtStartDateEndDateGeneratorDescription.Size = new Size(226, 23);
+            txtStartDateEndDateGeneratorDescription.TabIndex = 1;
+            txtStartDateEndDateGeneratorDescription.TextChanged += txtStartDateEndDateGeneratorDescription_TextChanged;
+            // 
+            // lblStartDateEndDateGeneratorDescription
+            // 
+            lblStartDateEndDateGeneratorDescription.Location = new Point(10, 13);
+            lblStartDateEndDateGeneratorDescription.Name = "lblStartDateEndDateGeneratorDescription";
+            lblStartDateEndDateGeneratorDescription.Size = new Size(121, 23);
+            lblStartDateEndDateGeneratorDescription.TabIndex = 0;
+            lblStartDateEndDateGeneratorDescription.Text = "Description :";
+            lblStartDateEndDateGeneratorDescription.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // nudStartDateEndDateGeneratorSequenceIncrementValue
             // 
-            nudStartDateEndDateGeneratorSequenceIncrementValue.Location = new Point(150, 193);
+            nudStartDateEndDateGeneratorSequenceIncrementValue.Location = new Point(137, 218);
             nudStartDateEndDateGeneratorSequenceIncrementValue.Name = "nudStartDateEndDateGeneratorSequenceIncrementValue";
             nudStartDateEndDateGeneratorSequenceIncrementValue.Size = new Size(61, 23);
-            nudStartDateEndDateGeneratorSequenceIncrementValue.TabIndex = 14;
+            nudStartDateEndDateGeneratorSequenceIncrementValue.TabIndex = 12;
             nudStartDateEndDateGeneratorSequenceIncrementValue.TextAlign = HorizontalAlignment.Right;
             nudStartDateEndDateGeneratorSequenceIncrementValue.ValueChanged += nudStartDateEndDateGeneratorSequenceIncrementValue_ValueChanged;
             // 
             // lblStartDateEndDateGeneratorSequenceIncrement
             // 
-            lblStartDateEndDateGeneratorSequenceIncrement.Location = new Point(10, 193);
+            lblStartDateEndDateGeneratorSequenceIncrement.Location = new Point(10, 218);
             lblStartDateEndDateGeneratorSequenceIncrement.Name = "lblStartDateEndDateGeneratorSequenceIncrement";
             lblStartDateEndDateGeneratorSequenceIncrement.Size = new Size(121, 23);
-            lblStartDateEndDateGeneratorSequenceIncrement.TabIndex = 13;
+            lblStartDateEndDateGeneratorSequenceIncrement.TabIndex = 11;
             lblStartDateEndDateGeneratorSequenceIncrement.Text = "Sequence &Increment :";
             lblStartDateEndDateGeneratorSequenceIncrement.TextAlign = ContentAlignment.MiddleRight;
             // 
             // nudStartDateEndDateGeneratorSequenceStartValue
             // 
-            nudStartDateEndDateGeneratorSequenceStartValue.Location = new Point(150, 150);
+            nudStartDateEndDateGeneratorSequenceStartValue.Location = new Point(137, 177);
             nudStartDateEndDateGeneratorSequenceStartValue.Name = "nudStartDateEndDateGeneratorSequenceStartValue";
             nudStartDateEndDateGeneratorSequenceStartValue.Size = new Size(61, 23);
-            nudStartDateEndDateGeneratorSequenceStartValue.TabIndex = 12;
+            nudStartDateEndDateGeneratorSequenceStartValue.TabIndex = 10;
             nudStartDateEndDateGeneratorSequenceStartValue.TextAlign = HorizontalAlignment.Right;
             nudStartDateEndDateGeneratorSequenceStartValue.ValueChanged += nudStartDateEndDateGeneratorSequenceStartValue_ValueChanged;
             // 
             // lblStartDateEndDateGeneratorSequenceStart
             // 
-            lblStartDateEndDateGeneratorSequenceStart.Location = new Point(10, 150);
+            lblStartDateEndDateGeneratorSequenceStart.Location = new Point(10, 177);
             lblStartDateEndDateGeneratorSequenceStart.Name = "lblStartDateEndDateGeneratorSequenceStart";
             lblStartDateEndDateGeneratorSequenceStart.Size = new Size(121, 23);
-            lblStartDateEndDateGeneratorSequenceStart.TabIndex = 11;
+            lblStartDateEndDateGeneratorSequenceStart.TabIndex = 9;
             lblStartDateEndDateGeneratorSequenceStart.Text = "Sequence St&art :";
             lblStartDateEndDateGeneratorSequenceStart.TextAlign = ContentAlignment.MiddleRight;
             // 
@@ -219,66 +265,68 @@ namespace QuickCalendar
             // 
             cboStartDateEndDateGeneratorIntervalType.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStartDateEndDateGeneratorIntervalType.FormattingEnabled = true;
-            cboStartDateEndDateGeneratorIntervalType.Location = new Point(217, 107);
+            cboStartDateEndDateGeneratorIntervalType.Location = new Point(204, 136);
             cboStartDateEndDateGeneratorIntervalType.Name = "cboStartDateEndDateGeneratorIntervalType";
             cboStartDateEndDateGeneratorIntervalType.Size = new Size(89, 23);
-            cboStartDateEndDateGeneratorIntervalType.TabIndex = 10;
+            cboStartDateEndDateGeneratorIntervalType.TabIndex = 8;
             cboStartDateEndDateGeneratorIntervalType.SelectedIndexChanged += cboStartDateEndDateGeneratorIntervalType_SelectedIndexChanged;
             // 
             // nudStartDateEndDateGeneratorIntervalValue
             // 
-            nudStartDateEndDateGeneratorIntervalValue.Location = new Point(150, 107);
+            nudStartDateEndDateGeneratorIntervalValue.Location = new Point(137, 136);
             nudStartDateEndDateGeneratorIntervalValue.Name = "nudStartDateEndDateGeneratorIntervalValue";
             nudStartDateEndDateGeneratorIntervalValue.Size = new Size(61, 23);
-            nudStartDateEndDateGeneratorIntervalValue.TabIndex = 9;
+            nudStartDateEndDateGeneratorIntervalValue.TabIndex = 7;
             nudStartDateEndDateGeneratorIntervalValue.TextAlign = HorizontalAlignment.Right;
             nudStartDateEndDateGeneratorIntervalValue.ValueChanged += nudStartDateEndDateGeneratorIntervalValue_ValueChanged;
             // 
             // lblStartDateEndDateGeneratorInterval
             // 
-            lblStartDateEndDateGeneratorInterval.Location = new Point(10, 107);
+            lblStartDateEndDateGeneratorInterval.Location = new Point(10, 136);
             lblStartDateEndDateGeneratorInterval.Name = "lblStartDateEndDateGeneratorInterval";
             lblStartDateEndDateGeneratorInterval.Size = new Size(121, 23);
-            lblStartDateEndDateGeneratorInterval.TabIndex = 8;
+            lblStartDateEndDateGeneratorInterval.TabIndex = 6;
             lblStartDateEndDateGeneratorInterval.Text = "&Interval :";
             lblStartDateEndDateGeneratorInterval.TextAlign = ContentAlignment.MiddleRight;
             // 
             // dtpStartDateEndDateGeneratorEndDate
             // 
-            dtpStartDateEndDateGeneratorEndDate.Location = new Point(150, 64);
+            dtpStartDateEndDateGeneratorEndDate.Location = new Point(137, 95);
             dtpStartDateEndDateGeneratorEndDate.Name = "dtpStartDateEndDateGeneratorEndDate";
             dtpStartDateEndDateGeneratorEndDate.Size = new Size(156, 23);
-            dtpStartDateEndDateGeneratorEndDate.TabIndex = 7;
+            dtpStartDateEndDateGeneratorEndDate.TabIndex = 5;
             dtpStartDateEndDateGeneratorEndDate.ValueChanged += dtpStartDateEndDateGeneratorEndDate_ValueChanged;
             // 
             // lblStartDateEndDateGeneratorEndDate
             // 
-            lblStartDateEndDateGeneratorEndDate.Location = new Point(10, 64);
+            lblStartDateEndDateGeneratorEndDate.Location = new Point(10, 95);
             lblStartDateEndDateGeneratorEndDate.Name = "lblStartDateEndDateGeneratorEndDate";
             lblStartDateEndDateGeneratorEndDate.Size = new Size(121, 23);
-            lblStartDateEndDateGeneratorEndDate.TabIndex = 6;
+            lblStartDateEndDateGeneratorEndDate.TabIndex = 4;
             lblStartDateEndDateGeneratorEndDate.Text = "&End Date :";
             lblStartDateEndDateGeneratorEndDate.TextAlign = ContentAlignment.MiddleRight;
             // 
             // dtpStartDateEndDateGeneratorStartDate
             // 
-            dtpStartDateEndDateGeneratorStartDate.Location = new Point(150, 21);
+            dtpStartDateEndDateGeneratorStartDate.Location = new Point(137, 54);
             dtpStartDateEndDateGeneratorStartDate.Name = "dtpStartDateEndDateGeneratorStartDate";
             dtpStartDateEndDateGeneratorStartDate.Size = new Size(156, 23);
-            dtpStartDateEndDateGeneratorStartDate.TabIndex = 5;
+            dtpStartDateEndDateGeneratorStartDate.TabIndex = 3;
             dtpStartDateEndDateGeneratorStartDate.ValueChanged += dtpStartDateEndDateGeneratorStartDate_ValueChanged;
             // 
             // lblStartDateEndDateGeneratorStartDate
             // 
-            lblStartDateEndDateGeneratorStartDate.Location = new Point(10, 21);
+            lblStartDateEndDateGeneratorStartDate.Location = new Point(10, 54);
             lblStartDateEndDateGeneratorStartDate.Name = "lblStartDateEndDateGeneratorStartDate";
             lblStartDateEndDateGeneratorStartDate.Size = new Size(121, 23);
-            lblStartDateEndDateGeneratorStartDate.TabIndex = 4;
+            lblStartDateEndDateGeneratorStartDate.TabIndex = 2;
             lblStartDateEndDateGeneratorStartDate.Text = "&Start Date :";
             lblStartDateEndDateGeneratorStartDate.TextAlign = ContentAlignment.MiddleRight;
             // 
             // tabEditorStartDateRepeatCountGenerator
             // 
+            tabEditorStartDateRepeatCountGenerator.Controls.Add(txtStartDateRepeatCountGeneratorDescription);
+            tabEditorStartDateRepeatCountGenerator.Controls.Add(lblStartDateRepeatCountGeneratorDescription);
             tabEditorStartDateRepeatCountGenerator.Controls.Add(nudStartDateRepeatCountGeneratorSequenceIncrement);
             tabEditorStartDateRepeatCountGenerator.Controls.Add(lblStartDateRepeatCountGeneratorSequenceIncrement);
             tabEditorStartDateRepeatCountGenerator.Controls.Add(nudStartDateRepeatCountGeneratorSequenceStart);
@@ -293,14 +341,32 @@ namespace QuickCalendar
             tabEditorStartDateRepeatCountGenerator.Location = new Point(4, 24);
             tabEditorStartDateRepeatCountGenerator.Name = "tabEditorStartDateRepeatCountGenerator";
             tabEditorStartDateRepeatCountGenerator.Padding = new Padding(3);
-            tabEditorStartDateRepeatCountGenerator.Size = new Size(373, 223);
+            tabEditorStartDateRepeatCountGenerator.Size = new Size(369, 243);
             tabEditorStartDateRepeatCountGenerator.TabIndex = 2;
             tabEditorStartDateRepeatCountGenerator.Text = "Start Date / Repeat Count";
             tabEditorStartDateRepeatCountGenerator.UseVisualStyleBackColor = true;
             // 
+            // txtStartDateRepeatCountGeneratorDescription
+            // 
+            txtStartDateRepeatCountGeneratorDescription.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtStartDateRepeatCountGeneratorDescription.Location = new Point(137, 13);
+            txtStartDateRepeatCountGeneratorDescription.Name = "txtStartDateRepeatCountGeneratorDescription";
+            txtStartDateRepeatCountGeneratorDescription.Size = new Size(226, 23);
+            txtStartDateRepeatCountGeneratorDescription.TabIndex = 1;
+            txtStartDateRepeatCountGeneratorDescription.TextChanged += txtStartDateRepeatCountGeneratorDescription_TextChanged;
+            // 
+            // lblStartDateRepeatCountGeneratorDescription
+            // 
+            lblStartDateRepeatCountGeneratorDescription.Location = new Point(10, 13);
+            lblStartDateRepeatCountGeneratorDescription.Name = "lblStartDateRepeatCountGeneratorDescription";
+            lblStartDateRepeatCountGeneratorDescription.Size = new Size(121, 23);
+            lblStartDateRepeatCountGeneratorDescription.TabIndex = 0;
+            lblStartDateRepeatCountGeneratorDescription.Text = "Descrption :";
+            lblStartDateRepeatCountGeneratorDescription.TextAlign = ContentAlignment.MiddleRight;
+            // 
             // nudStartDateRepeatCountGeneratorSequenceIncrement
             // 
-            nudStartDateRepeatCountGeneratorSequenceIncrement.Location = new Point(150, 193);
+            nudStartDateRepeatCountGeneratorSequenceIncrement.Location = new Point(137, 218);
             nudStartDateRepeatCountGeneratorSequenceIncrement.Name = "nudStartDateRepeatCountGeneratorSequenceIncrement";
             nudStartDateRepeatCountGeneratorSequenceIncrement.Size = new Size(61, 23);
             nudStartDateRepeatCountGeneratorSequenceIncrement.TabIndex = 19;
@@ -309,7 +375,7 @@ namespace QuickCalendar
             // 
             // lblStartDateRepeatCountGeneratorSequenceIncrement
             // 
-            lblStartDateRepeatCountGeneratorSequenceIncrement.Location = new Point(10, 193);
+            lblStartDateRepeatCountGeneratorSequenceIncrement.Location = new Point(10, 218);
             lblStartDateRepeatCountGeneratorSequenceIncrement.Name = "lblStartDateRepeatCountGeneratorSequenceIncrement";
             lblStartDateRepeatCountGeneratorSequenceIncrement.Size = new Size(121, 23);
             lblStartDateRepeatCountGeneratorSequenceIncrement.TabIndex = 18;
@@ -318,7 +384,7 @@ namespace QuickCalendar
             // 
             // nudStartDateRepeatCountGeneratorSequenceStart
             // 
-            nudStartDateRepeatCountGeneratorSequenceStart.Location = new Point(150, 150);
+            nudStartDateRepeatCountGeneratorSequenceStart.Location = new Point(137, 177);
             nudStartDateRepeatCountGeneratorSequenceStart.Name = "nudStartDateRepeatCountGeneratorSequenceStart";
             nudStartDateRepeatCountGeneratorSequenceStart.Size = new Size(61, 23);
             nudStartDateRepeatCountGeneratorSequenceStart.TabIndex = 17;
@@ -327,7 +393,7 @@ namespace QuickCalendar
             // 
             // lblStartDateRepeatCountGeneratorSequenceStart
             // 
-            lblStartDateRepeatCountGeneratorSequenceStart.Location = new Point(10, 150);
+            lblStartDateRepeatCountGeneratorSequenceStart.Location = new Point(10, 177);
             lblStartDateRepeatCountGeneratorSequenceStart.Name = "lblStartDateRepeatCountGeneratorSequenceStart";
             lblStartDateRepeatCountGeneratorSequenceStart.Size = new Size(121, 23);
             lblStartDateRepeatCountGeneratorSequenceStart.TabIndex = 16;
@@ -336,7 +402,7 @@ namespace QuickCalendar
             // 
             // nudStartDateRepeatCountGeneratorRepeatCount
             // 
-            nudStartDateRepeatCountGeneratorRepeatCount.Location = new Point(150, 64);
+            nudStartDateRepeatCountGeneratorRepeatCount.Location = new Point(137, 95);
             nudStartDateRepeatCountGeneratorRepeatCount.Name = "nudStartDateRepeatCountGeneratorRepeatCount";
             nudStartDateRepeatCountGeneratorRepeatCount.Size = new Size(61, 23);
             nudStartDateRepeatCountGeneratorRepeatCount.TabIndex = 16;
@@ -347,7 +413,7 @@ namespace QuickCalendar
             // 
             cboStartDateRepeatCountGeneratorInterval.DropDownStyle = ComboBoxStyle.DropDownList;
             cboStartDateRepeatCountGeneratorInterval.FormattingEnabled = true;
-            cboStartDateRepeatCountGeneratorInterval.Location = new Point(217, 106);
+            cboStartDateRepeatCountGeneratorInterval.Location = new Point(204, 136);
             cboStartDateRepeatCountGeneratorInterval.Name = "cboStartDateRepeatCountGeneratorInterval";
             cboStartDateRepeatCountGeneratorInterval.Size = new Size(89, 23);
             cboStartDateRepeatCountGeneratorInterval.TabIndex = 15;
@@ -355,7 +421,7 @@ namespace QuickCalendar
             // 
             // nudStartDateRepeatCountGeneratorInterval
             // 
-            nudStartDateRepeatCountGeneratorInterval.Location = new Point(150, 107);
+            nudStartDateRepeatCountGeneratorInterval.Location = new Point(137, 136);
             nudStartDateRepeatCountGeneratorInterval.Name = "nudStartDateRepeatCountGeneratorInterval";
             nudStartDateRepeatCountGeneratorInterval.Size = new Size(61, 23);
             nudStartDateRepeatCountGeneratorInterval.TabIndex = 14;
@@ -364,7 +430,7 @@ namespace QuickCalendar
             // 
             // lblStartDateRepeatCountGeneratorInterval
             // 
-            lblStartDateRepeatCountGeneratorInterval.Location = new Point(10, 107);
+            lblStartDateRepeatCountGeneratorInterval.Location = new Point(10, 136);
             lblStartDateRepeatCountGeneratorInterval.Name = "lblStartDateRepeatCountGeneratorInterval";
             lblStartDateRepeatCountGeneratorInterval.Size = new Size(121, 23);
             lblStartDateRepeatCountGeneratorInterval.TabIndex = 13;
@@ -373,7 +439,7 @@ namespace QuickCalendar
             // 
             // lblStartDateRepeatCountGeneratorRepeatCount
             // 
-            lblStartDateRepeatCountGeneratorRepeatCount.Location = new Point(10, 64);
+            lblStartDateRepeatCountGeneratorRepeatCount.Location = new Point(10, 95);
             lblStartDateRepeatCountGeneratorRepeatCount.Name = "lblStartDateRepeatCountGeneratorRepeatCount";
             lblStartDateRepeatCountGeneratorRepeatCount.Size = new Size(121, 23);
             lblStartDateRepeatCountGeneratorRepeatCount.TabIndex = 11;
@@ -382,7 +448,7 @@ namespace QuickCalendar
             // 
             // dtpStartDateRepeatCountGeneratorStartDate
             // 
-            dtpStartDateRepeatCountGeneratorStartDate.Location = new Point(150, 21);
+            dtpStartDateRepeatCountGeneratorStartDate.Location = new Point(137, 54);
             dtpStartDateRepeatCountGeneratorStartDate.Name = "dtpStartDateRepeatCountGeneratorStartDate";
             dtpStartDateRepeatCountGeneratorStartDate.Size = new Size(156, 23);
             dtpStartDateRepeatCountGeneratorStartDate.TabIndex = 7;
@@ -390,7 +456,7 @@ namespace QuickCalendar
             // 
             // lblStartDateRepeatCountGeneratorStartDate
             // 
-            lblStartDateRepeatCountGeneratorStartDate.Location = new Point(10, 21);
+            lblStartDateRepeatCountGeneratorStartDate.Location = new Point(10, 54);
             lblStartDateRepeatCountGeneratorStartDate.Name = "lblStartDateRepeatCountGeneratorStartDate";
             lblStartDateRepeatCountGeneratorStartDate.Size = new Size(121, 23);
             lblStartDateRepeatCountGeneratorStartDate.TabIndex = 6;
@@ -402,9 +468,9 @@ namespace QuickCalendar
             panGeneratedDates.Controls.Add(lvwGeneratedDates);
             panGeneratedDates.Controls.Add(lblGeneratedDatesDisplay);
             panGeneratedDates.Dock = DockStyle.Right;
-            panGeneratedDates.Location = new Point(381, 0);
+            panGeneratedDates.Location = new Point(379, 2);
             panGeneratedDates.Name = "panGeneratedDates";
-            panGeneratedDates.Size = new Size(240, 270);
+            panGeneratedDates.Size = new Size(240, 286);
             panGeneratedDates.TabIndex = 2;
             // 
             // lvwGeneratedDates
@@ -434,31 +500,31 @@ namespace QuickCalendar
             // 
             ctxmnuDatesList.Items.AddRange(new ToolStripItem[] { ctxmnuDatesListCopy, toolStripSeparator1, ctxmnuDatesListExport });
             ctxmnuDatesList.Name = "ctxmnuDatesList";
-            ctxmnuDatesList.Size = new Size(118, 54);
+            ctxmnuDatesList.Size = new Size(117, 54);
             // 
             // ctxmnuDatesListCopy
             // 
             ctxmnuDatesListCopy.Name = "ctxmnuDatesListCopy";
-            ctxmnuDatesListCopy.Size = new Size(117, 22);
+            ctxmnuDatesListCopy.Size = new Size(116, 22);
             ctxmnuDatesListCopy.Text = "&Copy";
             ctxmnuDatesListCopy.Click += ctxmnuDatesListCopy_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(114, 6);
+            toolStripSeparator1.Size = new Size(113, 6);
             // 
             // ctxmnuDatesListExport
             // 
             ctxmnuDatesListExport.Name = "ctxmnuDatesListExport";
-            ctxmnuDatesListExport.Size = new Size(117, 22);
+            ctxmnuDatesListExport.Size = new Size(116, 22);
             ctxmnuDatesListExport.Text = "&Export...";
             // 
             // lblGeneratedDatesDisplay
             // 
             lblGeneratedDatesDisplay.BorderStyle = BorderStyle.FixedSingle;
             lblGeneratedDatesDisplay.Dock = DockStyle.Bottom;
-            lblGeneratedDatesDisplay.Location = new Point(0, 247);
+            lblGeneratedDatesDisplay.Location = new Point(0, 263);
             lblGeneratedDatesDisplay.Name = "lblGeneratedDatesDisplay";
             lblGeneratedDatesDisplay.Size = new Size(240, 23);
             lblGeneratedDatesDisplay.TabIndex = 1;
@@ -470,7 +536,7 @@ namespace QuickCalendar
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnCancel;
-            ClientSize = new Size(621, 302);
+            ClientSize = new Size(621, 322);
             Controls.Add(tbcEditors);
             Controls.Add(panGeneratedDates);
             Controls.Add(panButtonBar);
@@ -478,17 +544,21 @@ namespace QuickCalendar
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "NotableDatesGeneratorEditorForm";
+            Padding = new Padding(2);
             StartPosition = FormStartPosition.CenterParent;
             Text = "Date Generator Editor";
             Load += DateGeneratorEditorForm_Load;
             panButtonBar.ResumeLayout(false);
             tbcEditors.ResumeLayout(false);
             tabEditorFixedDateGenerator.ResumeLayout(false);
+            tabEditorFixedDateGenerator.PerformLayout();
             tabEditorStartDateEndDateGenerator.ResumeLayout(false);
+            tabEditorStartDateEndDateGenerator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudStartDateEndDateGeneratorSequenceIncrementValue).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudStartDateEndDateGeneratorSequenceStartValue).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudStartDateEndDateGeneratorIntervalValue).EndInit();
             tabEditorStartDateRepeatCountGenerator.ResumeLayout(false);
+            tabEditorStartDateRepeatCountGenerator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudStartDateRepeatCountGeneratorSequenceIncrement).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudStartDateRepeatCountGeneratorSequenceStart).EndInit();
             ((System.ComponentModel.ISupportInitialize)nudStartDateRepeatCountGeneratorRepeatCount).EndInit();
@@ -540,5 +610,11 @@ namespace QuickCalendar
         private Label lblStartDateRepeatCountGeneratorSequenceIncrement;
         private NumericUpDown nudStartDateRepeatCountGeneratorSequenceStart;
         private Label lblStartDateRepeatCountGeneratorSequenceStart;
+        private TextBox txtFixedDateGeneratorDescription;
+        private Label lblFixedDateGeneratorDescription;
+        private TextBox txtStartDateEndDateGeneratorDescription;
+        private Label lblStartDateEndDateGeneratorDescription;
+        private TextBox txtStartDateRepeatCountGeneratorDescription;
+        private Label lblStartDateRepeatCountGeneratorDescription;
     }
 }

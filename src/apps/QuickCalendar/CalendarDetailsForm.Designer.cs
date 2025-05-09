@@ -243,7 +243,7 @@ namespace QuickCalendar
             lblDetailsMaximumDate.AutoSize = true;
             lblDetailsMaximumDate.Location = new Point(12, 220);
             lblDetailsMaximumDate.Name = "lblDetailsMaximumDate";
-            lblDetailsMaximumDate.Size = new Size(95, 15);
+            lblDetailsMaximumDate.Size = new Size(94, 15);
             lblDetailsMaximumDate.TabIndex = 5;
             lblDetailsMaximumDate.Text = "Maximum Date :";
             // 
@@ -429,7 +429,7 @@ namespace QuickCalendar
             lvwDatesNotableDates.Location = new Point(3, 3);
             lvwDatesNotableDates.MultiSelect = false;
             lvwDatesNotableDates.Name = "lvwDatesNotableDates";
-            lvwDatesNotableDates.Size = new Size(550, 190);
+            lvwDatesNotableDates.Size = new Size(542, 190);
             lvwDatesNotableDates.TabIndex = 1;
             lvwDatesNotableDates.UseCompatibleStateImageBehavior = false;
             lvwDatesNotableDates.View = View.Details;
@@ -454,10 +454,10 @@ namespace QuickCalendar
             // 
             tsDatesContext.Dock = DockStyle.Right;
             tsDatesContext.Items.AddRange(new ToolStripItem[] { tsctxDatesAdd, tsctxDatesRemove, toolStripSeparator2, tsctxDatesEdit, toolStripSeparator1, tsctxDatesMoveUp, tsctxDatesMoveDown });
-            tsDatesContext.Location = new Point(553, 3);
+            tsDatesContext.Location = new Point(545, 3);
             tsDatesContext.Name = "tsDatesContext";
             tsDatesContext.Padding = new Padding(0);
-            tsDatesContext.Size = new Size(23, 271);
+            tsDatesContext.Size = new Size(31, 271);
             tsDatesContext.TabIndex = 2;
             tsDatesContext.Text = "toolStrip1";
             // 
@@ -467,7 +467,7 @@ namespace QuickCalendar
             tsctxDatesAdd.Image = Properties.Resources.add1;
             tsctxDatesAdd.ImageTransparentColor = Color.Magenta;
             tsctxDatesAdd.Name = "tsctxDatesAdd";
-            tsctxDatesAdd.Size = new Size(22, 20);
+            tsctxDatesAdd.Size = new Size(30, 20);
             tsctxDatesAdd.ToolTipText = "Add...";
             tsctxDatesAdd.Click += tsctxDatesAdd_Click;
             // 
@@ -477,14 +477,14 @@ namespace QuickCalendar
             tsctxDatesRemove.Image = Properties.Resources.remove1;
             tsctxDatesRemove.ImageTransparentColor = Color.Magenta;
             tsctxDatesRemove.Name = "tsctxDatesRemove";
-            tsctxDatesRemove.Size = new Size(22, 20);
+            tsctxDatesRemove.Size = new Size(30, 20);
             tsctxDatesRemove.ToolTipText = "Remove";
             tsctxDatesRemove.Click += tsctxDatesRemove_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(22, 6);
+            toolStripSeparator2.Size = new Size(30, 6);
             // 
             // tsctxDatesEdit
             // 
@@ -492,14 +492,14 @@ namespace QuickCalendar
             tsctxDatesEdit.Image = Properties.Resources.edit3;
             tsctxDatesEdit.ImageTransparentColor = Color.Magenta;
             tsctxDatesEdit.Name = "tsctxDatesEdit";
-            tsctxDatesEdit.Size = new Size(22, 20);
+            tsctxDatesEdit.Size = new Size(30, 20);
             tsctxDatesEdit.ToolTipText = "Edit";
             tsctxDatesEdit.Click += tsctxDatesEdit_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(22, 6);
+            toolStripSeparator1.Size = new Size(30, 6);
             // 
             // tsctxDatesMoveUp
             // 
@@ -507,7 +507,7 @@ namespace QuickCalendar
             tsctxDatesMoveUp.Image = Properties.Resources.up1;
             tsctxDatesMoveUp.ImageTransparentColor = Color.Magenta;
             tsctxDatesMoveUp.Name = "tsctxDatesMoveUp";
-            tsctxDatesMoveUp.Size = new Size(22, 20);
+            tsctxDatesMoveUp.Size = new Size(30, 20);
             tsctxDatesMoveUp.ToolTipText = "Move Up";
             tsctxDatesMoveUp.Click += tsctxDatesMoveUp_Click;
             // 
@@ -517,7 +517,7 @@ namespace QuickCalendar
             tsctxDatesMoveDown.Image = Properties.Resources.down1;
             tsctxDatesMoveDown.ImageTransparentColor = Color.Magenta;
             tsctxDatesMoveDown.Name = "tsctxDatesMoveDown";
-            tsctxDatesMoveDown.Size = new Size(22, 20);
+            tsctxDatesMoveDown.Size = new Size(30, 20);
             tsctxDatesMoveDown.ToolTipText = "Move Down";
             tsctxDatesMoveDown.Click += tsctxDatesMoveDown_Click;
             // 
