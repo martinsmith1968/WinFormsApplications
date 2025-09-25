@@ -7,6 +7,13 @@ using Ookii.CommandLine.Terminal;
 
 namespace WinExec;
 
+public enum NotificationDescriptionStyle
+{
+    Short,
+    Long,
+    Full
+}
+
 [GeneratedParser]
 [Description("Executes a target application or file by association")]
 public partial class ProgramArguments
@@ -50,6 +57,16 @@ public partial class ProgramArguments
     [Description("Do not play a sound when the notification shows")]
     [CommandLineArgument(IsRequired = false, DefaultValue = false)]
     public bool NoAlert { get; set; }
+
+    [Alias("nds")]
+    [Description("Description Style to use for the Notification")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = NotificationDescriptionStyle.Short)]
+    public NotificationDescriptionStyle NotificationStyle { get; set; }
+
+    [Alias("ad")]
+    [Description("Description to use for the App instead of App FileName")]
+    [CommandLineArgument(IsRequired = false, DefaultValue = false)]
+    public string AppDescription { get; set; } = "";
 
     public void Validate()
     {

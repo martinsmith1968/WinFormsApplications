@@ -2,7 +2,7 @@
   "profiles": {
     "WinExec": {
       "commandName": "Project",
-      "commandLineArgs": "notepad c:\\Data\\shit.txt -ws Maximized"
+      "commandLineArgs": "C:\\\\Users\\\\smimar\\\\RestoreTaskbarSettings.cmd -nds Full -ws Hidden -ad \"Restore Taskbar Settings\""
     }
   }
 }
