@@ -17,14 +17,14 @@ public enum DescriptionStyle
 
 public static class ProcessExtensions
 {
-    public static string GetShortDescription(this ProcessStartInfo startInfo) =>
-        startInfo.GetDescription(DescriptionStyle.Short);
+    public static string GetShortDescription(this ProcessStartInfo startInfo, IDictionary<string, string>? overrides = null) =>
+        startInfo.GetDescription(DescriptionStyle.Short, overrides);
 
-    public static string GetLongDescription(this ProcessStartInfo startInfo) =>
-        startInfo.GetDescription(DescriptionStyle.Long);
+    public static string GetLongDescription(this ProcessStartInfo startInfo, IDictionary<string, string>? overrides = null) =>
+        startInfo.GetDescription(DescriptionStyle.Long, overrides);
 
-    public static string GetFullDescription(this ProcessStartInfo startInfo) =>
-        startInfo.GetDescription(DescriptionStyle.Full);
+    public static string GetFullDescription(this ProcessStartInfo startInfo, IDictionary<string, string>? overrides = null) =>
+        startInfo.GetDescription(DescriptionStyle.Full, overrides);
 
     private static string GetPropertyDescription<T>(Expression<Func<T>> propertyExpression)
     {
@@ -43,9 +43,11 @@ public static class ProcessExtensions
         return $"{name}: {propertyExpression.Compile().Invoke()}";
     }
 
-    public static string GetDescription(this ProcessStartInfo startInfo, DescriptionStyle descriptionStyle = DescriptionStyle.Full)
+    public static string GetDescription(this ProcessStartInfo startInfo, DescriptionStyle descriptionStyle = DescriptionStyle.Full, IDictionary<string, string>? overrides = null)
     {
         var sb = new StringBuilder();
+
+        overrides ??= new Dictionary<string, string>();
 
         if (descriptionStyle.HasFlag(DescriptionStyle.Short))
         {
@@ -55,7 +57,14 @@ public static class ProcessExtensions
             }
 
             sb.AppendSpace();
-            sb.Append(startInfo.FileName);
+            if (overrides.TryGetValue(nameof(ProcessStartInfo.FileName), out var fileNameOverride))
+            {
+                sb.Append(fileNameOverride);
+            }
+            else
+            {
+                sb.Append(startInfo.FileName);
+            }
 
             if (startInfo.ArgumentList.Any())
             {
