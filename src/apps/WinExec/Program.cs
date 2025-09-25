@@ -72,7 +72,14 @@ internal static class Program
         Logger.Information("Launching: {startInfo}", startInfo.GetShortDescription());
         if (!arguments.NoNotification)
         {
-            ShowNotification($"Launching: {startInfo.GetShortDescription()}", alert: !arguments.NoAlert);
+            if (!Enum.TryParse<DescriptionStyle>(arguments.NotificationStyle.ToString(), out var descriptionStyle))
+                descriptionStyle = DescriptionStyle.Short;
+
+            var overrides = new Dictionary<string, string>();
+            if (!string.IsNullOrWhiteSpace(arguments.AppDescription))
+                overrides.Add(nameof(ProcessStartInfo.FileName), arguments.AppDescription);
+
+            ShowNotification($"Launching: {startInfo.GetDescription(descriptionStyle, overrides)}", alert: !arguments.NoAlert);
         }
 
         using var timer = new CodeTimer();

@@ -43,12 +43,24 @@
       ]
     },
     {
-      "Id": "6b5f6dd8-cfc1-4ea8-89c7-d32cf5e3b653",
-      "Command": "Shit",
+      "Id": "63fbfa0f-f173-46f9-8a40-6997fc8dfa18",
+      "Command": "Run Batch File",
       "Items": [
         {
-          "Id": "1aac551d-3268-42b3-ba5b-e354dc03bd68",
-          "Command": "-shit"
+          "Id": "10a697e5-1453-4ee0-b021-c4312ccf24d2",
+          "Command": "C:\\\\Users\\\\smimar\\\\RestoreTaskbarSettings.cmd"
+        },
+        {
+          "Id": "ca1c18cb-3811-4fc6-84f8-eb9f4d82b81a",
+          "Command": "-nds Full"
+        },
+        {
+          "Id": "d17ff4aa-70c1-4f59-b0e6-590fa21cbe98",
+          "Command": "-ws Hidden"
+        },
+        {
+          "Id": "7097a8f8-b8c0-4be7-925c-ebc25d5c289c",
+          "Command": "-ad \"Restore Taskbar Settings\""
         }
       ]
     }
