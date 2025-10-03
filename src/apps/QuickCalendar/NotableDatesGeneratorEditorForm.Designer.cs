@@ -545,6 +545,7 @@ namespace QuickCalendar
             MinimizeBox = false;
             Name = "NotableDatesGeneratorEditorForm";
             Padding = new Padding(2);
+            ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Date Generator Editor";
             Load += DateGeneratorEditorForm_Load;

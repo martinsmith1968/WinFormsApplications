@@ -19,6 +19,7 @@ public partial class CalendarDetailsForm : Form
     private List<ComboboxItem<int?>> _firstVisibleMonthItems = new();
     private List<ComboboxItem<WindowStartLocationType>> _windowStartLocationTypeItems = new();
 
+    private string _savedKeyDown = string.Empty;
 
     public CalendarSet CalendarSet { get; private init; } = CalendarSet.Default;
 
@@ -162,21 +163,23 @@ public partial class CalendarDetailsForm : Form
         calendarSet.VisualDetails.WindowStartLocation = (cboVisualsWindowStartPosition.SelectedItem as ComboboxItem<WindowStartLocationType?>)?.Value ?? WindowStartLocationType.Manual;
         calendarSet.VisualDetails.FirstDayOfWeek      = (cboVisualsFirstDayOfWeek.SelectedItem as ComboboxItem<DayOfWeek?>)?.Value;
         calendarSet.VisualDetails.FirstVisibleMonth   = (cboVisualsFirstVisibleMonth.SelectedItem as ComboboxItem<int?>)?.Value;
+
+        // TODO
     }
 
     private void ApplicationOnIdle(object? sender, EventArgs e)
     {
-        var isItemSelected             = lvwDatesNotableDates.SelectedIndices.Count > 0;
-        var isTop                      = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == 0;
-        var isBottom                   = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == lvwDatesNotableDates.Items.Count - 1;
+        var isItemSelected = lvwDatesNotableDates.SelectedIndices.Count > 0;
+        var isTop = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == 0;
+        var isBottom = lvwDatesNotableDates.SelectedIndices.Count == 1 && lvwDatesNotableDates.SelectedIndices[0] == lvwDatesNotableDates.Items.Count - 1;
         var isCalculatedWindowPosition = cboVisualsWindowStartPosition.SelectedItem != null
                                          && (((cboVisualsWindowStartPosition.SelectedItem as ComboboxItem<WindowStartLocationType>)?.Value.GetAttribute<CalculatedPositionAttribute>()?.Value) ?? false);
 
         lblVisualsSavedWindowPositionDescription.Visible = !isCalculatedWindowPosition;
 
-        tsctxDatesRemove.Enabled   = isItemSelected;
-        tsctxDatesEdit.Enabled     = isItemSelected;
-        tsctxDatesMoveUp.Enabled   = isItemSelected && !isTop;
+        tsctxDatesRemove.Enabled = isItemSelected;
+        tsctxDatesEdit.Enabled = isItemSelected;
+        tsctxDatesMoveUp.Enabled = isItemSelected && !isTop;
         tsctxDatesMoveDown.Enabled = isItemSelected && !isBottom;
     }
 
@@ -257,7 +260,16 @@ public partial class CalendarDetailsForm : Form
 
     private void tsctxDatesAdd_Click(object sender, EventArgs e)
     {
-        //
+        var generator = new NotableDatesFixedDateGenerator()
+        {
+            Date = DateTime.UtcNow.Date,
+            DescriptionTemplate = "Today is...",
+        };
+
+        if (NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(generator, CalendarSet.DateDisplayFormat, this))
+        {
+            CalendarSet.Dates.
+        };
     }
 
     private void tsctxDatesRemove_Click(object sender, EventArgs e)
@@ -268,7 +280,10 @@ public partial class CalendarDetailsForm : Form
         }
 
         var item = lvwDatesNotableDates.SelectedItems[0];
+        var index = item.Index;
+
         lvwDatesNotableDates.Items.Remove(item);
+        SelectListViewItemAtIndex(lvwDatesNotableDates, index);
     }
 
     private void tsctxDatesEdit_Click(object sender, EventArgs e)
@@ -283,7 +298,7 @@ public partial class CalendarDetailsForm : Form
             return;
         }
 
-        NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat);
+        NotableDatesGeneratorEditorForm.EditNotableDatesGenerator(item, CalendarSet.DateDisplayFormat, this);
 
         // TODO: Reload ?
     }
@@ -299,6 +314,8 @@ public partial class CalendarDetailsForm : Form
         var index = item.Index - 1;
         lvwDatesNotableDates.Items.RemoveAt(item.Index);
         lvwDatesNotableDates.Items.Insert(index, item);
+
+        SelectListViewItemAtIndex(lvwDatesNotableDates, index);
     }
 
     private void tsctxDatesMoveDown_Click(object sender, EventArgs e)
@@ -312,6 +329,8 @@ public partial class CalendarDetailsForm : Form
         var index = item.Index + 1;
         lvwDatesNotableDates.Items.RemoveAt(item.Index);
         lvwDatesNotableDates.Items.Insert(index, item);
+
+        SelectListViewItemAtIndex(lvwDatesNotableDates, index);
     }
 
     private void timerErrorMessageReset_Tick(object sender, EventArgs e)
@@ -331,5 +350,66 @@ public partial class CalendarDetailsForm : Form
         CalendarSet.DisplayFontName = dlgFontBrowser.Font.Name;
         CalendarSet.DisplayFontSize = dlgFontBrowser.Font.Size;
         txtDisplayFont.Font = CalendarSet.GetFont();
+    }
+
+    private void lvwDatesNotableDates_KeyPress(object sender, KeyPressEventArgs e)
+    {
+        switch (e.KeyChar)
+        {
+            case (char)Keys.Delete:
+                tsctxDatesRemove.PerformClick();
+                break;
+            case (char)Keys.Insert:
+                tsctxDatesAdd.PerformClick();
+                break;
+        }
+    }
+
+    private static string GenerateKeyEventDefinition(KeyEventArgs keyEventArgs)
+    {
+        var bits = new []
+        {
+            keyEventArgs.Alt ? nameof(KeyEventArgs.Alt) : "",
+            keyEventArgs.Control ? nameof(KeyEventArgs.Control) : "",
+            keyEventArgs.Shift ? nameof(KeyEventArgs.Shift) : "",
+            keyEventArgs.KeyCode.ToString(),
+        };
+
+        return string.Join("|",
+            bits
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+        );
+    }
+
+    private static void SelectListViewItemAtIndex(ListView lvw, int index)
+    {
+        if (index < 0 || index >= lvw.Items.Count)
+            return;
+
+        lvw.SelectedIndices.Clear();
+        lvw.SelectedIndices.Add(index);
+    }
+
+    private void lvwDatesNotableDates_KeyDown(object sender, KeyEventArgs e)
+    {
+        _savedKeyDown = GenerateKeyEventDefinition(e);
+    }
+
+    private void lvwDatesNotableDates_KeyUp(object sender, KeyEventArgs e)
+    {
+        var eventDefinition = GenerateKeyEventDefinition(e);
+        if (eventDefinition != _savedKeyDown)
+        {
+            return;
+        }
+
+        if (eventDefinition == "Control|Up")
+        {
+            tsctxDatesMoveUp.PerformClick();
+        }
+        else if (eventDefinition == "Control|Down")
+        {
+            tsctxDatesMoveDown.PerformClick();
+        }
     }
 }

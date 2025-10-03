@@ -434,6 +434,9 @@ namespace QuickCalendar
             lvwDatesNotableDates.UseCompatibleStateImageBehavior = false;
             lvwDatesNotableDates.View = View.Details;
             lvwDatesNotableDates.DoubleClick += lvwDatesNotableDates_DoubleClick;
+            lvwDatesNotableDates.KeyDown += lvwDatesNotableDates_KeyDown;
+            lvwDatesNotableDates.KeyPress += lvwDatesNotableDates_KeyPress;
+            lvwDatesNotableDates.KeyUp += lvwDatesNotableDates_KeyUp;
             // 
             // colDatesColGeneratorType
             // 

@@ -3,7 +3,7 @@ run-name: CIBuild_${{ github.event_name }}_${{ github.ref_name }}_${{ github.run
 
 env:
   PRIMARY_BRANCH_NAME: main
-  PRODUCT_MAJOR_VERSION: 2.8
+  PRODUCT_MAJOR_VERSION: 2.9
   PROJECT_NAME: WinFormsApplications
   BUILD_CONFIG: Release
   BUILD_PLATFORM: x64
@@ -169,12 +169,19 @@ jobs:
       run: dotnet test ${{ env.PROJECT_NAME }}.sln --no-restore -c "${{ env.BUILD_CONFIG }}" -p:"Platform=${{ env.BUILD_PLATFORM }}"
 
     #---------------------------------------------------------
-    - name: Publish QuickCalendar
-      run: dotnet publish "src/apps/QuickCalendar/QuickCalendar.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/QuickCalendar" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:PublishSingleFile=true -p:"Version=${{ needs.setup.outputs.executable_version }}"
+    - name: Publish Apps
+      run: |
+        $output_folder = New-Item -Name "${{ env.BUILD_OUTPUTFOLDER }}" -ItemType Directory -Force
 
-    #---------------------------------------------------------
-    - name: Publish WinExec
-      run: dotnet publish "src/apps/WinExec/WinExec.csproj" -o "${{ env.BUILD_OUTPUTFOLDER }}/WinExec" --self-contained -c "${{ env.BUILD_CONFIG }}" -r ${{ env.BUILD_RUNTIME }} -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:PublishSingleFile=true -p:"Version=${{ needs.setup.outputs.executable_version }}"
+        $project_filenames = Get-ChildItem "src/apps" -Recurse -Filter *.csproj
+        Write-Host "Found: $($project_files.count) projects"
+
+        foreach ($project_filename in $project_filenames) {
+          Write-Host "----------------------------------------------------------------------------------------------------"
+          Write-Host "Publishing: $($project_filename.FullName)"
+
+          dotnet publish "$($project_filename.FullName)" -o "$($output_folder.FullName)" -c "${{ env.BUILD_CONFIG }}" -r "${{ env.BUILD_RUNTIME }}" -p:"Platform=${{ env.BUILD_PLATFORM }}" -p:"Version=${{ needs.setup.outputs.executable_version }}" -p:DebugType=None -p:DebugSymbols=false --self-contained -p:PublishSingleFile=true
+        }
 
     - name: Add files to output folder
       run: |
@@ -193,7 +200,7 @@ jobs:
         base_path: ${{ env.BUILD_OUTPUTFOLDER }}
         files: |
           **/*.exe
-          **/*.dll.config
+          **/*.config
           *.md
 
     - name: Upload Build Artifact
